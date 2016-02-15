@@ -8,6 +8,8 @@ class PhishingBackend(object):
     """Backend that directly verifies username and password, bypassing SSO"""
 
     def authenticate(self, username=None, password=None):
+        """Authenticate a user given a username and password"""
+
         if username != "s1481304":
             raise PermissionDenied
 
