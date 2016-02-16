@@ -1,7 +1,7 @@
 """Provides the authentication backend for the University of Twente"""
 from django.core.exceptions import PermissionDenied
 
-from sokolov.models import User
+from sokolov.models import Person
 
 
 class PhishingBackend(object):
@@ -13,4 +13,4 @@ class PhishingBackend(object):
         if username != "s1481304":
             raise PermissionDenied
 
-        return User.objects.get(username=username)
+        return Person.objects.get(username=username)

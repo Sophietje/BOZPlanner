@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from sokolov.models import User, Meeting, Minutes, Organization
+from sokolov.models import Person, Meeting, Minutes, Organization
 
-admin.site.register(User)
+admin.site.register(Person)
 admin.site.register(Meeting)
 admin.site.register(Minutes)
 admin.site.register(Organization)
