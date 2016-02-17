@@ -16,9 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-import sokolov.urls
+import members.urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', (sokolov.urls.urlpatterns, 'sokolov', 'sokolov')),
+    url(r'members/', (members.urls.urlpatterns, 'members', 'members')),
 ]

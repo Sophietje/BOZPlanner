@@ -1,7 +1,7 @@
 """Provides the authentication backend for the University of Twente"""
 from django.core.exceptions import PermissionDenied
 
-from sokolov.models import Person
+from members.models import Person
 
 
 class PhishingBackend(object):

@@ -51,32 +51,32 @@ class Migration(migrations.Migration):
                 ('is_admin', models.BooleanField()),
                 ('is_secretary', models.BooleanField()),
                 ('is_planner', models.BooleanField()),
-                ('organization', models.ManyToManyField(to='sokolov.Organization')),
+                ('organization', models.ManyToManyField(to='members.Organization')),
             ],
         ),
         migrations.AddField(
             model_name='minutes',
             name='approved_by',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='sokolov.User'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='members.User'),
         ),
         migrations.AddField(
             model_name='minutes',
             name='meeting',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sokolov.Meeting'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='meetings.Meeting'),
         ),
         migrations.AddField(
             model_name='meeting',
             name='organization',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sokolov.Organization'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='members.Organization'),
         ),
         migrations.AddField(
             model_name='meeting',
             name='planner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sokolov.User'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='members.User'),
         ),
         migrations.AddField(
             model_name='meeting',
             name='secretary',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sokolov.Meeting'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='meetings.Meeting'),
         ),
     ]
