@@ -1,4 +1,5 @@
 misc.xml
 workspace.xml
 db.sqlite3
+inspectionProfiles/
 __pycache__/
