@@ -17,6 +17,13 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# Check wether djangosaml2 is available
+try:
+    import djangosaml2
+    HAVE_DJANGOSAML2 = True
+except ImportError:
+    HAVE_DJANGOSAML2 = False
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,8 +34,12 @@ INSTALLED_APPS = [
     'members',
     'meetings',
     'utwente',
-    'djangosaml2',
 ]
+
+if HAVE_DJANGOSAML2:
+    INSTALLED_APPS += [
+        'djangosaml2',
+    ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
