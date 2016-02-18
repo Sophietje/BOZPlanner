@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'members',
     'meetings',
     'utwente',
+    'bozplanner',
 ]
 
 if HAVE_DJANGOSAML2:
