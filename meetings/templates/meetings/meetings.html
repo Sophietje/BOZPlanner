@@ -11,9 +11,9 @@
                 <th>Secretary</th>
             </tr>
 
-            {% for meeting in all_meetings %}
+            {% for meeting in object_list %}
                 <tr>
-                    <td>{{ meeting.organization.name }}</td>
+                    <td>{{ meeting.organization }}</td>
                     <td>{{ meeting.begin_time }}</td>
                     <td>{{ meeting.place }}</td>
                     <td>{{ meeting.secretary }}</td>

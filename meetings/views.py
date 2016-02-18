@@ -1,15 +1,18 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.template import loader
-from django.views.generic import TemplateView
+from django.shortcuts import render, get_list_or_404
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView
 
 from meetings.models import Meeting
 
 
-class MeetingsView(TemplateView):
-    def index(request):
-        template = loader.get_template('meetings.html')
-        context = {
-            'all_meetings': Meeting.objects.all(),
-        }
-        return HttpResponse(template.render(context, request))
+class MeetingsView(ListView):
+    model = Meeting
+    template_name = 'meetings/meetings.html'
+
+class MeetingCreate(CreateView):
+    model = Meeting
+
+class MeetingUpdate(UpdateView):
+    model = Meeting
+
+class MeetingDelete(DeleteView):
+    model = Meeting
