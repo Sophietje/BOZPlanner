@@ -14,6 +14,9 @@ class Person(django.contrib.auth.models.User):
             ("approve_minutes", "Can approve minutes"),
         )
 
+    def __str__(self):
+        return self.get_full_name()
+
 class Organization(models.Model):
     """An organization for which OLC meetings can be planned in BOZPlanner"""
     name = models.CharField(max_length=255)

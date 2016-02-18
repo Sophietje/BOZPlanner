@@ -1,0 +1,42 @@
+{% load staticfiles %}
+<!doctype html>
+<html>
+    <head>
+        <title>BOZ Planner</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+        <!-- jQuery -->
+        <script src="{% static 'jquery.min.js' %}"></script>
+        <!-- Include all compiled plugins -->
+        <script src="{% static 'bootstrap.min.js' %}"></script>
+    </head>
+    <body>
+
+    <nav class="navbar navbar-default">
+        <div class="container=fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">BOZPlanner</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="meetings.html">Meetings</a></li>
+                <li><a href="minutes.html">Minutes</a></li>
+                <li><a href="schedule.html">Schedule meeting</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right" style="padding-right:5%">
+                <li><a href="#"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>dingen</h1>
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    </body>
+</html>
