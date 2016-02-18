@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'members',
     'meetings',
     'utwente',
+    'djangosaml2',
 ]
 
 MIDDLEWARE_CLASSES = [

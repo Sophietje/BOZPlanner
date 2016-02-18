@@ -17,8 +17,10 @@ from django.conf.urls import url
 from django.contrib import admin
 
 import members.urls
+import meetings.urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'members/', (members.urls.urlpatterns, 'members', 'members')),
+    url(r'meetings/', (meetings.urls.urlpatterns, 'meetings', 'meetings')),
 ]

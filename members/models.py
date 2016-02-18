@@ -17,4 +17,4 @@ class Person(django.contrib.auth.models.User):
 class Organization(models.Model):
     """An organization for which OLC meetings can be planned in BOZPlanner"""
     name = models.CharField(max_length=255)
-    parent_organization = models.ForeignKey("Organization", null=True)
+    parent_organization = models.ForeignKey("Organization", null=True, blank=True)

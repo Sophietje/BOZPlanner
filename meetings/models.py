@@ -7,9 +7,9 @@ class Meeting(models.Model):
     place = models.CharField(max_length=255)
     begin_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    secretary = models.ForeignKey("members.Person", related_name="secretary")
+    secretary = models.ForeignKey("members.Person", related_name="secretary", blank=True, null=True)
     organization = models.ForeignKey("members.Organization")
-    planner = models.ForeignKey("members.Person", related_name="planner")
+    planner = models.ForeignKey("members.Person", related_name="planner", blank=True, null=True)
 
     def clean(self):
         if self.begin_time > self.end_time:

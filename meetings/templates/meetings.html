@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>Meetings</h1>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th>Organization</th>
+                <th>Date & Time</th>
+                <th>Location</th>
+                <th>Secretary</th>
+            </tr>
+
+            {% for meeting in all_meetings %}
+                <tr>
+                    <td>{{ meeting.organization.name }}</td>
+                    <td>{{ meeting.begin_time }}</td>
+                    <td>{{ meeting.place }}</td>
+                    <td>{{ meeting.secretary }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+    </ul>
+{% endblock %}
