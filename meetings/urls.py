@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
-from meetings.views import MeetingsView
+from meetings.views import MeetingsView, MeetingsIcsView
 
 urlpatterns = [
-    url(r'', MeetingsView.index)
+    url(r'ics/all', MeetingsIcsView.as_view()),
+    url(r'', MeetingsView.index),
 ]
