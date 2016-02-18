@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{% trans 'Name' %}</th>
+                <th>{% trans 'E-mail address' %}</th>
+                <th>{% trans 'Admin' %}</th>
+                <th>{% trans 'Planner' %}</th>
+                <th>{% trans 'Secretary' %}</th>
+                <th>{% trans 'Approver' %}</th>
+                <th>{% trans 'User Manager' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for person in object_list %}
+            <tr>
+                <td>{{ person }}</td>
+                <td>
+                {% if person.email %}
+                    <a href="mailto:{{ person.email }}">{{ person.email }}</a>
+                {% endif %}
+                </td>
+                <td>{{ person.is_admin|bool_as_glyphicon }}</td>
+                <td>{{ person.is_planner|bool_as_glyphicon }}</td>
+                <td>{{ person.is_secretary|bool_as_glyphicon }}</td>
+                <td>{{ person.is_approver|bool_as_glyphicon }}</td>
+                <td>{{ person.is_user_manager|bool_as_glyphicon }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

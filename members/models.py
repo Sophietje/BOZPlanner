@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import User, Permission, Group
 from django.db import models
 
 
@@ -6,10 +6,30 @@ class Person(User):
     """Any user that can log in to BOZPlanner"""
     organization = models.ManyToManyField("Organization", blank=True)
 
+    @property
+    def is_admin(self):
+        return self.groups.filter(name="Administrator").exists()
+
+    @property
+    def is_planner(self):
+        return self.groups.filter(name="Planner").exists()
+
+    @property
+    def is_secretary(self):
+        return self.groups.filter(name="Secretary").exists()
+    
+    @property
+    def is_approver(self):
+        return self.groups.filter(name="Approver").exists()
+    
+    @property
+    def is_user_manager(self):
+        return self.groups.filter(name="User Manager").exists()
+
     class Meta:
         verbose_name = "person"
         permissions = [
-            ("admin", "Can change user groups and change group permissions"),
+            ("groups", "Can change user groups"),
         ]
 
     def __str__(self):

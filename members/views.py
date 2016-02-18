@@ -1,6 +1,21 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView
+
+from members.models import Person
 
 
-class HomePageView(TemplateView):
-    template_name = "index.html"
+class PersonsView(ListView):
+    model = Person
+    template_name = "person/list.html"
+
+class PersonCreateView(CreateView):
+    model = Person
+    template_name = "none"
+
+class PersonUpdateView(UpdateView):
+    model = Person
+    template_name = "none"
+
+class PersonDeleteView(DeleteView):
+    model = Person
+    template_name = "none"
