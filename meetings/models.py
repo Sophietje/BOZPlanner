@@ -1,6 +1,7 @@
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.core.urlresolvers import reverse
 import icalendar
 
 from meetings.managers import MeetingManager
@@ -41,6 +42,9 @@ class Meeting(models.Model):
 
     def __str__(self):
         return _("OLC-vergadering van {}").format(self.organization)
+
+    def get_absolute_url(self):
+        return reverse('meetings:meetings-list')
 
 class Minutes(models.Model):
     """Minutes corresponding to a meeting"""
