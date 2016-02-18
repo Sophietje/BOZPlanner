@@ -18,3 +18,6 @@ class Organization(models.Model):
     """An organization for which OLC meetings can be planned in BOZPlanner"""
     name = models.CharField(max_length=255)
     parent_organization = models.ForeignKey("Organization", null=True, blank=True)
+
+    def __str__(self):
+        return self.name
