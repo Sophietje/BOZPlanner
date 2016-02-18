@@ -8,10 +8,12 @@ class Person(User):
 
     class Meta:
         verbose_name = "person"
+        permissions = [
+            ("admin", "Can change user groups and change group permissions"),
+        ]
 
     def __str__(self):
         return self.get_full_name()
-
 
 
 class Organization(models.Model):

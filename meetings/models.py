@@ -54,3 +54,6 @@ class Minutes(models.Model):
 
     class Meta:
         verbose_name_plural = "Minutes"
+        permissions=[
+            ("approve", "Can approve minutes"),
+        ]
