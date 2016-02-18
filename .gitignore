@@ -2,4 +2,5 @@ misc.xml
 workspace.xml
 db.sqlite3
 inspectionProfiles/
+codeStyleSettings.xml
 __pycache__/
