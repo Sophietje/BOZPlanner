@@ -28,5 +28,5 @@ urlpatterns = [
 
 if HAVE_DJANGOSAML2:
     urlpatterns += [
-        (r'^saml2/', include('djangosaml2.urls')),
+        url(r'^saml2/', include('djangosaml2.urls')),
     ]
