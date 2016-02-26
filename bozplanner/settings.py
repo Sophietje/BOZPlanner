@@ -1,12 +1,6 @@
 import os
 import sys
 
-try:
-    from bozplanner.local import *
-except ImportError:
-    print("If you just cloned the project, you need to copy local.template.py to local.py and edit the values for your local setup.")
-    raise
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 # Quick-start development settings - unsuitable for production
@@ -100,3 +94,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+try:
+    from bozplanner.local import *
+except ImportError:
+    print("If you just cloned the project, you need to copy local.template.py to local.py and edit the values for your local setup.")
+    raise
