@@ -98,8 +98,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'utwente.auth.PhishingBackend',
 ]
+
+if HAVE_DJANGOSAML2:
+    AUTHENTICATION_BACKENDS = [
+        'members.auth.SAML2Backend'
+    ] + AUTHENTICATION_BACKENDS
 
 LANGUAGE_CODE = 'en-us'
 
