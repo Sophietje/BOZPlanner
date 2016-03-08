@@ -2,9 +2,14 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView
 
+from members.auth import permission_required
 from members.models import Person
 
 
+class PermissionDeniedView(TemplateView):
+    template_name = "http/403.html"
+
+@permission_required("")
 class PersonsView(ListView):
     model = Person
     template_name = "person/list.html"
