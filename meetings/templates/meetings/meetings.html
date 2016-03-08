@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
 
 {% block content %}
     <h1>Meetings</h1>
@@ -17,6 +17,21 @@
                     <td>{{ meeting.begin_time }}</td>
                     <td>{{ meeting.place }}</td>
                     <td>{{ meeting.secretary }}</td>
+                <td>
+                <form action="{% url 'meetings:minutes' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>{{ form.non_field_errors }}</p>
+                    <p>{{ form.file.label_tag }} {{ form.file.help_text }}</p>
+                    <p>
+                        {{ form.file.errors }}
+                        {{ form.file }}
+                    </p>
+                    <p>
+                        <input type="hidden" name="meeting" value={{ meeting.id }}>
+                        <input type="file" name="minutes" />
+                        <input type="submit" value="Upload" /></p>
+                </form>
+                </td>
                 </tr>
             {% endfor %}
 

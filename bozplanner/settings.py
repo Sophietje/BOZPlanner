@@ -8,12 +8,27 @@ import sys
 
 # Application definition
 
-# Check wether djangosaml2 is available
 try:
-    import djangosaml2
-    HAVE_DJANGOSAML2 = True
+    from bozplanner import local
+    if local.USE_DJANGOSAML2 == True:
+        # Check wether djangosaml2 is available
+        try:
+            import djangosaml2
+            HAVE_DJANGOSAML2 = True
+        except ImportError:
+            HAVE_DJANGOSAML2 = False
+    else:
+        HAVE_DJANGOSAML2 = False
+
 except ImportError:
-    HAVE_DJANGOSAML2 = False
+    print("If you just cloned the project, you need to copy local.template.py to local.py and edit the values for your local setup.")
+    raise
+
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,6 +51,7 @@ if HAVE_DJANGOSAML2:
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
