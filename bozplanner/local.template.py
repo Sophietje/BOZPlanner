@@ -23,6 +23,8 @@ DATABASES = {
 
 STATIC_URL = '/static/'
 
+USE_DJANGOSAML2 = False
+
 if SECRET_KEY is None:
     print("Please edit the values in your local setup.")
     sys.exit(1)
