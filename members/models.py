@@ -1,8 +1,8 @@
-from django.contrib.auth.models import User, Permission, Group
+from django.contrib.auth.models import User, Permission, Group, AbstractUser
 from django.db import models
 
 
-class Person(User):
+class Person(AbstractUser):
     """Any user that can log in to BOZPlanner"""
     organization = models.ManyToManyField("Organization", blank=True)
 

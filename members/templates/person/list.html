@@ -15,19 +15,21 @@
         </thead>
         <tbody>
         {% for person in object_list %}
-            <tr>
-                <td>{{ person }}</td>
-                <td>
-                {% if person.email %}
-                    <a href="mailto:{{ person.email }}">{{ person.email }}</a>
-                {% endif %}
-                </td>
-                <td>{{ person.is_admin|bool_as_glyphicon }}</td>
-                <td>{{ person.is_planner|bool_as_glyphicon }}</td>
-                <td>{{ person.is_secretary|bool_as_glyphicon }}</td>
-                <td>{{ person.is_approver|bool_as_glyphicon }}</td>
-                <td>{{ person.is_user_manager|bool_as_glyphicon }}</td>
-            </tr>
+                <tr>
+                    <td>
+                        <a href="{% url 'members:person_update' person.id %}">{{ person }}</a>
+                    </td>
+                    <td>
+                    {% if person.email %}
+                        <a href="mailto:{{ person.email }}">{{ person.email }}</a>
+                    {% endif %}
+                    </td>
+                    <td>{{ person.is_admin|bool_as_glyphicon }}</td>
+                    <td>{{ person.is_planner|bool_as_glyphicon }}</td>
+                    <td>{{ person.is_secretary|bool_as_glyphicon }}</td>
+                    <td>{{ person.is_approver|bool_as_glyphicon }}</td>
+                    <td>{{ person.is_user_manager|bool_as_glyphicon }}</td>
+                </tr>
         {% endfor %}
         </tbody>
     </table>

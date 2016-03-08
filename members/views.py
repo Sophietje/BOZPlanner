@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView
 
@@ -9,12 +10,28 @@ class PersonsView(ListView):
     template_name = "person/list.html"
 
 class PersonCreateView(CreateView):
+    template_name = "person/form.html"
     model = Person
-    template_name = "none"
+    success_url = reverse_lazy("persons")
+    fields = [
+        "first_name",
+        "last_name",
+        "email",
+        "groups",
+        "organization",
+    ]
 
 class PersonUpdateView(UpdateView):
+    template_name = "person/form.html"
     model = Person
-    template_name = "none"
+    success_url = reverse_lazy("persons")
+    fields = [
+        "first_name",
+        "last_name",
+        "email",
+        "groups",
+        "organization",
+    ]
 
 class PersonDeleteView(DeleteView):
     model = Person

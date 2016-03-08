@@ -80,9 +80,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "members.Person"
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+LOGIN_REDIRECT_URL = '/saml2/login/'
 
 if HAVE_DJANGOSAML2:
     AUTHENTICATION_BACKENDS = [
