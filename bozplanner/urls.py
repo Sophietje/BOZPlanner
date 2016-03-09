@@ -18,12 +18,14 @@ from django.contrib import admin
 
 import members.urls
 import meetings.urls
+from bozplanner import views
 from bozplanner.settings import HAVE_DJANGOSAML2
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'members/', (members.urls.urlpatterns, 'members', 'members')),
     url(r'meetings/', include(meetings.urls)),
+    url(r'^$', views.index, name='')
 ]
 
 if HAVE_DJANGOSAML2:
