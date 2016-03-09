@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+<!-------------some sort of permissions can be build in, the BOZ and OLC should see this page------>
+{% block content %}
+    <h1>Minutes</h1>
+    <hr>
+        <div class="table-responsive">
+           <table class="table table-hover" id="dataTables-example">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Date & Time</th>
+                        <th>Location</th>
+                        <th>Secretary</th>
+                        <th>Approved by</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!------------------table filled in, there is not much more for this block--------->
+                    {% for minute in minutes_list %}
+                        <tr>
+                            <td>{{ minute.meeting.organization }}</td>
+                            <td>{{ minute.meeting.begin_time }}</td>
+                            <td>{{ minute.meeting.place }}</td>
+                            <td>{{ minute.meeting.secretary }}</td>
+                            <td>{{ minute.approved_by }}</td>
+                    <!------------------There should be a download button to request the minutes-------->
+                            <td> {{ minute.file }}</td>
+                        </tr>
+                    {% endfor %}
+               </tbody>
+           </table>
+        </div>
+
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
+
+
+{% endblock %}

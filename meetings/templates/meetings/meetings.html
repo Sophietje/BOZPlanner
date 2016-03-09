@@ -22,7 +22,7 @@
                         {% else  %}
                     <td> <input checked data-toggle="toggle" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small"></td>
                 <td>
-                <form action="{% url 'meetings:minutes' %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'meetings:minutes-upload' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <p>{{ form.non_field_errors }}</p>
                     <p>{{ form.file.label_tag }} {{ form.file.help_text }}</p>

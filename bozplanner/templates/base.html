@@ -9,11 +9,15 @@
         <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
           <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
 
+        <link rel="stylesheet" href="{% static 'datatables.min.css' %}">
         <!-- jQuery -->
         <script src="{% static 'jquery.min.js' %}"></script>
         <!-- Include all compiled plugins -->
         <script src="{% static 'bootstrap.min.js' %}"></script>
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+        <!---Include datatables thingie---->
+        <script src="{% static 'jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'datatables.bootstrap.min.js' %}"></script>
     </head>
     <body>
 
@@ -29,7 +33,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right" style="padding-right:5%">
-                <li><a href="#"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
+                <li><a href="{% url 'members:logout' %}"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
             </ul>
         </div>
     </nav>
