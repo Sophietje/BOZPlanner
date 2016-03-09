@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="alert alert-danger">
+        <strong>{% trans 'Permission Denied' %}</strong>
+        {% blocktrans %}
+            You do not have permission to access the requested page. If you just logged in, you have not (yet) been added to BOZPlanner.
+        {% endblocktrans %}
+    </div>
+{% endblock %}
