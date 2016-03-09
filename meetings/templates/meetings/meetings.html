@@ -16,7 +16,11 @@
                     <td>{{ meeting.organization }}</td>
                     <td>{{ meeting.begin_time }}</td>
                     <td>{{ meeting.place }}</td>
+                        {%  if request.user.is_planner %}
                     <td>{{ meeting.secretary }}</td>
+
+                        {% else  %}
+                    <td> <input checked data-toggle="toggle" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small"></td>
                 <td>
                 <form action="{% url 'meetings:minutes' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -32,6 +36,7 @@
                         <input type="submit" value="Upload" /></p>
                 </form>
                 </td>
+                     {% endif %}
                 </tr>
             {% endfor %}
 
