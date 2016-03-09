@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView
 
 from members.auth import permission_required
@@ -7,7 +7,7 @@ from members.models import Person
 
 
 class PermissionDeniedView(TemplateView):
-    template_name = "http/403.html"
+    template_name = "http/templates/403.html"
 
 @permission_required("")
 class PersonsView(ListView):
@@ -41,3 +41,8 @@ class PersonUpdateView(UpdateView):
 class PersonDeleteView(DeleteView):
     model = Person
     template_name = "none"
+
+
+def logout(request):
+    logout(request)
+    return redirect("/saml2/logout")
