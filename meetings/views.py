@@ -5,7 +5,6 @@ from django.http import HttpResponse
 
 from meetings.models import Meeting, Minutes
 
-
 class MeetingsView(ListView):
     model = Meeting
     template_name = 'meetings/meetings.html'
@@ -27,6 +26,10 @@ class MeetingsIcsView(View):
     def get(self, request):
         calendar = Meeting.objects.as_icalendar()
         return HttpResponse(calendar.to_ical(), content_type="text/calendar")
+
+class MinutesView(ListView):
+    model = Minutes
+    template_name = 'meetings/minutes.html'
 
 class MinuteUploadView(View):
     succes_url = reverse_lazy('meetings')
