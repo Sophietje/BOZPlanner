@@ -2,6 +2,7 @@ import os
 from time import strftime
 from uuid import uuid4
 
+import datetime
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, View, FormView
@@ -13,6 +14,9 @@ from meetings.models import Meeting, Minutes
 class MeetingsView(ListView):
     model = Meeting
     template_name = 'meetings/meetings.html'
+
+    def get_queryset(self):
+        return Meeting.objects.filter(begin_time__gt = datetime.date.today())
 
 class MeetingCreate(CreateView):
     model = Meeting
