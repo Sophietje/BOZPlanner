@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, redirect
+from django.contrib import auth
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView
 
 from members.auth import permission_required
@@ -44,5 +45,5 @@ class PersonDeleteView(DeleteView):
 
 
 def logout(request):
-    logout(request)
+    auth.logout(request)
     return redirect("/saml2/logout")
