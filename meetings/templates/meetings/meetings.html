@@ -18,18 +18,13 @@
                     <td>{{ meeting.place }}</td>
                     <td>{{ meeting.secretary }}</td>
                 <td>
-                <form action="{% url 'meetings:minutes-upload' %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'meetings:add-secretary' meeting.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <p>{{ form.non_field_errors }}</p>
-                    <p>{{ form.file.label_tag }} {{ form.file.help_text }}</p>
-                    <p>
-                        {{ form.file.errors }}
-                        {{ form.file }}
-                    </p>
                     <p>
                         <input type="hidden" name="meeting" value={{ meeting.id }}>
-                        <input type="file" name="minutes" />
-                        <input type="submit" value="Upload" /></p>
+                        <input type="hidden" name="secretary" value= {{ request.user.id }} />
+                        <input type="submit" value="I will take minutes!" /></p>
                 </form>
                 </td>
                 </tr>

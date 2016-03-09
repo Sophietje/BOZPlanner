@@ -26,6 +26,11 @@ class MeetingDelete(DeleteView):
     model = Meeting
     success_url = reverse_lazy('meetings:meetings-list')
 
+class MeetingAddSecretary(UpdateView):
+    model = Meeting
+    fields = ['secretary']
+    success_url = reverse_lazy('meetings:meetings-list')
+
 # TODO: remove view, must be used for testing purposes only
 class MeetingsIcsView(View):
     def get(self, request):
