@@ -19,7 +19,7 @@ class Meeting(models.Model):
     begin_time = models.DateTimeField()
     end_time = models.DateTimeField()
     secretary = models.ForeignKey("members.Person", related_name="secretary", blank=True, null=True)
-    organization = models.ForeignKey("members.Organizations")
+    organization = models.ForeignKey("members.Organization")
     planner = models.ForeignKey("members.Person", related_name="planner", blank=True, null=True)
 
     def as_icalendar_event(self):

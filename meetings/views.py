@@ -27,17 +27,17 @@ class MeetingsView(TemplateView):
 
         # If the user may only see meetings from his/her own organization, put all upcoming meetings of this organization in context
         if self.request.user.has_perm('meetings.view_organization'):
-            print ('This user should only see meetings from own organization: '+str(self.request.user.organization))
+            print ('This user should only see meetings from own organization: '+str(self.request.user.organizations))
             # Second condition: Only meetings from own organization should be shown
-            q2 = Q(organization__in = self.request.user.organization.all())
+            q2 = Q(organization__in = self.request.user.organizations.all())
             q1 = q1 & q2
 
         if self.request.user.has_perm('meetings.is_secretary'):
             print('This user should see meetings from which it is secretary')
             # TODO: Edit q2, organizations not yet correctly filtered
             # If the user is a secretary, the meetings for which he/she is a secretary, but not from their organization, should be shown
-            q2 = Q(secretary=self.request.user) #& ~Q(organization__in = self.request.user.organization.all())
-            q1 = q1 & q2
+            q2 = Q(secretary=self.request.user)
+            q1 = q1 | q2
 
         context['object_list'] = filter_meetings(q1)
 
