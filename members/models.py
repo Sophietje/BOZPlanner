@@ -30,7 +30,7 @@ class Person(AbstractUser):
     def all_organizations(self):
         result = []
 
-        for organization in self.organization.all():
+        for organization in self.organizations.all():
             result += organization.all_organizations()
 
         return result

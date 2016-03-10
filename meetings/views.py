@@ -25,18 +25,17 @@ class MeetingsView(TemplateView):
         q1 = Q(begin_time__gt = datetime.datetime.now())
         context = super(MeetingsView, self).get_context_data()
 
-        # If the user may only see meetings from his/her own organization, put all upcoming meetings of this organization in context
+        # If the user may only see meetings from his/her own (sub-)organization(s), put all upcoming meetings of this organization in context
         if self.request.user.has_perm('meetings.view_organization'):
-            print ('This user should only see meetings from own organization: '+str(self.request.user.organizations))
-            # Second condition: Only meetings from own organization should be shown
-            q2 = Q(organization__in = self.request.user.organizations.all())
+            # Second condition: Only meetings from own (sub-)organization(s) should be shown
+            q2 = Q(organization__in = self.request.user.all_organizations)
             q1 = q1 & q2
 
         if self.request.user.has_perm('meetings.is_secretary'):
             print('This user should see meetings from which it is secretary')
-            # TODO: Edit q2, organizations not yet correctly filtered
             # If the user is a secretary, the meetings for which he/she is a secretary, but not from their organization, should be shown
-            q2 = Q(secretary=self.request.user)
+            # These should only be upcoming meetings
+            q2 = Q(secretary=self.request.user, begin_time__gt = datetime.datetime.now())
             q1 = q1 | q2
 
         context['object_list'] = filter_meetings(q1)
