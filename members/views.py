@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView
 
+import djangosaml2.views
+
 from members.auth import permission_required
 from members.models import Person
 
@@ -45,5 +47,6 @@ class PersonDeleteView(DeleteView):
 
 
 def logout(request):
+    result = djangosaml2.views.logout(request)
     auth.logout(request)
-    return redirect("/saml2/logout")
+    return result
