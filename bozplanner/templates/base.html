@@ -14,8 +14,8 @@
     </head>
     <body>
 
-    <nav class="navbar navbar-default">
-        <div class="container=fluid">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">BOZPlanner</a>
             </div>
@@ -26,7 +26,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right" style="padding-right:5%">
-                <li><a href="{% url 'members:logout' %}"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
+                <li><a href="/saml2/logout/"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
             </ul>
         </div>
     </nav>
