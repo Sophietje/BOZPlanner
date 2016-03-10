@@ -50,9 +50,10 @@ class Meeting(models.Model):
     def get_absolute_url(self):
         return reverse('meetings:meetings-list')
 
+
 class Minutes(models.Model):
     """Minutes corresponding to a meeting"""
-    meeting = models.ForeignKey("Meeting")
+    meeting = models.ForeignKey("Meeting", related_name='minutes')
     file = models.FileField()
     approved_by = models.ForeignKey("members.Person", blank=True, null=True)
 
