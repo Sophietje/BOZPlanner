@@ -1,7 +1,11 @@
+import os
+from uuid import uuid4
+
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.urlresolvers import reverse
+from time import strftime
 import icalendar
 
 from meetings.managers import MeetingManager
@@ -48,9 +52,9 @@ class Meeting(models.Model):
 
 class Minutes(models.Model):
     """Minutes corresponding to a meeting"""
-    file = models.FileField(upload_to="minutes")
     meeting = models.ForeignKey("Meeting")
-    approved_by = models.ForeignKey("members.Person", null=True)
+    file = models.FileField()
+    approved_by = models.ForeignKey("members.Person", blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Minutes"

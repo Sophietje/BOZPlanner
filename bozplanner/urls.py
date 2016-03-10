@@ -24,8 +24,7 @@ from bozplanner.settings import HAVE_DJANGOSAML2
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'members/', (members.urls.urlpatterns, 'members', 'members')),
-    url(r'meetings/', include(meetings.urls)),
-    url(r'^$', views.index, name='')
+    url(r'meetings/', include(meetings.urls))
 ]
 
 if HAVE_DJANGOSAML2:
