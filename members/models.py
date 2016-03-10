@@ -4,7 +4,7 @@ from django.db import models
 
 class Person(AbstractUser):
     """Any user that can log in to BOZPlanner"""
-    organization = models.ManyToManyField("Organization", blank=True)
+    organizations = models.ManyToManyField("Organization", blank=True)
 
     @property
     def is_admin(self):
@@ -26,6 +26,15 @@ class Person(AbstractUser):
     def is_user_manager(self):
         return self.groups.filter(name="User Manager").exists()
 
+    @property
+    def all_organizations(self):
+        result = []
+
+        for organization in self.organizations.all():
+            result += organization.all_organizations()
+
+        return result
+
     class Meta:
         verbose_name = "person"
         permissions = [
@@ -40,6 +49,14 @@ class Organization(models.Model):
     """An organization for which OLC meetings can be planned in BOZPlanner"""
     name = models.CharField(max_length=255)
     parent_organization = models.ForeignKey("Organization", null=True, blank=True)
+
+    def all_organizations(self):
+        result = [self]
+
+        for organization in Organization.objects.filter(parent_organization=self):
+            result += organization.all_organizations()
+
+        return result
 
     def __str__(self):
         return self.name

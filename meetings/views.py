@@ -5,7 +5,8 @@ from uuid import uuid4
 import datetime
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView, View, FormView, TemplateView
+from django.db.models import Q
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, View, TemplateView
 from django.http import HttpResponse
 
 from bozplanner import settings
@@ -13,12 +14,42 @@ from meetings.models import Meeting, Minutes
 from members.auth import permission_required
 
 
-class MeetingsView(ListView):
+
+@permission_required('meetings.list_meetings', 'meetings.view_all', 'meetings.view_organization')
+class MeetingsView(TemplateView):
     model = Meeting
     template_name = 'meetings/meetings.html'
 
-    def get_queryset(self):
-        return Meeting.objects.filter(begin_time__gt = datetime.date.today())
+    def get_context_data(self, **kwargs):
+        # First condition: Only upcoming meetings should be shown
+        q1 = Q(begin_time__gt = datetime.datetime.now())
+        context = super(MeetingsView, self).get_context_data()
+
+        # If the user may only see meetings from his/her own (sub-)organization(s), put all upcoming meetings of this organization in context
+        if self.request.user.has_perm('meetings.view_organization'):
+            # Second condition: Only meetings from own (sub-)organization(s) should be shown
+            q2 = Q(organization__in = self.request.user.all_organizations)
+            q1 = q1 & q2
+
+        if self.request.user.has_perm('meetings.is_secretary'):
+            print('This user should see meetings from which it is secretary')
+            # If the user is a secretary, the meetings for which he/she is a secretary, but not from their organization, should be shown
+            # These should only be upcoming meetings
+            q2 = Q(secretary=self.request.user, begin_time__gt = datetime.datetime.now())
+            q1 = q1 | q2
+
+        context['object_list'] = filter_meetings(q1)
+
+        return context
+
+def filter_meetings(perms):
+    return Meeting.objects.filter(perms)
+
+
+    # # Deze queryset wordt gereturned als deze listview gebruikt wordt
+    # def get_queryset(self):
+    #     # Should somehow find organization of user that is logged in, add this to the filter below
+    #     return Meeting.objects.filter(begin_time__gt = datetime.date.today())
 
 class MeetingUpdate(UpdateView):
     model = Meeting
@@ -54,7 +85,6 @@ class ScheduleAMeetingView(TemplateView):
 
 
         return HttpResponse('Meeting is scheduled')
-
 
 class MinuteUploadView(View):
     model = Minutes
