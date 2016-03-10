@@ -7,4 +7,4 @@ def index(request):
     if request.user.is_authenticated():
         return redirect('meetings:meetings-list')
     else:
-        return redirect(LOGIN_REDIRECT_URL)
+        return redirect('/saml2/login/')
