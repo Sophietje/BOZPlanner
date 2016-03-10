@@ -5,11 +5,13 @@ from uuid import uuid4
 import datetime
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView, View, FormView
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, View, FormView, TemplateView
 from django.http import HttpResponse
 
 from bozplanner import settings
 from meetings.models import Meeting, Minutes
+from members.auth import permission_required
+
 
 class MeetingsView(ListView):
     model = Meeting
@@ -17,10 +19,6 @@ class MeetingsView(ListView):
 
     def get_queryset(self):
         return Meeting.objects.filter(begin_time__gt = datetime.date.today())
-
-class MeetingCreate(CreateView):
-    model = Meeting
-    fields = ['place', 'begin_time', 'end_time', 'organization']
 
 class MeetingUpdate(UpdateView):
     model = Meeting
@@ -44,6 +42,19 @@ class MeetingsIcsView(View):
 class MinutesView(ListView):
     model = Minutes
     template_name = 'meetings/minutes.html'
+
+@permission_required("meetings.create_meeting")
+class ScheduleAMeetingView(TemplateView):
+    model = Meeting
+    fields = ['place', 'begin_time', 'end_time', 'organization']
+    success_url = reverse_lazy('meetings:meetings-list')
+    template_name = 'meetings/schedule_a_meeting.html'
+
+    def saveForm(self, request, *args, **kwargs):
+
+
+        return HttpResponse('Meeting is scheduled')
+
 
 class MinuteUploadView(View):
     model = Minutes
