@@ -1,0 +1,15 @@
+<div class="form-group">
+    {% if field|field_class_is:"TextInput" %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <input type="text" id="{{ field.id_for_label }}" name="{{ field.name }}" value="{{ field.value }}" class="form-control">
+    {% elif field|field_class_is:"EmailInput" %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <input type="text" id="{{ field.id_for_label }}" name="{{ field.name }}" value="{{ field.value }}" class="form-control" placeholder="example@utwente.nl">
+    {% elif field|field_class_is:"SelectMultiple" %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <div>{{ field }}</div>
+        <script type="text/javascript">$("#{{ field.id_for_label }}").multiselect()</script>
+    {% else %}
+        ***PANIC*** {{ field|field_class }} ***PANIC***
+    {% endif %}
+</div>
