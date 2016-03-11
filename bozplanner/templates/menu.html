@@ -10,7 +10,7 @@
             <li class="{% if active == 'meetings' %}active{% endif %}"><a href="{% url 'meetings:meetings-list' %}">Meetings</a></li>
             <li class="{% if active == 'minutes' %}active{% endif %}"><a href="{% url 'meetings:minutes' %}">Minutes</a></li>
             <li class="{% if active == 'users' %}active{% endif %}"><a href="{% url 'members:persons' %}">Users</a></li>
-            <li class="{% if active == 'organizations' %}active{% endif %}"><a href="{% url 'members:persons' %}">Organizations</a></li>
+            <li class="{% if active == 'organizations' %}active{% endif %}"><a href="{% url 'members:organizations' %}">Organizations</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
