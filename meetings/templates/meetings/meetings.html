@@ -1,7 +1,11 @@
 {% extends "base-meetings.html" %}
 
 {% block content %}
-    <h1>Meetings</h1>
+    <h1>Meetings
+        <a href="{% url 'meetings:meeting-add' %}" class="btn btn-default">
+            <i class="glyphicon glyphicon-plus"></i>
+        </a>
+    </h1>
     <div class="table-responsive">
         <table class="table table-hover">
             <tr>
