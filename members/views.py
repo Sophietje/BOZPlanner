@@ -11,7 +11,7 @@ from members.models import Person
 class PermissionDeniedView(TemplateView):
     template_name = "http/templates/403.html"
 
-@permission_required("")
+@permission_required("members.list_person")
 class PersonsView(TemplateView):
     template_name = "person/list.html"
 
@@ -19,6 +19,7 @@ class PersonsView(TemplateView):
         object_list = Person.objects.filter(is_active=True)
         return locals()
 
+@permission_required("members.add_person")
 class PersonCreateView(CreateView):
     template_name = "person/form.html"
     model = Person
@@ -28,9 +29,10 @@ class PersonCreateView(CreateView):
         "last_name",
         "email",
         "groups",
-        "organization",
+        "organizations",
     ]
 
+@permission_required("members.change_person")
 class PersonUpdateView(UpdateView):
     template_name = "person/form.html"
     model = Person
