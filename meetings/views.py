@@ -79,7 +79,6 @@ class MinutesView(TemplateView):
         all_meetings = filter_meetings(q1)
 
         context['object_list'] = all_meetings.prefetch_related('minutes')
-        print(context['object_list'])
         return context
 
 @permission_required("meetings.create_meeting")

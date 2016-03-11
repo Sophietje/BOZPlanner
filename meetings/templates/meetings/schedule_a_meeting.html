@@ -1,40 +1,13 @@
-{% extends "base.html" %}
+{% extends "base-meetings.html" %}
 
 <!-------------A new tab for the scheduling of a meeting. This page is used to create a new meeting------>
 {% block content %}
 
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
     <h1 style="margin-left: 25%">Schedule a meeting</h1>
     <hr>
         <div  style="width: 50%; margin-left: 25%">
-            <form>
-                <label for="subject">Subject</label>
-                <input type="text" class="form-control" placeholder="Subject">
-                <br>
-                <label for="date_time_selector">Date & Time</label>
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                <script type="text/javascript"
-                    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js">
-                </script>
-                <script type="text/javascript"
-                    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/locale/nl.js">
-                </script>
-                <script type="text/javascript"
-                    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js">
-                </script>
-                <script type="text/javascript">
-                    $('#datetimepicker1').datetimepicker();
-                </script>
-                <br>
-                <label for="location">Location</label>
-                <input type="text" class="form-control" placeholder="Location">
-                <br>
+            <form method="post"> {% csrf_token %}
+                {{ form|fancy_form }}
                 <input class="btn btn-success btn-lg" type="submit" value="Submit"  style="float: right">
             </form>
         </div>
