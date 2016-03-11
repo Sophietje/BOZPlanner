@@ -25,28 +25,12 @@
         <script src="{% static 'bootstrap-multiselect.js' %}"></script>
     </head>
     <body>
-    <nav class="navbar navbar-default navbar-static-top">
+        {% block menu %}{% include 'menu.html' with active='' %}{% endblock %}
+
         <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">BOZPlanner</a>
+            <div id="content">
+                {% block content %}{% endblock %}
             </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'meetings:meetings-list' %}">Meetings</a></li>
-                <li><a href="{% url 'meetings:meetings-list' %}">Minutes</a></li>
-                <li><a href="{% url 'members:persons' %}">Users</a></li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right" style="padding-right:5%">
-                <li><a href="{% url 'members:logout' %}"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
-            </ul>
         </div>
-    </nav>
-
-    <div class="container">
-        <div id="content">
-            {% block content %}{% endblock %}
-        </div>
-    </div>
-
     </body>
 </html>
