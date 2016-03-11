@@ -9,6 +9,10 @@
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         <div>{{ field }}</div>
         <script type="text/javascript">$("#{{ field.id_for_label }}").multiselect()</script>
+    {% elif field|field_class_is:"Select" %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <div>{{ field }}</div>
+        <script type="text/javascript">$("#{{ field.id_for_label }}").multiselect({ enableFiltering: true })</script>
     {% else %}
         ***PANIC*** {{ field|field_class }} ***PANIC***
     {% endif %}

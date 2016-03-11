@@ -126,3 +126,6 @@ try:
 except ImportError:
     print("If you just cloned the project, you need to copy local.template.py to local.py and edit the values for your local setup.")
     raise
+
+EMAIL_HOST = 'smtp.utwente.nl'
+EMAIL_HOST_USER = 'bozplanner@utwente.nl'
