@@ -28,6 +28,13 @@
         <link rel="stylesheet" type="text/css" media="screen"
          href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.data-table').DataTable({
+                        responsive: true
+                });
+            });
+        </script>
     </head>
     <body>
         {% block menu %}{% include 'menu.html' with active='' %}{% endblock %}

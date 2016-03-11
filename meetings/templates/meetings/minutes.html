@@ -4,8 +4,8 @@
 {% block content %}
     <h1>Minutes</h1>
     <hr>
-        <div class="table-responsive">
-           <table class="table table-hover" id="dataTables-example">
+        <div class="table-responsive data-table">
+           <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Subject</th>
@@ -64,14 +64,4 @@
                </tbody>
            </table>
         </div>
-
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-    </script>
-
-
 {% endblock %}
