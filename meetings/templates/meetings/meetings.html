@@ -9,19 +9,29 @@
                 <th>Date & Time</th>
                 <th>Location</th>
                 <th>Secretary</th>
+
             </tr>
+
 
             {% for meeting in object_list %}
                 <tr>
                     <td>{{ meeting.organization }}</td>
                     <td>{{ meeting.begin_time }}</td>
                     <td>{{ meeting.place }}</td>
-                        {%  if request.user.is_planner %}
+                {% if meeting.secretary != null %}
                     <td>{{ meeting.secretary }}</td>
+                {% else %}
+                <td> <p class="text-left"> - </p> </td>
+                {% endif %}
+                        {%  if request.user.is_planner %}
+                    <td>  <span class="glyphicon glyphicon-pencil"> </td>
 
                         {% else  %}
-                    <td> <input checked data-toggle="toggle" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small"></td>
-                <td>
+
+                            <td> <input data-toggle="toggle"  data-on=" "  data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small" ></td>
+                    <td>
+                    <td> <div class="checkbox disabled"><input disabled data-toggle="toggle" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small"></div></td>
+                    <td>
                 <form action="{% url 'meetings:add-secretary' meeting.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <p>{{ form.non_field_errors }}</p>
