@@ -1,3 +1,7 @@
+.btn-cell {
+    width: 0;
+}
+
 #navigation, .navbar.navbar-default.navbar-static-top{
     background-image: url(Header.png);
     background-color: rgba( 0, 0, 0, 0.7);
