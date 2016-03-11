@@ -1,17 +1,15 @@
 import os
-from time import strftime
-from uuid import uuid4
 
 import datetime
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView, View, TemplateView
+from django.views.generic import CreateView, UpdateView, DeleteView, View, TemplateView
 from django.http import HttpResponse
 
 from bozplanner import settings
 from meetings.models import Meeting, Minutes
 from members.auth import permission_required
+from members.models import Organization
 
 
 @permission_required('meetings.list_meetings')
@@ -85,16 +83,12 @@ class MinutesView(TemplateView):
         return context
 
 @permission_required("meetings.create_meeting")
-class ScheduleAMeetingView(TemplateView):
+class ScheduleAMeetingView(CreateView):
     model = Meeting
-    fields = ['place', 'begin_time', 'end_time', 'organization']
+    fields = ['organization', 'begin_time', 'end_time', 'place']
     success_url = reverse_lazy('meetings:meetings-list')
     template_name = 'meetings/schedule_a_meeting.html'
 
-    def saveForm(self, request, *args, **kwargs):
-
-
-        return HttpResponse('Meeting is scheduled')
 
 class MinuteUploadView(View):
     model = Minutes

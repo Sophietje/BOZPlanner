@@ -38,14 +38,14 @@
                                             <button type="button" class="btn btn-default">
                                               <span class="glyphicon glyphicon-open" aria-hidden="true"></span> Upload
                                             </button>
-                                    {% elif meeting.minutes.all|length == 1 and user.request.is_planner%}
+                                    {% elif meeting.minutes.all|length == 1%}
                                         {# If there is only one upload, show download button #}
 
                                         <button type="button" class="btn btn-default">
                                           <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download
                                         </button>
 
-                                    {% elif user.request.is_planner %}
+                                    {% else %}
                                         <div class="btn-group">
                                           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                               <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download <span class="caret"></span>
