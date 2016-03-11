@@ -27,7 +27,7 @@
                     {{ person.groups.all|join:", "|default:"—" }}
                 </td>
                 <td>
-                    {{ person.organization.all|join:", "|default:"—" }}
+                    {{ person.organizations.all|join:", "|default:"—" }}
                 </td>
                 {% if perms.members.change_person %}<td class="btn-cell">
                     <a href="{% url 'members:person_update' person.id %}" class="btn btn-default">

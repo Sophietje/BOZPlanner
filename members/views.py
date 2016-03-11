@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView, View
 
+from bozplanner.settings import HAVE_DJANGOSAML2, LOGOUT_REDIRECT_URL
 from members.auth import permission_required
 from members.models import Person
 
@@ -39,7 +40,7 @@ class PersonUpdateView(UpdateView):
         "last_name",
         "email",
         "groups",
-        "organization",
+        "organizations",
     ]
 
 @permission_required("members.delete_person")
@@ -57,7 +58,11 @@ class PersonDeleteView(View):
 
 
 def logout(request):
-    import djangosaml2.views
-    result = djangosaml2.views.logout(request)
-    auth.logout(request)
-    return result
+    if HAVE_DJANGOSAML2:
+        import djangosaml2.views
+        result = djangosaml2.views.logout(request)
+        auth.logout(request)
+        return result
+    else:
+        auth.logout(request)
+        return redirect(LOGOUT_REDIRECT_URL)
