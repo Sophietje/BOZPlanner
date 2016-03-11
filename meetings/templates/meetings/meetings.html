@@ -6,50 +6,58 @@
             <i class="glyphicon glyphicon-plus"></i>
         </a>
     </h1>
+    <hr>
+    <hr>
     <div class="table-responsive">
         <table class="table table-hover data-table">
-            <tr>
-                <th>Organization</th>
-                <th>Date & Time</th>
-                <th>Location</th>
-                <th>Secretary</th>
-
-            </tr>
-
-
-            {% for meeting in object_list %}
+            <thead>
                 <tr>
-                    <td>{{ meeting.organization }}</td>
-                    <td>{{ meeting.begin_time }}</td>
-                    <td>{{ meeting.place }}</td>
-                {% if meeting.secretary != null %}
-                    <td>{{ meeting.secretary }}</td>
-                {% else %}
-                <td> <p class="text-left"> - </p> </td>
-                {% endif %}
-                        {%  if request.user.is_planner %}
-                    <td>  <span class="glyphicon glyphicon-pencil"> </td>
-
-                        {% else  %}
-
-                            <td> <input data-toggle="toggle"  data-on=" "  data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small" ></td>
-                    <td>
-                    <td> <div class="checkbox disabled"><input disabled data-toggle="toggle" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small"></div></td>
-                    <td>
-                <form action="{% url 'meetings:add-secretary' meeting.id %}" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <p>{{ form.non_field_errors }}</p>
-                    <p>
-                        <input type="hidden" name="meeting" value={{ meeting.id }}>
-                        <input type="hidden" name="secretary" value= {{ request.user.id }} />
-                        <input type="submit" value="I will take minutes!" /></p>
-                </form>
-                </td>
-                     {% endif %}
+                    <th>Organization</th>
+                    <th>Date & Time</th>
+                    <th>Location</th>
+                    <th>Secretary</th>
                 </tr>
-            {% endfor %}
+            </thead>
 
+            <tbody>
+                {% for meeting in object_list %}
+                    <tr>
+                        <td>{{ meeting.organization }}</td>
+                        <td>{{ meeting.begin_time }}</td>
+                        <td>{{ meeting.place }}</td>
+
+                        {% if meeting.secretary != null %}
+                            <td>{{ meeting.secretary }}</td>
+                        {% else %}
+                            <td> <p class="text-left"> - </p> </td>
+                        {% endif %}
+
+                        {%  if request.user.is_planner %}
+                            <td>  <span class="glyphicon glyphicon-pencil"> </td>
+                        {% else  %}
+                            <td> <input data-toggle="toggle"  data-on=" "  data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small" ></td>
+                            <td> <div class="checkbox disabled"><input disabled data-toggle="toggle" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small"></div></td>
+                            <td>
+                                <form action="{% url 'meetings:add-secretary' meeting.id %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <p>{{ form.non_field_errors }}</p>
+                                    <p>
+                                    <input type="hidden" name="meeting" value={{ meeting.id }}>
+                                    <input type="hidden" name="secretary" value= {{ request.user.id }} />
+                                    <input type="submit" value="I will take minutes!" /></p>
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
-    </ul>
+    <script>
+        $(document).ready(function() {
+            $('#dataTables-example').DataTable({
+                    responsive: true
+            });
+        });
+    </script>
 {% endblock %}
