@@ -7,10 +7,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
-          <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="{% static 'datatables.min.css' %}">
         <link rel="stylesheet" href="{% static 'banner.css' %}">
+
+        <link rel="stylesheet" href="{% static 'bootstrap-multiselect.css' %}">
+
+        <link rel="stylesheet" href="{% static 'style.css' %}">
         <!-- jQuery -->
         <script src="{% static 'jquery.min.js' %}"></script>
         <!-- Include all compiled plugins -->
@@ -19,6 +23,7 @@
         <!---Include datatables thingie---->
         <script src="{% static 'jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'datatables.bootstrap.min.js' %}"></script>
+        <script src="{% static 'bootstrap-multiselect.js' %}"></script>
     </head>
     <body>
     <nav class="navbar navbar-default navbar-static-top">
@@ -29,11 +34,11 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{% url 'meetings:meetings-list' %}">Meetings</a></li>
                 <li><a href="{% url 'meetings:meetings-list' %}">Minutes</a></li>
-                <li><a href="{% url 'meetings:meeting-add' %}">Schedule meeting</a></li>
+                <li><a href="{% url 'members:persons' %}">Users</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right" style="padding-right:5%">
-                <li><a href="/saml2/logout/"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
+                <li><a href="{% url 'members:logout' %}"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
             </ul>
         </div>
     </nav>

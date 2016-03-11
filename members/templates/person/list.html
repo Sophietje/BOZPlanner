@@ -6,30 +6,40 @@
             <tr>
                 <th>{% trans 'Name' %}</th>
                 <th>{% trans 'E-mail address' %}</th>
-                <th>{% trans 'Admin' %}</th>
-                <th>{% trans 'Planner' %}</th>
-                <th>{% trans 'Secretary' %}</th>
-                <th>{% trans 'Approver' %}</th>
-                <th>{% trans 'User Manager' %}</th>
+                <th>{% trans 'Groups' %}</th>
+                <th>{% trans 'Organizations' %}</th>
+                {% if perms.members.change_person %}<th class="btn-cell"><!-- Edit --></th>{% endif %}
+                {% if perms.members.delete_person %}<th class="btn-cell"><!-- Delete --></th>{% endif %}
             </tr>
         </thead>
         <tbody>
         {% for person in object_list %}
-                <tr>
-                    <td>
-                        <a href="{% url 'members:person_update' person.id %}">{{ person }}</a>
-                    </td>
-                    <td>
-                    {% if person.email %}
-                        <a href="mailto:{{ person.email }}">{{ person.email }}</a>
-                    {% endif %}
-                    </td>
-                    <td>{{ person.is_admin|bool_as_glyphicon }}</td>
-                    <td>{{ person.is_planner|bool_as_glyphicon }}</td>
-                    <td>{{ person.is_secretary|bool_as_glyphicon }}</td>
-                    <td>{{ person.is_approver|bool_as_glyphicon }}</td>
-                    <td>{{ person.is_user_manager|bool_as_glyphicon }}</td>
-                </tr>
+            <tr>
+                <td>
+                    {{ person }}
+                </td>
+                <td>
+                {% if person.email %}
+                    <a href="mailto:{{ person.email }}">{{ person.email }}</a>
+                {% endif %}
+                </td>
+                <td>
+                    {{ person.groups.all|join:", "|default:"—" }}
+                </td>
+                <td>
+                    {{ person.organization.all|join:", "|default:"—" }}
+                </td>
+                {% if perms.members.change_person %}<td class="btn-cell">
+                    <a href="{% url 'members:person_update' person.id %}" class="btn btn-default">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </a>
+                </td>{% endif %}
+                {% if perms.members.delete_person %}<td class="btn-cell">
+                    <a href="{% url 'members:person_delete' person.id %}" class="btn btn-default">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                </td>{% endif %}
+            </tr>
         {% endfor %}
         </tbody>
     </table>
