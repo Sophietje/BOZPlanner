@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+    {% include 'menu.html' with active='settings' %}
+{% endblock %}
+
+{% block content %}
+    <h1>Preferences</h1>
+    <hr>
+    <!---------A permission that only the BOZ enjoys in order to visualize targeted help and information for the BOZ------------>
+    {% if perms.meetings_create_meeting %}
+        <div>dingen</div>
+    <!---------A permission that only students enjoy in order to visualize targeted help and information for students----------->
+    {% elif perms.meetings_list_meetings %}
+        <div>nogmeerdingen</div>
+    {%  endif %}
+
+{%  endblock %}
