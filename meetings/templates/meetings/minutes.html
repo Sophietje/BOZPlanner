@@ -12,8 +12,12 @@
                         <th>Date & Time</th>
                         <th>Location</th>
                         <th>Secretary</th>
+                        {% if user.request.is_planner %}
                         <th>Approved by</th>
                         <th>Download</th>
+                        {% else %}
+                        <th>Upload</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -23,10 +27,24 @@
                             <td>{{ minute.meeting.organization }}</td>
                             <td>{{ minute.meeting.begin_time }}</td>
                             <td>{{ minute.meeting.place }}</td>
+                            {% if user.request.is_planner %}
                             <td>{{ minute.meeting.secretary }}</td>
                             <td>{{ minute.approved_by }}</td>
                     <!------------------There should be a download button to request the minutes-------->
                             <td> {{ minute.file }}</td>
+
+                        {% else %}
+                            <td>
+                <form action="{% url 'meetings:add-secretary' meeting.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>{{ form.non_field_errors }}</p>
+                    <p>
+                        <input type="hidden" name="meeting" value={{ meeting.id }}>
+                        <input type="hidden" name="secretary" value= {{ request.user.id }} />
+                        <input type="submit" value="I will take minutes!" /></p>
+                </form>
+                         </td>
+                        {% endif %}
                         </tr>
                     {% endfor %}
                </tbody>

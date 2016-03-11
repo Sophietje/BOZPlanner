@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+<!-------------A new tab for the scheduling of a meeting. This page is used to create a new meeting------>
+{% block content %}
+    <h1 style="margin-left: 25%">Schedule a meeting</h1>
+    <hr>
+        <div  style="width: 50%; margin-left: 25%">
+            <form>
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" placeholder="Subject">
+                <br>
+                <label for="date_time_selector">Date & Time</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar" id="calendar-addon"></span></div>
+                    <input type="datetime" class="form-control" aria-describedby="calendar-addon">
+                </div>
+                <br>
+                <label for="location">Location</label>
+                <input type="text" class="form-control" placeholder="Location">
+                <br>
+                <input class="btn btn-success btn-lg" type="submit" value="Submit"  style="float: right">
+            </form>
+        </div>
+<!----------I did not know how to post the form, I have made a def saveForm method without anything in it------->
+
+{%  endblock %}
