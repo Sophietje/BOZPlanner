@@ -4,5 +4,6 @@ db.sqlite3
 inspectionProfiles/
 codeStyleSettings.xml
 local.py
+.idea/
 venv
 __pycache__/
