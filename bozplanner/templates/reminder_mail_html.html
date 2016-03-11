@@ -1,0 +1,16 @@
+{% extends "mail_base.html" %}
+{% block content %}
+Goedendag,<br><br>
+{% if meetings|length == 1 %}
+Voor de meeting van {{ meetings.0.begin_time|date:"d-m-Y H:i" }} is nog geen notulist aangemeld.<br><br>
+{% else %}
+    Voor de volgende meetings zijn nog geen notulisten aangemeld: <br>
+    <ul>
+    {% for meeting in meetings %}
+        <li>{{ meeting.begin_time|date:"d-m-Y H:i" }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+Met vriendelijke groet,<br>
+BOZPlanner
+{% endblock %}

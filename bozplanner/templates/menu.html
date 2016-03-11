@@ -1,0 +1,20 @@
+<nav class="navbar navbar-default navbar-static-top">
+    {% if active == '' %}
+        <script>alert('Je bent vergeten active te definiëren voor deze template :(');</script>
+    {% endif %}
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">BOZPlanner</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="{% if active == 'meetings' %}active{% endif %}"><a href="{% url 'meetings:meetings-list' %}">Meetings</a></li>
+            <li class="{% if active == 'minutes' %}active{% endif %}"><a href="{% url 'meetings:meetings-list' %}">Minutes</a></li>
+            <li class="{% if active == 'users' %}active{% endif %}"><a href="{% url 'members:persons' %}">Users</a></li>
+            <li class="{% if active == 'organizations' %}active{% endif %}"><a href="{% url 'members:persons' %}">Organizations</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right" style="padding-right:5%">
+            <li><a href="{% url 'members:logout' %}"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
+        </ul>
+    </div>
+</nav>

@@ -38,7 +38,8 @@ class Person(AbstractUser):
     class Meta:
         verbose_name = "person"
         permissions = [
-            ("groups", "Can change user groups"),
+            ("change_groups", "Can change user groups"),
+            ("list_persons", "Can view persons"),
         ]
 
     def __str__(self):

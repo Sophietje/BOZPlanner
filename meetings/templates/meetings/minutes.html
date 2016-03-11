@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base-minutes.html" %}
 
 <!-------------some sort of permissions can be build in, the BOZ and OLC should see this page------>
 {% block content %}
@@ -13,38 +13,52 @@
                         <th>Location</th>
                         <th>Secretary</th>
                         {% if user.request.is_planner %}
-                        <th>Approved by</th>
-                        <th>Download</th>
+                            <th>Download</th>
                         {% else %}
-                        <th>Upload</th>
+                            <th>Upload</th>
                         {% endif %}
                     </tr>
                 </thead>
                 <tbody>
                     <!------------------table filled in, there is not much more for this block--------->
-                    {% for minute in minutes_list %}
+                    {% for meeting in object_list %}
                         <tr>
-                            <td>{{ minute.meeting.organization }}</td>
-                            <td>{{ minute.meeting.begin_time }}</td>
-                            <td>{{ minute.meeting.place }}</td>
-                            {% if user.request.is_planner %}
-                            <td>{{ minute.meeting.secretary }}</td>
-                            <td>{{ minute.approved_by }}</td>
-                    <!------------------There should be a download button to request the minutes-------->
-                            <td> {{ minute.file }}</td>
 
-                        {% else %}
-                            <td>
-                <form action="{% url 'meetings:add-secretary' meeting.id %}" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <p>{{ form.non_field_errors }}</p>
-                    <p>
-                        <input type="hidden" name="meeting" value={{ meeting.id }}>
-                        <input type="hidden" name="secretary" value= {{ request.user.id }} />
-                        <input type="submit" value="I will take minutes!" /></p>
-                </form>
-                         </td>
-                        {% endif %}
+                            <td>{{ meeting.organization }}</td>
+                            <td>{{ meeting.begin_time }}</td>
+                            <td>{{ meeting.place }}</td>
+                            <td>{{ meeting.secretary }}</td>
+
+                                <!------------------There should be a download button to request the meetings-------->
+                                <td>
+
+                                    {% if meeting.minutes.all|length == 0%}
+
+                                        {# Upload minutes form #}
+                                            <button type="button" class="btn btn-default">
+                                              <span class="glyphicon glyphicon-open" aria-hidden="true"></span> Upload
+                                            </button>
+                                    {% elif meeting.minutes.all|length == 1%}
+                                        {# If there is only one upload, show download button #}
+
+                                        <button type="button" class="btn btn-default">
+                                          <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download
+                                        </button>
+
+                                    {% else %}
+                                        <div class="btn-group">
+                                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download <span class="caret"></span>
+                                          </button>
+
+                                          <ul class="dropdown-menu">
+                                            {% for minutes in meeting.minutes.all %}
+                                                <li><a href="#">{{ minutes.file }}</a></li>
+                                            {% endfor %}
+                                          </ul>
+                                        </div>
+                                    {% endif %}
+                                </td>
                         </tr>
                     {% endfor %}
                </tbody>

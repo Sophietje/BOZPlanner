@@ -1,28 +1,25 @@
 import os
-from time import strftime
-from uuid import uuid4
 
 import datetime
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView, View, TemplateView
+from django.views.generic import CreateView, UpdateView, DeleteView, View, TemplateView
 from django.http import HttpResponse
 
 from bozplanner import settings
 from meetings.models import Meeting, Minutes
 from members.auth import permission_required
+from members.models import Organization
 
 
-
-@permission_required('meetings.list_meetings', 'meetings.view_all', 'meetings.view_organization')
+@permission_required('meetings.list_meetings')
 class MeetingsView(TemplateView):
     model = Meeting
     template_name = 'meetings/meetings.html'
 
     def get_context_data(self, **kwargs):
-        # First condition: Only upcoming meetings should be shown
-        q1 = Q(begin_time__gt = datetime.datetime.now())
+        # First condition: You should be able to see upcoming meetings where you are the secretary
+        q1 = Q(end_time__gt = datetime.datetime.now(), secretary = self.request.user)
         context = super(MeetingsView, self).get_context_data()
 
         # If the user may only see meetings from his/her own (sub-)organization(s), put all upcoming meetings of this organization in context
@@ -31,25 +28,14 @@ class MeetingsView(TemplateView):
             q2 = Q(organization__in = self.request.user.all_organizations)
             q1 = q1 & q2
 
-        if self.request.user.has_perm('meetings.is_secretary'):
-            print('This user should see meetings from which it is secretary')
-            # If the user is a secretary, the meetings for which he/she is a secretary, but not from their organization, should be shown
-            # These should only be upcoming meetings
-            q2 = Q(secretary=self.request.user, begin_time__gt = datetime.datetime.now())
+        if self.request.user.has_perm('meetings.view_all'):
+            # Should be able to see all meetings
+            q2 = Q(begin_time__gt = datetime.datetime.now())
             q1 = q1 | q2
 
         context['object_list'] = filter_meetings(q1)
 
         return context
-
-def filter_meetings(perms):
-    return Meeting.objects.filter(perms)
-
-
-    # # Deze queryset wordt gereturned als deze listview gebruikt wordt
-    # def get_queryset(self):
-    #     # Should somehow find organization of user that is logged in, add this to the filter below
-    #     return Meeting.objects.filter(begin_time__gt = datetime.date.today())
 
 class MeetingUpdate(UpdateView):
     model = Meeting
@@ -70,21 +56,39 @@ class MeetingsIcsView(View):
         calendar = Meeting.objects.as_icalendar()
         return HttpResponse(calendar.to_ical(), content_type="text/calendar")
 
-class MinutesView(ListView):
-    model = Minutes
+@permission_required('meetings.list_meetings')
+class MinutesView(TemplateView):
+    model = Meeting
     template_name = 'meetings/minutes.html'
 
+    def get_context_data(self, **kwargs):
+        # Should be able to see all meetings (with minutes) for which you were secretary
+        q1 = Q(secretary = self.request.user)
+        context = super(MinutesView, self).get_context_data()
+
+        # Should be able to see all meetings (with minutes) from own organizations
+        if self.request.user.has_perm('meetings.view_organizations'):
+            q2 = Q(organization__in = self.request.user.all_organizations)
+            q1 = q1 | q2
+
+        # Should be able to see all meetings (with minutes)
+        if self.request.user.has_perm('meetings.view_all'):
+            q2 = Q(begin_time__lt = datetime.datetime.now())
+            q1 = q1 | q2
+
+        all_meetings = filter_meetings(q1)
+
+        context['object_list'] = all_meetings.prefetch_related('minutes')
+        print(context['object_list'])
+        return context
+
 @permission_required("meetings.create_meeting")
-class ScheduleAMeetingView(TemplateView):
+class ScheduleAMeetingView(CreateView):
     model = Meeting
-    fields = ['place', 'begin_time', 'end_time', 'organization']
+    fields = ['organization', 'begin_time', 'end_time', 'place']
     success_url = reverse_lazy('meetings:meetings-list')
     template_name = 'meetings/schedule_a_meeting.html'
 
-    def saveForm(self, request, *args, **kwargs):
-
-
-        return HttpResponse('Meeting is scheduled')
 
 class MinuteUploadView(View):
     model = Minutes
@@ -105,7 +109,7 @@ class MinuteUploadView(View):
             path = new_path
             i = 1
             while (os.path.isfile(new_path)):
-                print('i='+i.__str__()+': '+new_path)
+                print('i='+i.__str__()+': ' + new_path)
                 i += 1
                 new_path = path + '-Version{}'.format(i)
 
@@ -125,4 +129,11 @@ class MinuteUploadView(View):
         self.update_filename(minutes)
 
         return HttpResponse('Minutes have been added.')
+
+
+def filter_meetings(perms):
+    return Meeting.objects.filter(perms)
+
+def filter_minutes(perms):
+    return Minutes.objects.filter(perms)
 
