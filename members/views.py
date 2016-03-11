@@ -21,7 +21,7 @@ class PersonsView(TemplateView):
 class PersonCreateView(CreateView):
     template_name = "person/form.html"
     model = Person
-    success_url = reverse_lazy("persons")
+    success_url = reverse_lazy("members:persons")
     fields = [
         "first_name",
         "last_name",
@@ -33,7 +33,7 @@ class PersonCreateView(CreateView):
 class PersonUpdateView(UpdateView):
     template_name = "person/form.html"
     model = Person
-    success_url = reverse_lazy("persons")
+    success_url = reverse_lazy("members:persons")
     fields = [
         "first_name",
         "last_name",
