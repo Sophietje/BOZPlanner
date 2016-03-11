@@ -1,9 +1,12 @@
 {% extends 'base-users.html' %}
 
 {% block content %}
+    <h1>Edit user {{ object }}</h1>
+
     <form method="post">
         {% csrf_token %}
         {{ form|fancy_form }}
+        <a href="{% url 'members:persons' %}" class="btn btn-default">Back</a>
         <input type="submit" value="{% trans 'Save' %}" class="btn btn-primary">
     </form>
 {% endblock %}

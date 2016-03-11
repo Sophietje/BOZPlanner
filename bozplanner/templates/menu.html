@@ -13,8 +13,9 @@
             <li class="{% if active == 'organizations' %}active{% endif %}"><a href="{% url 'members:persons' %}">Organizations</a></li>
         </ul>
 
-        <ul class="nav navbar-nav navbar-right" style="padding-right:5%">
+        <ul class="nav navbar-nav navbar-right">
             <li><a href="{% url 'members:logout' %}"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
+            <li class="{%  if active == 'help' %}active{% endif %}"><a href="{%  url 'help' %}"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
         </ul>
     </div>
 </nav>
