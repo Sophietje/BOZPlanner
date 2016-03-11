@@ -7,6 +7,8 @@ import sys
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # Application definition
+from django.conf.global_settings import DATETIME_INPUT_FORMATS
+from django.utils.formats import iter_format_modules
 
 try:
     from bozplanner import local
@@ -106,6 +108,8 @@ LOGIN_URL = '/saml2/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+
+
 if HAVE_DJANGOSAML2:
     AUTHENTICATION_BACKENDS = [
         'members.auth.SAML2Backend'
@@ -120,6 +124,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+FORMAT_MODULE_PATH = ['bozplanner.formats']
+
+DATETIME_INPUT_FORMATS
 
 try:
     from bozplanner.local import *
