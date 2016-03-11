@@ -5,7 +5,7 @@ from django.views.generic import TemplateView, CreateView, UpdateView, DeleteVie
 
 from bozplanner.settings import HAVE_DJANGOSAML2, LOGOUT_REDIRECT_URL
 from members.auth import permission_required
-from members.models import Person
+from members.models import Person, Organization
 
 
 class PermissionDeniedView(TemplateView):
@@ -57,7 +57,39 @@ class PersonDeleteView(View):
         object.save()
         return redirect("members:persons")
 
+@permission_required("members.list_organizations")
+class OrganizationsView(TemplateView):
+    template_name = "organization/list.html"
 
+    def get_context_data(self):
+        object_list = Organization.objects.all()
+        return locals()
+
+@permission_required("members.add_organization")
+class OrganizationCreateView(CreateView):
+    template_name = "organization/form.html"
+    model = Organization
+    success_url = reverse_lazy("members:organizations")
+    fields = [
+        "name",
+        "parent_organization",
+    ]
+
+@permission_required("members.change_organization")
+class OrganizationUpdateView(UpdateView):
+    template_name = "organization/form.html"
+    model = Organization
+    success_url = reverse_lazy("members:organizations")
+    fields = [
+        "name",
+        "parent_organization",
+    ]
+
+@permission_required("members.delete_organization")
+class OrganizationDeleteView(DeleteView):
+    template_name = "organization/delete.html"
+    model = Organization
+    success_url = reverse_lazy("members:organizations")
 
 def logout(request):
     if HAVE_DJANGOSAML2:
