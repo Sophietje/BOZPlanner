@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
+from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, View, TemplateView
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
@@ -148,7 +149,7 @@ class MinuteUploadView(View):
         # Rename minutes file that has been uploaded, should be done AFTER the minutes have been 'saved'
         self.update_filename(minutes)
 
-        return HttpResponse('Minutes have been added.')
+        return redirect('meetings:minutes')
 
 
 def filter_meetings(perms):

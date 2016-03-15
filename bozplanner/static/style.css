@@ -1,5 +1,6 @@
 .btn-cell {
     width: 0;
+    text-align: right;
 }
 
 #navigation, .navbar.navbar-default.navbar-static-top{
