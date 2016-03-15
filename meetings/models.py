@@ -1,11 +1,13 @@
 import os
 from uuid import uuid4
 
+import datetime
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.urlresolvers import reverse
 from time import strftime
+from datetime import datetime, timedelta
 import icalendar
 
 from meetings.managers import MeetingManager
@@ -21,6 +23,11 @@ class Meeting(models.Model):
     secretary = models.ForeignKey("members.Person", related_name="secretary", blank=True, null=True)
     organization = models.ForeignKey("members.Organization")
     planner = models.ForeignKey("members.Person", related_name="planner", blank=True, null=True)
+
+    @property
+    def is_soon(self):
+        dt = self.begin_time - datetime.now()
+        return dt.days <= 7
 
     def as_icalendar_event(self):
         """Returns a copy of this meeting as an iCalendar event
