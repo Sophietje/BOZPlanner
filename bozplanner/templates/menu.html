@@ -19,15 +19,13 @@
                     <span class="glyphicon glyphicon-question-sign"></span> Help
                 </a>
             </li>
-            <li>
-                <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-                <span class="caret"></span></button>
+            <li class="dropdown">
+                <a class="dropdown-toggle" type="button" data-toggle="dropdown" href="#">{{ request.user.get_full_name }}
+                <span class="caret"></span></a>
                 <ul class="dropdown-menu">
+                    <li><a href="{% url 'members:preferences' %}"><span class="glyphicon glyphicon-cog"></span> Preferences</a></li>
                     <li><a href="{% url 'members:logout' %}"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
-                    <li><a href="{% url 'preferences:preferences' %}"><span class="glyphicon glyphicon-cog"></span> Preferences</a></li>
                 </ul>
-                </div>
             </li>
         </ul>
     </div>
