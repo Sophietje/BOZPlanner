@@ -42,13 +42,7 @@
 
                             <td></td>
                             <td> <input id="toggle-{{ meeting.pk }}" data-toggle="toggle" type="checkbox" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" data-size="small"></td>
-                            <td>
 
-                                <input id="toggle-{{ meeting.pk }}" data-toggle="toggle" type="checkbox"
-                                   checked="{% if meeting.secretary != None %}checked{% endif %}"
-                                   {% if meeting.secretary != None and meeting.secretary != request.user %}disabled{% endif %}>
-
-                            </td>
 
                     {%  if meeting.is_soon %} disabled {% endif %}
                        checked="{% if meeting.secretary != None %}checked{% endif %}"
@@ -67,7 +61,6 @@
                               }})
                     })})
                 </script>
-
                         {% endif %}
                             <td>
                                 {#                            Edit button #}
@@ -104,7 +97,6 @@
                         </div>
                     </div>
 
-<<<<<<< Updated upstream
                     {#                  Pop-up window for deleting a meeting #}
                     <div id="deleteModal" class="modal fade" role="form">
                         <div class="modal-dialog">
@@ -133,13 +125,7 @@
                 {% endfor %}
             </tbody>
 
-=======
-                </td>
-                     {% endif %}
-                </tr>
-            {% endfor %}
-        </tbody>
->>>>>>> Stashed changes
+
         </table>
     </div>
 
