@@ -1,9 +1,7 @@
-misc.xml
-workspace.xml
 db.sqlite3
 inspectionProfiles/
-codeStyleSettings.xml
 local.py
 .idea/
+media/
 venv
 __pycache__/
