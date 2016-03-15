@@ -1,8 +1,10 @@
 import logging
 
 from django.contrib.auth import decorators
+
 from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
+from django.views.decorators import csrf
 
 from members.models import Person
 
@@ -12,6 +14,8 @@ login_required = method_decorator(decorators.login_required, name='dispatch')
 
 def permission_required(*args, **kwargs):
     return method_decorator(decorators.permission_required(*args, **kwargs), name='dispatch')
+
+csrf_exempt = method_decorator(csrf.csrf_exempt, name='dispatch')
 
 class SAML2Backend:
     def authenticate(self, session_info, attribute_mapping, create_unknown_user):

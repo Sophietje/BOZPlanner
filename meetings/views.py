@@ -3,15 +3,15 @@ import os
 import datetime
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
-from django.forms import ModelForm
+from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext as _
 from django.views.generic import CreateView, UpdateView, DeleteView, View, TemplateView
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from bozplanner import settings
 from meetings.forms import MeetingForm
 from meetings.models import Meeting, Minutes
 from members.auth import permission_required
-from members.models import Organization
 
 
 @permission_required('meetings.list_meetings')
@@ -53,6 +53,24 @@ class ScheduleAMeetingView(CreateView):
 class MeetingUpdate(UpdateView):
     model = Meeting
     form_class = MeetingForm
+
+class MeetingToggleView(View):
+    def post(self, request, pk):
+        meeting = get_object_or_404(Meeting, pk=pk)
+
+        if meeting.secretary is None:
+            meeting.secretary = request.user
+            meeting.save()
+        elif meeting.secretary == request.user:
+            meeting.secretary = None
+            meeting.save()
+        else:
+            return JsonResponse({"error": True, "error_message": _("Someone has already claimed this meeting.")})
+
+        return JsonResponse({"error": False})
+
+
+
 
 class MeetingDelete(DeleteView):
     model = Meeting
