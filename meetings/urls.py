@@ -3,12 +3,13 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 
 from meetings.views import MeetingsView, MeetingsIcsView, MeetingUpdate, MeetingDelete, \
-    MinuteUploadView, MinutesView, MeetingAddSecretary, ScheduleAMeetingView
+    MinuteUploadView, MinutesView, MeetingAddSecretary, ScheduleAMeetingView, MeetingToggleView
 
 app_name = 'meetings'
 
 urlpatterns = [
     url(r'^$', MeetingsView.as_view(), name="meetings-list"),
+    url(r'^(?P<pk>[0-9]+)/toggle/$', MeetingToggleView.as_view(), name="meeting-toggle"),
     url(r'^minutes/$', MinutesView.as_view(), name='minutes'),
     url(r'^minutes/upload/$', MinuteUploadView.as_view(), name='minutes-upload'),
     url(r'^add/$', ScheduleAMeetingView.as_view(), name="meeting-add"),

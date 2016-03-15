@@ -1,5 +1,6 @@
 {% extends "base-meetings.html" %}
 
+
 {% block content %}
     <h1>Meetings
         <a href="{% url 'meetings:meeting-add' %}" class="btn btn-default">
@@ -37,22 +38,47 @@
                         {%  if request.user.is_planner %}
                             <td>  <span class="glyphicon glyphicon-pencil"> </td>
                         {% else  %}
-                            <td> <input data-toggle="toggle"  data-on=" "  data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small" ></td>
-                            <td> <div class="checkbox disabled"><input disabled data-toggle="toggle" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small"></div></td>
-                            <td>
-                                <form action="{% url 'meetings:add-secretary' meeting.id %}" method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <p>{{ form.non_field_errors }}</p>
-                                    <p>
-                                    <input type="hidden" name="meeting" value={{ meeting.id }}>
-                                    <input type="hidden" name="secretary" value= {{ request.user.id }} />
-                                    <input type="submit" value="I will take minutes!" /></p>
-                                </form>
-                            </td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-            </tbody>
+
+                    <td>
+                    <td> <input disabled data-toggle="toggle" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small"></div></td>
+                    <td>
+
+                <input id="toggle-{{ meeting.pk }}" data-toggle="toggle" type="checkbox"
+                       checked="{% if meeting.secretary != None %}checked{% endif %}"
+                       {% if meeting.secretary != None and meeting.secretary != request.user %}disabled{% endif %}>
+                <div id="console-event"></div>
+                <script>
+                  $(function() {
+                    $('#toggle-{{ meeting.pk }}').change(function() {
+                        $.post('/meetings/{{ meeting.pk }}/toggle/', {csrfmiddlewaretoken: $.cookie('csrftoken')}, function(data) {
+                            if(data.error) {
+                                new PNotify({
+                                    title: 'Error',
+                                    text: data.error_message,
+                                    type: 'error'
+                                })
+                            }
+                        }).fail(function() {
+
+                        });
+                    })
+                  })
+                </script>
+
+
+                <form action="{% url 'meetings:add-secretary' meeting.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>{{ form.non_field_errors }}</p>
+                    <p>
+                        <input type="hidden" name="meeting" value={{ meeting.id }}>
+                        <input type="hidden" name="secretary" value= {{ request.user.id }} />
+                        <input type="checkbox" data-toggle="toggle"  data-on=" "  data-off=" " data-onstyle="success" data-offstyle="danger" data-size="small" value=" " /></p>
+                </form>
+                </td>
+                     {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
         </table>
     </div>
     <script>
