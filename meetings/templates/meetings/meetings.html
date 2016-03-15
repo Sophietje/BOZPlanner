@@ -41,32 +41,26 @@
                         {% else  %}
 
                             <td></td>
-                            <td> <input disabled data-toggle="toggle" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" type="checkbox" data-size="small"></td>
-                            <td>
+                            <td> <input id="toggle-{{ meeting.pk }}" data-toggle="toggle" type="checkbox" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" data-size="small"></td>
 
-                                <input id="toggle-{{ meeting.pk }}" data-toggle="toggle" type="checkbox"
-                                   checked="{% if meeting.secretary != None %}checked{% endif %}"
-                                   {% if meeting.secretary != None and meeting.secretary != request.user %}disabled{% endif %}>
 
-                            </td>
-                            <script>
-                              $(function() {
-                                $('#toggle-{{ meeting.pk }}').change(function() {
-                                    $.post('/meetings/{{ meeting.pk }}/toggle/', {csrfmiddlewaretoken: $.cookie('csrftoken')}, function(data) {
-                                        if(data.error) {
-                                            new PNotify({
-                                                title: 'Error',
-                                                text: data.error_message,
-                                                type: 'error'
-                                            })
-                                        }
-                                    }).fail(function() {
-
-                                    });
+                    {%  if meeting.is_soon %} disabled {% endif %}
+                       checked="{% if meeting.secretary != None %}checked{% endif %}"
+                       {% if meeting.secretary != None and meeting.secretary != request.user  %}disabled{% endif %}>
+                <div id="console-event"></div>
+                <script>
+                  $(function() {
+                    $('#toggle-{{ meeting.pk }}').change(function() {
+                        $.post('/meetings/{{ meeting.pk }}/toggle/', {csrfmiddlewaretoken: $.cookie('csrftoken')}, function(data) {
+                            if(data.error) {
+                                new PNotify({
+                                    title: 'Error',
+                                    text: data.error_message,
+                                    type: 'error'
                                 })
-                              })
-                            </script>
-
+                              }})
+                    })})
+                </script>
                         {% endif %}
                             <td>
                                 {#                            Edit button #}
@@ -130,6 +124,7 @@
 
                 {% endfor %}
             </tbody>
+
 
         </table>
     </div>
