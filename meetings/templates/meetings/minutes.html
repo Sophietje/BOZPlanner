@@ -30,35 +30,35 @@
                             <td>{{ meeting.secretary }}</td>
 
                                 <!------------------There should be a download button to request the meetings-------->
-                                <td>
+                            <td>
 
-                                    {% if meeting.minutes.all|length == 0%}
+                                {% if meeting.minutes.all|length == 0%}
 
-                                        {# Upload minutes form #}
-                                            <button type="button" class="btn btn-default">
-                                              <span class="glyphicon glyphicon-open" aria-hidden="true"></span> Upload
-                                            </button>
-                                    {% elif meeting.minutes.all|length == 1%}
-                                        {# If there is only one upload, show download button #}
-
+                                    {# Upload minutes form #}
                                         <button type="button" class="btn btn-default">
-                                          <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download
+                                          <span class="glyphicon glyphicon-open" aria-hidden="true"></span> Upload
                                         </button>
+                                {% elif meeting.minutes.all|length == 1%}
+                                    {# If there is only one upload, show download button #}
 
-                                    {% else %}
-                                        <div class="btn-group">
-                                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                              <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download <span class="caret"></span>
-                                          </button>
+                                    <button type="button" class="btn btn-default">
+                                      <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download
+                                    </button>
 
-                                          <ul class="dropdown-menu">
-                                            {% for minutes in meeting.minutes.all %}
-                                                <li><a href="#">{{ minutes.file }}</a></li>
-                                            {% endfor %}
-                                          </ul>
-                                        </div>
-                                    {% endif %}
-                                </td>
+                                {% else %}
+                                    <div class="btn-group">
+                                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download <span class="caret"></span>
+                                      </button>
+
+                                      <ul class="dropdown-menu">
+                                        {% for minutes in meeting.minutes.all %}
+                                            <li><a href="#">{{ minutes.file }}</a></li>
+                                        {% endfor %}
+                                      </ul>
+                                    </div>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                </tbody>

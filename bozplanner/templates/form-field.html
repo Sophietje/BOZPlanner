@@ -1,4 +1,7 @@
 <div class="form-group">
+    {% for error in field.errors %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endfor %}
     {% if field|field_class_is:"TextInput" %}
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         <input type="text" id="{{ field.id_for_label }}" name="{{ field.name }}" value="{{ field.value|default:"" }}" class="form-control">
@@ -16,7 +19,7 @@
     {% elif field|field_class_is:"DateTimeInput" %}
           <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                 <div class='input-group date' id='{{ field.id_for_label }}'>
-                    <input type='text' class="form-control" name="{{ field.name }}" value="{{ field.value|default:"" }}" />
+                    <input type='text' class="form-control" name="{{ field.name }}" value="{{ field.value|date:'Y-m-d H:i:s' }}" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>

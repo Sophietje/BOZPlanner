@@ -3,10 +3,12 @@ import os
 import datetime
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
+from django.forms import ModelForm
 from django.views.generic import CreateView, UpdateView, DeleteView, View, TemplateView
 from django.http import HttpResponse
 
 from bozplanner import settings
+from meetings.forms import MeetingForm
 from meetings.models import Meeting, Minutes
 from members.auth import permission_required
 from members.models import Organization
@@ -33,13 +35,24 @@ class MeetingsView(TemplateView):
             q2 = Q(begin_time__gt = datetime.datetime.now())
             q1 = q1 | q2
 
-        context['object_list'] = filter_meetings(q1)
+        object_list = list(filter_meetings(q1))
 
-        return context
+        for meeting in object_list:
+            meeting.form = MeetingForm(instance=meeting)
 
+        return locals()
+
+@permission_required("meetings.create_meeting")
+class ScheduleAMeetingView(CreateView):
+    model = Meeting
+    fields = ['organization', 'begin_time', 'end_time', 'place']
+    success_url = reverse_lazy('meetings:meetings-list')
+    template_name = 'meetings/schedule_a_meeting.html'
+
+@permission_required("meetings.add_meeting")
 class MeetingUpdate(UpdateView):
     model = Meeting
-    fields = ['place', 'begin_time', 'end_time', 'secretary', 'organization']
+    form_class = MeetingForm
 
 class MeetingDelete(DeleteView):
     model = Meeting
@@ -80,14 +93,6 @@ class MinutesView(TemplateView):
 
         context['object_list'] = all_meetings.prefetch_related('minutes')
         return context
-
-@permission_required("meetings.create_meeting")
-class ScheduleAMeetingView(CreateView):
-    model = Meeting
-    fields = ['organization', 'begin_time', 'end_time', 'place']
-    success_url = reverse_lazy('meetings:meetings-list')
-    template_name = 'meetings/schedule_a_meeting.html'
-
 
 class MinuteUploadView(View):
     model = Minutes
