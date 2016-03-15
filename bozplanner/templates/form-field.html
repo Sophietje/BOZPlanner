@@ -19,7 +19,7 @@
     {% elif field|field_class_is:"DateTimeInput" %}
           <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                 <div class='input-group date' id='{{ field.id_for_label }}'>
-                    <input type='text' class="form-control" name="{{ field.name }}" value="{{ field.value|date:'Y-m-d H:i:s' }}" />
+                    <input type='text' class="form-control" name="{{ field.name }}" value="{{ field.value|date:"d-m-Y H:i" }}" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -27,9 +27,9 @@
                 <script type="text/javascript"
                     src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js">
                 </script>
-{#                <script type="text/javascript"#}
-{#                    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/locale/en-gb.js">#}
-{#                </script>#}
+                <script type="text/javascript"
+                    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/locale/nl.js">
+                </script>
                 <script type="text/javascript"
                     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js">
                 </script>

@@ -126,9 +126,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-FORMAT_MODULE_PATH = ['bozplanner.formats']
 
-DATETIME_INPUT_FORMATS
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+DATETIME_INPUT_FORMATS = ["%d-%m-%Y %H:%M"]
+
+DATE_FORMAT = 'd-m-Y'
+DATETIME_FORMAT = 'd-m-Y H:i'
+SHORT_DATE_FORMAT = DATE_FORMAT
+SHORT_DATETIME_FORMAT = DATETIME_FORMAT
 
 try:
     from bozplanner.local import *
