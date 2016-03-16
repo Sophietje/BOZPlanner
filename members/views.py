@@ -100,3 +100,6 @@ def logout(request):
     else:
         auth.logout(request)
         return redirect(LOGOUT_REDIRECT_URL)
+
+class SettingsView(TemplateView):
+    template_name = "settings.html"
