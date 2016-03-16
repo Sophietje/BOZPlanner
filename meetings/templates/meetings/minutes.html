@@ -55,9 +55,9 @@
                                         <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download <span class="caret"></span>
                                     </button>
 
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu pull-right">
                                         {% for minutes in meeting.minutes.all %}
-                                            <li><a href="#">{{ minutes.file }}</a></li>
+                                            <li><a href="{% url 'meetings:minutes-download' minutes.pk %}">{{ minutes.original_name }} <em><small>{{ minutes.date }}</small></em></a></li>
                                         {% endfor %}
                                     </ul>
                                 </div>
