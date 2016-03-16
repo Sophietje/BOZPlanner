@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='minutes',
             name='date',
-            field=models.DateTimeField(default=datetime.datetime(2016, 3, 16, 13, 17, 3, 7207, tzinfo=utc)),
+            field=models.DateTimeField(default=datetime.datetime(2016, 3, 16, 13, 17, 3, 7207)),
             preserve_default=False,
         ),
     ]
