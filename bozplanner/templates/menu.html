@@ -9,8 +9,16 @@
         <ul class="nav navbar-nav">
             <li class="{% if active == 'meetings' %}active{% endif %}"><a href="{% url 'meetings:meetings-list' %}">Meetings</a></li>
             <li class="{% if active == 'minutes' %}active{% endif %}"><a href="{% url 'meetings:minutes' %}">Minutes</a></li>
-            <li class="{% if active == 'users' %}active{% endif %}"><a href="{% url 'members:persons' %}">Users</a></li>
-            <li class="{% if active == 'organizations' %}active{% endif %}"><a href="{% url 'members:organizations' %}">Organizations</a></li>
+
+            {# Only show button for Users in menu if the user may view this #}
+            {% if perms.members.list_person %}
+                <li class="{% if active == 'users' %}active{% endif %}"><a href="{% url 'members:persons' %}">Users</a></li>
+            {% endif %}
+
+            {# Only show button for Organizations in menu if the user may view this #}
+            {% if perms.members.list_organizations %}
+                <li class="{% if active == 'organizations' %}active{% endif %}"><a href="{% url 'members:organizations' %}">Organizations</a></li>
+            {% endif %}
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
