@@ -27,9 +27,9 @@
                     <td>{{ meeting.begin_time }}</td>
                     <td>{{ meeting.place }}</td>
                     {% if meeting.secretary != null %}
-                        <td>{{ meeting.secretary }}</td>
+                        <td id="secretary-{{ meeting.pk }}">{{ meeting.secretary }}</td>
                     {% else %}
-                        <td> <p class="text-left"> - </p> </td>
+                        <td id="secretary-{{ meeting.pk }}">-</td>
                     {% endif %}
 
                     {%  if request.user.is_planner %}
@@ -50,9 +50,13 @@
                                                 title: 'Error',
                                                 text: data.error_message,
                                                 type: 'error'
-                                            })
-                                        }})
-                                })})
+                                            });
+                                        } else {
+                                            $('#secretary-{{ meeting.pk }}').text(data.secretary);
+                                        }
+                                    });
+                                });
+                            });
                         </script>
                     {% endif %}
                     <td>
