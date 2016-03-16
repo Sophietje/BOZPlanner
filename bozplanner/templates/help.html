@@ -9,48 +9,93 @@
     <hr>
     <!---------A permission that only the BOZ enjoys in order to visualize targeted help and information for the BOZ------------>
     {% if perms.meetings_create_meeting %}
-        <h2>How can I schedule a meeting?</h2>
-        <p>
-            In order to schedule a meeting, you should navigate to the menu named "Schedule a meeting" or to the menu named "Meetings". When navigating to the "Schedule a meeting" menu, you should see a form which must be filled in by you. You should fill in the location of the meeting (e.g. RA-5148), at what time the meeting starts (in the following format: dd/mm/yyyy hh:mm), the datetimepicker can help to fill in this field, then you should fill in at what time the meeting will end (This work exactly the same as the previous field). Finally, the organization of the OLC meeting should be filled in (e.g. BMS).
-        </p>
-        <br>
-        <h2>Where can I find all meetings that are planned?</h2>
-        <p>
-            Scheduled meetings can be found in the menu called "Meetings", this menu lists the meetings and it indicates whether someone is assigned to the meeting to take the minutes. Furthermore, with the button in the header, a meeting can be scheduled instantly without having to navigate to the menu "Schedule a meeting".
-        </p>
-        <br>
-        <h2>Where can I find and download minutes?</h2>
-        <p>
-            In order to download minutes from meetings that took place in the past, you should navigate to the menu named "Minutes". In this menu, the past meetings are listed. When minutes are uploaded by the student, a download button can be found on the right hand side in the list. It could be the case that a student has uploaded multiple versions of the minutes. In that case, you are able to chose which version you would like to download.
-        </p>
-        <br>
-        <h2>Where can I find all users in the system?</h2>
-        <p>
-            You can find all users of the system in the menu named "Users". This menu serves multiple purposes, firstly you can thus find all users of the system, thus students, BOZ employees and persons associated to an OLC. Secondly, an account can be created by means of the add button (found in the header of the page). Thirdly, data about the users' data can be changed when requested or even a user can be deleted from the list.
-        </p>
-        <h4>How do I add a user?</h4>
-        <p>
-            In order to add a user, you should as previously mentioned click on the add button on top of the "Users" page. Then you should fill in the name, email and to which organization the user is associated to. Afterwards, the person can be added by submitting the form. The person for whom you filled in the data can now access the system.
-        </p>
-        <h4>How do I change the data of a user?</h4>
-        <p>
-            The data of a user can be changed by clicking on the change button in the list associated to the user. Then, the data of the user pops up enabling you to make changes to it. Afterwards, the data should be submitted.
-        </p>
-        <h4>How do I delete a user?</h4>
-        <p>
-            A user can be deleted by clicking on the delete button in the list associated to the user. Then, you will be asked whether you are certain of deleting the user. Afterwards, the user is deleted.
-        </p>
-        <br>
-        <h2>Where can I find all organizations in the system?</h2>
-        <p>
-            You can find all the organizations in the system in the menu named "Organizations". The organizations can be accessed, added, changed and deleted in similar steps as with users. Please refer to the previous answered question.
-        </p>
-        <br>
-        <h2>How do I access my personal settings?</h2>
-        <p>
-            You can access your personal settings by clicking on the right hand side on the tab with your name. Then, a dropdown menu opens including a tab for your settings. You can change your preferred settings by enabling the different options (notification mails and reminders of your planned meetings) and you can change your own personal data.
-        </p>
-        <br>
+        <div id="questions" class="panel-group" role ="tablist" aria-multiselectable="true">
+            <div class ="panel panel-default">
+                <div id="schedule-heading" class="panel-heading" role="tab">
+                    <h2 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#questions" href="#schedule-question" aria-expanded="false" aria-controls="schedule-question"> How do I schedule a meeting?</a>
+                    </h2>
+                </div>
+                <div id="schedule-question" class="panel-collapse collapse " style ="height: 0px" aria-expanded="false" role="tabpanel" aria-labelledby="schedule-heading">
+                    <div class="panel-body" STYLE="text-align: justify;">
+                        In order to schedule a meeting, you should navigate to the menu named "Schedule a meeting" or to the menu named "Meetings". When navigating to the "Schedule a meeting" menu, you should see a form which must be filled in by you. You should fill in the location of the meeting (e.g. RA-5148), at what time the meeting starts (in the following format: dd/mm/yyyy hh:mm), the datetimepicker can help to fill in this field, then you should fill in at what time the meeting will end (This work exactly the same as the previous field). Finally, the organization of the OLC meeting should be filled in (e.g. BMS).
+                    </div>
+                </div>
+             </div>
+            <div class ="panel panel-default">
+                <div id="meetings-heading" class="panel-heading" role="tab">
+                    <h2 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#questions" href="#meetings-question" aria-expanded="false" aria-controls="meetings-question">Where can I find all meetings that are planned?</a>
+                    </h2>
+                </div>
+                <div id="meetings-question" class="panel-collapse collapse " style ="height: 0px" aria-expanded="false" role="tabpanel" aria-labelledby="meetings-heading">
+                    <div class="panel-body" STYLE="text-align: justify;">
+                        Scheduled meetings can be found in the menu called "Meetings", this menu lists the meetings and it indicates whether someone is assigned to the meeting to take the minutes. Furthermore, with the button in the header, a meeting can be scheduled instantly without having to navigate to the menu "Schedule a meeting".
+                    </div>
+                </div>
+             </div>
+            <div class ="panel panel-default">
+                <div id="minutes-heading" class="panel-heading" role="tab">
+                    <h2 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#questions" href="#minutes-question" aria-expanded="false" aria-controls="minutes-question">Where can I find and download minutes?</a>
+                    </h2>
+                </div>
+                <div id="minutes-question" class="panel-collapse collapse " style ="height: 0px" aria-expanded="false" role="tabpanel" aria-labelledby="minutes-heading">
+                    <div class="panel-body" STYLE="text-align: justify;">
+                        In order to download minutes from meetings that took place in the past, you should navigate to the menu named "Minutes". In this menu, the past meetings are listed. When minutes are uploaded by the student, a download button can be found on the right hand side in the list. It could be the case that a student has uploaded multiple versions of the minutes. In that case, you are able to chose which version you would like to download.
+                    </div>
+                </div>
+            </div>
+            <div class ="panel panel-default">
+                <div id="users-heading" class="panel-heading" role="tab">
+                    <h2 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#questions" href="#users-question" aria-expanded="false" aria-controls="users-question">Where can I find all users in the system?</a>
+                    </h2>
+                </div>
+                <div id="users-question" class="panel-collapse collapse " style ="height: 0px" aria-expanded="false" role="tabpanel" aria-labelledby="users-heading">
+                    <div class="panel-body" STYLE="text-align: justify;">
+                        You can find all users of the system in the menu named "Users". This menu serves multiple purposes, firstly you can thus find all users of the system, thus students, BOZ employees and persons associated to an OLC. Secondly, an account can be created by means of the add button (found in the header of the page). Thirdly, data about the users' data can be changed when requested or even a user can be deleted from the list.
+                        <br>
+                        <h4>How do I add a user?</h4>
+                        <p>
+                            In order to add a user, you should as previously mentioned click on the add button on top of the "Users" page. Then you should fill in the name, email and to which organization the user is associated to. Afterwards, the person can be added by submitting the form. The person for whom you filled in the data can now access the system.
+                        </p>
+                        <h4>How do I change the data of a user?</h4>
+                        <p>
+                            The data of a user can be changed by clicking on the change button in the list associated to the user. Then, the data of the user pops up enabling you to make changes to it. Afterwards, the data should be submitted.
+                        </p>
+                        <h4>How do I delete a user?</h4>
+                        <p>
+                            A user can be deleted by clicking on the delete button in the list associated to the user. Then, you will be asked whether you are certain of deleting the user. Afterwards, the user is deleted.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class ="panel panel-default">
+                <div id="organizations-heading" class="panel-heading" role="tab">
+                    <h2 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#questions" href="#organizations-question" aria-expanded="false" aria-controls="organizations-question">Where can I find all organizations in the system?</a>
+                    </h2>
+                </div>
+                <div id="organizations-question" class="panel-collapse collapse " style ="height: 0px" aria-expanded="false" role="tabpanel" aria-labelledby="organizations-heading">
+                    <div class="panel-body" STYLE="text-align: justify;">
+                        You can find all the organizations in the system in the menu named "Organizations". The organizations can be accessed, added, changed and deleted in similar steps as with users. Please refer to the previous answered question.
+                    </div>
+                </div>
+            </div>
+            <div class ="panel panel-default">
+                <div id="settings-heading" class="panel-heading" role="tab">
+                    <h2 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#questions" href="#settings-question" aria-expanded="false" aria-controls="settings-question">How do I access my personal settings?</a>
+                    </h2>
+                </div>
+                <div id="settings-question" class="panel-collapse collapse " style ="height: 0px" aria-expanded="false" role="tabpanel" aria-labelledby="settings-heading">
+                    <div class="panel-body" STYLE="text-align: justify;">
+                        You can access your personal settings by clicking on the right hand side on the tab with your name. Then, a dropdown menu opens including a tab for your settings. You can change your preferred settings by enabling the different options (notification mails and reminders of your planned meetings) and you can change your own personal data.
+                    </div>
+                </div>
+            </div>
+        </div>
     <!---------A permission that only students enjoy in order to visualize targeted help and information for students----------->
     {% elif perms.meetings_list_meetings %}
         <div>nogmeerdingen</div>
