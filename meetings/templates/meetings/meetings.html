@@ -23,9 +23,10 @@
             {% for meeting in object_list %}
                 <tr>
                     <td>{{ meeting.organization }}</td>
+
                     <td data-order="{{ meeting.begin_time|date:"YmdHi" }}">{{ meeting.begin_time }}</td>
                     <td>{{ meeting.place }}</td>
-                    {% if meeting.secretary != null %}
+                    {% if meeting.secretary != None %}
                         <td id="secretary-{{ meeting.pk }}">{{ meeting.secretary }}</td>
                     {% else %}
                         <td id="secretary-{{ meeting.pk }}">-</td>
@@ -37,10 +38,10 @@
                         <td class="btn-cell">
                         <div>
                             <input id="toggle-{{ meeting.pk }}" data-toggle="toggle" type="checkbox" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" data-size="small"
-                                    {% if meeting.is_soon %} disabled {% endif %}
-                                   checked="{% if meeting.secretary != None %}checked{% endif %}"
-                                   {% if meeting.secretary != None and meeting.secretary != request.user  %}disabled{% endif %}>
-                            <div id="console-event"></div>
+                               autocomplete="off"
+                               {% if meeting.secretary != None %}checked{% endif %}
+                               {% if meeting.is_soon %}disabled{% elif meeting.secretary != None and meeting.secretary != request.user %}disabled{% endif %}>
+
                             <script>
                                 $(function() {
                                     $('#toggle-{{ meeting.pk }}').change(function() {
