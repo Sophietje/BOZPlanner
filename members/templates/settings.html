@@ -10,6 +10,17 @@
     <!---------A permission that only the BOZ enjoys in order to visualize targeted help and information for the BOZ------------>
     {% if perms.meetings_create_meeting %}
         <div>dingen</div>
+        {% if request.user.preferences.email %}
+            Ja email woei
+        {% else %}
+            Geen email woei :(
+        {% endif %}
+
+        Selected orgas:
+        {% for orga in request.user.preferences.organizations %}
+            {{ orga }}
+        {% endfor %}
+        {# For all organisations in model.organisations, check if in preferences.organisations, then show selected, otherwise not. #}
     <!---------A permission that only students enjoy in order to visualize targeted help and information for students----------->
     {% elif perms.meetings_list_meetings %}
         <div>nogmeerdingen</div>
