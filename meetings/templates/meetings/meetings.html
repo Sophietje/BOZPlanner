@@ -80,7 +80,7 @@
         <div id="editModal-{{ meeting.pk }}" class="modal fade" role="form">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" action="{% url 'meetings:meeting-update' meeting.id %}">
+                    <form method="post" action="{% url 'meetings:meeting-update' meeting.id %}" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Edit meeting</h4>
@@ -105,7 +105,7 @@
         <div id="deleteModal-{{ meeting.pk }}" class="modal fade" role="form">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" action="{% url 'meetings:meeting-delete' meeting.pk %}">
+                    <form method="post" action="{% url 'meetings:meeting-delete' meeting.pk %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
