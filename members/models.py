@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User, Permission, Group, AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Person(AbstractUser):
@@ -61,3 +63,15 @@ class Organization(models.Model):
 
     def __str__(self):
         return self.name
+
+class Preferences(models.Model):
+    person = models.OneToOneField("Person")
+    overview = models.BooleanField(default=False)
+    reminder = models.BooleanField(default=False)
+    organizations = models.ManyToManyField(Organization)
+
+
+@receiver(post_save, sender=Person)
+def create_preferences(sender, instance, created, **kwargs):
+     if created:
+         Preferences.objects.create(person=instance)
