@@ -10,15 +10,14 @@
         {% endif %}
     </h1>
 
-    <table class="table table-hover data-table">
+    <table class="table table-hover data-table" data-order='[[0, "asc"]]'>
         <thead>
             <tr>
                 <th>{% trans 'Name' %}</th>
                 <th>{% trans 'E-mail address' %}</th>
                 <th>{% trans 'Groups' %}</th>
                 <th>{% trans 'Organizations' %}</th>
-                {% if perms.members.change_person %}<th class="btn-cell"><!-- Edit --></th>{% endif %}
-                {% if perms.members.delete_person %}<th class="btn-cell"><!-- Delete --></th>{% endif %}
+                <th class="btn-cell no-sort"><!-- Buttons --></th>
             </tr>
         </thead>
         <tbody>
@@ -38,16 +37,19 @@
                 <td>
                     {{ person.organizations.all|join:", "|default:"—" }}
                 </td>
-                {% if perms.members.change_person %}<td class="btn-cell">
-                    <a href="{% url 'members:person_update' person.id %}" class="btn btn-default">
-                        <i class="glyphicon glyphicon-pencil"></i>
-                    </a>
-                </td>{% endif %}
-                {% if perms.members.delete_person %}<td class="btn-cell">
-                    <a href="{% url 'members:person_delete' person.id %}" class="btn btn-default">
-                        <i class="glyphicon glyphicon-remove"></i>
-                    </a>
-                </td>{% endif %}
+                <td class="btn-cell"><div>
+                    {% if perms.members.change_person %}
+                        <a href="{% url 'members:person_update' person.id %}" class="btn btn-default">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                    &nbsp;
+                    {% endif %}
+                    {% if perms.members.delete_person %}
+                        <a href="{% url 'members:person_delete' person.id %}" class="btn btn-default">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                    {% endif %}
+                </div></td>
             </tr>
         {% endfor %}
         </tbody>

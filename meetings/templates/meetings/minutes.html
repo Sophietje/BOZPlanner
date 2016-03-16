@@ -5,18 +5,14 @@
     <h1>Minutes</h1>
     <hr>
     <div class="table-responsive">
-       <table class="table table-hover data-table">
+       <table class="table table-hover data-table" data-order='[[1, "desc"]]'>
             <thead>
                 <tr>
                     <th>Subject</th>
                     <th>Date & Time</th>
                     <th>Location</th>
                     <th>Secretary</th>
-                    {% if user.request.is_planner %}
-                        <th class="btn-cell">Download</th>
-                    {% else %}
-                        <th class="btn-cell">Upload</th>
-                    {% endif %}
+                    <th class="btn-cell no-sort">Download/Upload</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,12 +20,12 @@
                 {% for meeting in object_list %}
                     <tr>
                         <td>{{ meeting.organization }}</td>
-                        <td>{{ meeting.begin_time }}</td>
+                        <td data-order="{{ meeting.begin_time|date:"YmdHi" }}">{{ meeting.begin_time }}</td>
                         <td>{{ meeting.place }}</td>
                         <td>{{ meeting.secretary }}</td>
 
                         <!------------------There should be a download button to request the meetings-------->
-                        <td class="btn-cell">
+                        <td class="btn-cell"><div>
                             {# Upload minutes form #}
                             <form method="post" action="{% url 'meetings:minutes-upload' %}" class="upload-form" enctype="multipart/form-data">
                                 {% csrf_token %}
@@ -40,16 +36,16 @@
                                 </button>
                             </form>
 
+                            &nbsp;
+
                             {% if meeting.minutes.all|length == 0%}
                                 {# nop #}
-                            {% elif meeting.minutes.all|length == 1%}
-                                {# If there is only one upload, show download button #}
-
-                                <button type="button" class="btn btn-default">
-                                  <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download
-                                </button>
-
-                            {% else %}
+                            {% elif meeting.minutes.all|length == 1%}{% with meeting.minutes.all|first as minutes %}
+                                <a type="button" class="btn btn-default" href="{% url 'meetings:minutes-download' minutes.pk %}">
+                                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download
+                                    <span class="caret" style="visibility: hidden"><!-- Dummy for whitespace --></span>
+                                </a>
+                            {% endwith %}{% else %}
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download <span class="caret"></span>
@@ -62,7 +58,7 @@
                                     </ul>
                                 </div>
                             {% endif %}
-                        </td>
+                        </div></td>
                     </tr>
                 {% endfor %}
            </tbody>

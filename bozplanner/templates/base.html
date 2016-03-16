@@ -32,9 +32,18 @@
          href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
         <script type="text/javascript">
-            $(document).ready(function() {
-                $('.data-table').DataTable({
-                        responsive: true
+            $(function() {
+                $('.data-table').each(function() {
+                    var table = $(this);
+                    table.DataTable({
+                        responsive: true,
+                        order: JSON.parse(table.attr('data-order')),
+                        ordering: true,
+                        aoColumnDefs: [{ 
+                            bSortable: false,
+                            aTargets: ["no-sort"]
+                        }]
+                    })
                 });
             });
         </script>
