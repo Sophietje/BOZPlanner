@@ -42,7 +42,9 @@
                                {% if meeting.secretary != None and meeting.secretary != request.user  %}disabled{% endif %}>
                         <div id="console-event"></div>
                         <script>
+
                             $(function() {
+                                $('#toggle-{{ meeting.pk }}').bootstrapToggle('off')
                                 $('#toggle-{{ meeting.pk }}').change(function() {
                                     $.post('/meetings/{{ meeting.pk }}/toggle/', {csrfmiddlewaretoken: $.cookie('csrftoken')}, function(data) {
                                         if(data.error) {
