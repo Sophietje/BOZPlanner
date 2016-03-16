@@ -39,7 +39,7 @@
                         <input id="toggle-{{ meeting.pk }}" data-toggle="toggle" type="checkbox" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" data-size="small"
                                autocomplete="off"
                                {% if meeting.secretary != None %}checked{% endif %}
-                               {% if meeting.secretary != None and meeting.secretary != request.user  %}disabled{% endif %}>
+                               {% if meeting.is_soon %}disabled{% elif meeting.secretary != None and meeting.secretary != request.user %}disabled{% endif %}>
 
                         <script>
 
