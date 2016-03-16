@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^members/', (members.urls.urlpatterns, 'members', 'members')),
     url(r'^meetings/', include(meetings.urls)),
     url(r'^$', views.index, name=''),
-    url(r'^help/', views.HelpView.as_view(), name="help")
+    url(r'^help/', views.HelpView.as_view(), name="help"),
 ]
 
 if HAVE_DJANGOSAML2:

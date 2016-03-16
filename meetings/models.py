@@ -62,6 +62,8 @@ class Minutes(models.Model):
     """Minutes corresponding to a meeting"""
     meeting = models.ForeignKey("Meeting", related_name='minutes')
     file = models.FileField()
+    original_name = models.TextField()
+    date = models.DateTimeField()
     approved_by = models.ForeignKey("members.Person", blank=True, null=True)
 
     class Meta:
