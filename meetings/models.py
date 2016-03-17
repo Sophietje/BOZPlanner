@@ -26,7 +26,6 @@ class Meeting(models.Model):
 
     @property
     def is_soon(self):
-        print("in method is_soon")
         td=(self.begin_time - datetime.now())
         return td.days <= 7
 
