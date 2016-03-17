@@ -11,7 +11,7 @@ from members.models import Person, Organization
 class PermissionDeniedView(TemplateView):
     template_name = "http/templates/403.html"
 
-@permission_required("members.list_person")
+@permission_required("members.list_persons")
 class PersonsView(TemplateView):
     template_name = "person/list.html"
 

@@ -42,14 +42,14 @@ class MeetingsView(TemplateView):
 
         return locals()
 
-@permission_required("meetings.create_meeting")
+@permission_required("meetings.add_meeting")
 class ScheduleAMeetingView(CreateView):
     model = Meeting
     fields = ['organization', 'begin_time', 'end_time', 'place']
     success_url = reverse_lazy('meetings:meetings-list')
     template_name = 'meetings/schedule_a_meeting.html'
 
-@permission_required("meetings.add_meeting")
+@permission_required("meetings.change_meeting")
 class MeetingUpdate(UpdateView):
     model = Meeting
     form_class = MeetingForm
@@ -69,13 +69,12 @@ class MeetingToggleView(View):
 
         return JsonResponse({"error": False, "secretary": meeting.secretary.get_full_name() if meeting.secretary else "-"})
 
-
-
-
+@permission_required('meetings.delete_meeting')
 class MeetingDelete(DeleteView):
     model = Meeting
     success_url = reverse_lazy('meetings:meetings-list')
 
+@permission_required('meetings.add_secretary')
 class MeetingAddSecretary(UpdateView):
     model = Meeting
     fields = ['secretary']
