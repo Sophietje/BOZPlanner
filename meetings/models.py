@@ -1,7 +1,7 @@
 import os
 from uuid import uuid4
 
-import datetime
+
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -26,8 +26,8 @@ class Meeting(models.Model):
 
     @property
     def is_soon(self):
-        dt = self.begin_time - datetime.now()
-        return dt.days <= 7
+        td=(self.begin_time - datetime.now())
+        return td.days <= 7
 
     def as_icalendar_event(self):
         """Returns a copy of this meeting as an iCalendar event

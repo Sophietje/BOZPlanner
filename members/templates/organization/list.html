@@ -8,15 +8,15 @@
                 <i class="glyphicon glyphicon-plus"></i>
             </a>
         {% endif %}
+        <hr>
     </h1>
 
-    <table class="table table-hover data-table">
+    <table class="table table-hover data-table" data-order='[[0, "asc"]]'>
         <thead>
             <tr>
                 <th>{% trans 'Name' %}</th>
                 <th>{% trans 'Organization' %}</th>
-                {% if perms.members.change_organization %}<th class="btn-cell"><!-- Edit --></th>{% endif %}
-                {% if perms.members.delete_organization %}<th class="btn-cell"><!-- Delete --></th>{% endif %}
+                <th class="btn-cell no-sort"><!-- Buttons --></th>
             </tr>
         </thead>
         <tbody>
@@ -28,16 +28,21 @@
                 <td>
                     {{ organization.parent_organization.name }}
                 </td>
-                {% if perms.members.change_organization %}<td class="btn-cell">
-                    <a href="{% url 'members:organization_update' organization.id %}" class="btn btn-default">
-                        <i class="glyphicon glyphicon-pencil"></i>
-                    </a>
-                </td>{% endif %}
-                {% if perms.members.delete_organization %}<td class="btn-cell">
-                    <a href="{% url 'members:organization_delete' organization.id %}" class="btn btn-default">
-                        <i class="glyphicon glyphicon-remove"></i>
-                    </a>
-                </td>{% endif %}
+                <td class="btn-cell">
+                    <div>
+                        {% if perms.members.change_organization %}
+                            <a href="{% url 'members:organization_update' organization.id %}" class="btn btn-default">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+                        &nbsp;
+                        {% endif %}
+                        {% if perms.members.delete_organization %}
+                            <a href="{% url 'members:organization_delete' organization.id %}" class="btn btn-default">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

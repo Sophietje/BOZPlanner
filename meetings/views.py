@@ -94,7 +94,7 @@ class MinutesView(TemplateView):
 
     def get_context_data(self, **kwargs):
         # Should be able to see all meetings (with minutes) for which you were secretary
-        q1 = Q(secretary = self.request.user)
+        q1 = Q(secretary = self.request.user) & Q(begin_time__lt=datetime.datetime.now())
         context = super(MinutesView, self).get_context_data()
 
         # Should be able to see all meetings (with minutes) from own organizations

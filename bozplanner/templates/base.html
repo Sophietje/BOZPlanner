@@ -31,9 +31,18 @@
         <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.min.css">
 
         <script type="text/javascript">
-            $(document).ready(function() {
-                $('.data-table').DataTable({
-                        responsive: true
+            $(function() {
+                $('.data-table').each(function() {
+                    var table = $(this);
+                    table.DataTable({
+                        responsive: true,
+                        order: JSON.parse(table.attr('data-order')),
+                        ordering: true,
+                        aoColumnDefs: [{
+                            bSortable: false,
+                            aTargets: ["no-sort"]
+                        }]
+                    })
                 });
             });
         </script>
