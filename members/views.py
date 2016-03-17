@@ -25,6 +25,7 @@ class PersonCreateView(CreateView):
     model = Person
     success_url = reverse_lazy("members:persons")
     fields = [
+        "username",
         "first_name",
         "last_name",
         "email",
@@ -38,6 +39,7 @@ class PersonUpdateView(UpdateView):
     model = Person
     success_url = reverse_lazy("members:persons")
     fields = [
+        "username",
         "first_name",
         "last_name",
         "email",
