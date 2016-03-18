@@ -5,7 +5,7 @@ from django.views.generic import TemplateView, CreateView, UpdateView, DeleteVie
 
 from bozplanner.settings import HAVE_DJANGOSAML2, LOGOUT_REDIRECT_URL
 from members.auth import permission_required
-from members.models import Person, Organization
+from members.models import Person, Organization, Preferences
 
 
 class PermissionDeniedView(TemplateView):
@@ -101,5 +101,13 @@ def logout(request):
         auth.logout(request)
         return redirect(LOGOUT_REDIRECT_URL)
 
-class SettingsView(TemplateView):
+class SettingsView(UpdateView):
     template_name = "settings.html"
+    model = Preferences
+    success_url = reverse_lazy("members:preferences")
+    fields = [
+        'overview',
+        'reminder'
+    ]
+    def get_object(self, queryset=None):
+       return self.request.user.preferences

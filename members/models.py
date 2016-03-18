@@ -66,9 +66,15 @@ class Organization(models.Model):
 
 class Preferences(models.Model):
     person = models.OneToOneField("Person")
-    overview = models.BooleanField(default=False)
-    reminder = models.BooleanField(default=False)
-    organizations = models.ManyToManyField(Organization)
+    overview = models.ManyToManyField(Organization, blank=True, related_name='+')
+    reminder = models.ManyToManyField(Organization, blank=True, related_name='+')
+
+    class Meta:
+        verbose_name_plural = 'Preferences'
+        verbose_name = 'Preferences'
+
+    def __str__(self):
+        return self._meta.verbose_name + ' for ' + self.person.__str__()
 
 
 @receiver(post_save, sender=Person)
