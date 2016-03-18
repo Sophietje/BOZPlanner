@@ -1,9 +1,7 @@
 Goedendag,
-{% if meetings|length == 1 %}
-Deze week vindt de volgende vergadering plaats:  {{ meetings.0.begin_time|date:"d-m-Y H:i" }} is nog geen notulist aangemeld. {% else %}
-Deze week vinden de volgende vergaderingen plaats:
+Deze week vind{% if meetings|length == 1 %}t{% else %}en{% endif %} de volgende vergadering{% if meetings|length > 1 %}en{% endif %} plaats van {{ organization }}:
 {% for meeting in meetings %}
-    - {{ meeting.begin_time|date:"d-m-Y H:i" }}{% endfor %}{% endif %}
+    - {{ meeting.begin_time|date:"d-m-Y H:i" }}{% endfor %}
 
 Met vriendelijke groet,
 BOZPlanner
