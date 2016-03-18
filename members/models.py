@@ -66,8 +66,8 @@ class Organization(models.Model):
 
 class Preferences(models.Model):
     person = models.OneToOneField("Person")
-    overview = models.ManyToManyField(Organization, blank=True, related_name='+')
-    reminder = models.ManyToManyField(Organization, blank=True, related_name='+')
+    overview = models.ManyToManyField(Organization, blank=True, related_name='pref_overview')
+    reminder = models.ManyToManyField(Organization, blank=True, related_name='pref_reminder')
 
     class Meta:
         verbose_name_plural = 'Preferences'
