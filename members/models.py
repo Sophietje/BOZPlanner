@@ -69,6 +69,9 @@ class Preferences(models.Model):
     overview = models.ManyToManyField(Organization, blank=True, related_name='pref_overview')
     reminder = models.ManyToManyField(Organization, blank=True, related_name='pref_reminder')
 
+    agenda_secretary = models.BooleanField(default=True)
+    agenda_organization = models.BooleanField(default=False)
+
     class Meta:
         verbose_name_plural = 'Preferences'
         verbose_name = 'Preferences'
