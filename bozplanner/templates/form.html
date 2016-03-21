@@ -11,5 +11,5 @@
 {% endfor %}
 
 {% for field in form.visible_fields %}
-    {% include 'form-field.html' %}
+    {{ field|fancy_form_field }}
 {% endfor %}
