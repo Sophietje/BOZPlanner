@@ -26,6 +26,11 @@ except ImportError:
     print("If you just cloned the project, you need to copy local.template.py to local.py and edit the values for your local setup.")
     raise
 
+try:
+    import debug_toolbar
+    HAVE_DEBUG_TOOLBAR = True
+except ImportError:
+    HAVE_DEBUG_TOOLBAR = False
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -139,6 +144,11 @@ try:
 except ImportError:
     print("If you just cloned the project, you need to copy local.template.py to local.py and edit the values for your local setup.")
     raise
+
+if HAVE_DEBUG_TOOLBAR and DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar'
+    ]
 
 EMAIL_HOST = 'smtp.utwente.nl'
 EMAIL_HOST_USER = 'bozplanner@utwente.nl'
