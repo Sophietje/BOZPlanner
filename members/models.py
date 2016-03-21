@@ -2,11 +2,13 @@ from django.contrib.auth.models import User, Permission, Group, AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.crypto import get_random_string
 
 
 class Person(AbstractUser):
     """Any user that can log in to BOZPlanner"""
     organizations = models.ManyToManyField("Organization", blank=True)
+    agenda_token = models.CharField(max_length=64, editable=False, null=True)
 
     @property
     def is_admin(self):
@@ -36,6 +38,12 @@ class Person(AbstractUser):
             result += organization.all_organizations()
 
         return result
+
+    def save(self):
+        if self.agenda_token is None:
+            self.agenda_token = get_random_string(64, "0123456789abcdef")
+
+        super(Person, self).save()
 
     class Meta:
         verbose_name = "person"
@@ -69,8 +77,10 @@ class Preferences(models.Model):
     overview = models.ManyToManyField(Organization, blank=True, related_name='pref_overview')
     reminder = models.ManyToManyField(Organization, blank=True, related_name='pref_reminder')
 
-    agenda_secretary = models.BooleanField(default=True)
-    agenda_organization = models.BooleanField(default=False)
+    agenda_secretary = models.BooleanField(default=True,
+        verbose_name="Include meetings in your agenda of which you are the secretary")
+    agenda_organization = models.BooleanField(default=False,
+        verbose_name="Include meetings in your agenda which belong to your organizations")
 
     class Meta:
         verbose_name_plural = 'Preferences'

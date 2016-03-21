@@ -12,6 +12,7 @@ from django.http import HttpResponse, JsonResponse
 from meetings.forms import MeetingForm
 from meetings.models import Meeting, Minutes
 from members.auth import permission_required
+from members.models import Person
 
 
 @permission_required('meetings.list_meetings')
@@ -136,6 +137,25 @@ class MinutesDownloadView(View):
         response['Content-Disposition']= 'attachment; filename=%s' % urllib.parse.quote(file.original_name)
         return response
 
+class AgendaView(View):
+    def get(self, request, pk, token):
+        person = get_object_or_404(Person, pk=pk)
+
+        if person.agenda_token != token:
+            raise PermissionError
+
+        meeting_filter = ~Q()
+
+        if person.preferences.agenda_secretary:
+            meeting_filter |= Q(secretary=person)
+
+        if person.preferences.agenda_organization:
+            meeting_filter |= Q(organization__in=person.all_organizations)
+
+        print(Meeting.objects.filter(meeting_filter).query)
+
+        calendar = Meeting.objects.filter(meeting_filter).as_icalendar()
+        return HttpResponse(calendar.to_ical(), content_type="text/calendar")
 
 def filter_meetings(perms):
     return Meeting.objects.filter(perms)

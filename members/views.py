@@ -109,7 +109,9 @@ class SettingsView(UpdateView):
     success_url = reverse_lazy("members:preferences")
     fields = [
         'overview',
-        'reminder'
+        'reminder',
+        'agenda_secretary',
+        'agenda_organization',
     ]
     def get_object(self, queryset=None):
        return self.request.user.preferences
