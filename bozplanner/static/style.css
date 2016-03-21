@@ -61,3 +61,16 @@ table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after
     left: 4px;
     display: inline-block;
 }
+
+.panel-title a {
+    text-decoration: none;
+}
+
+.panel-title a i {
+    transform: rotate(180deg);
+    transition: transform 200ms;
+}
+
+.panel-title a.collapsed i {
+    transform: rotate(360deg);
+}
