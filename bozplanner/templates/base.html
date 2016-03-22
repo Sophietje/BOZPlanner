@@ -45,6 +45,30 @@
                     })
                 });
             });
+
+            $(function() {
+                var oldBegin;
+
+               $('input[name=begin_time]').focus(function() {
+                   var self = $(this);
+                   oldBegin = self.closest('.date').data('DateTimePicker').date();
+                   console.log(oldBegin);
+               }).closest('.date').on('dp.change', function() {
+                   var self = $(this);
+
+                   var begin = self.data('DateTimePicker').date();
+                   var endInput = self.closest('form').find('input[name=end_time]');
+                   var end = endInput.closest('.date').data('DateTimePicker').date();
+
+                   if(begin !== null) {
+                       if(end === null) {
+                           endInput.val(begin.format('DD-MM-Y HH:mm'));
+                       } else {
+                           endInput.val(begin.clone().add(end.diff(oldBegin)).format('DD-MM-Y HH:mm'));
+                       }
+                   }
+               });
+            });
         </script>
     </head>
     <body>
