@@ -29,7 +29,7 @@
                     {% if meeting.secretary != None %}
                         <td id="secretary-{{ meeting.pk }}">{{ meeting.secretary }}</td>
                     {% else %}
-                        <td id="secretary-{{ meeting.pk }}">-</td>
+                        <td id="secretary-{{ meeting.pk }}"><em><small>None</small></em></td>
                     {% endif %}
 
                     {%  if request.user.is_planner %}
