@@ -27,7 +27,7 @@ class Meeting(models.Model):
     @property
     def is_soon(self):
         td=(self.begin_time - datetime.now())
-        return td.days <= 7
+        return td.days <= 10
 
     def as_icalendar_event(self):
         """Returns a copy of this meeting as an iCalendar event
