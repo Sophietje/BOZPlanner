@@ -82,6 +82,9 @@ class Preferences(models.Model):
     agenda_organization = models.BooleanField(default=False,
         verbose_name="Include meetings in your agenda which belong to your organizations")
 
+    zoom_in = models.BooleanField(default=False,
+        verbose_name="Always zoom in the page")
+
     class Meta:
         verbose_name_plural = 'Preferences'
         verbose_name = 'Preferences'

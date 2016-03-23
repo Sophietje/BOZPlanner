@@ -11,6 +11,8 @@
     {% if perms.meetings_create_meeting %}
         <form method="post">
             {% csrf_token %}
+            <h2>General</h2>
+            {{ form.zoom_in|fancy_form_field }}
             <h2>Email</h2>
             {{ form.overview|fancy_form_field }}
             {{ form.reminder|fancy_form_field }}

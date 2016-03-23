@@ -1,3 +1,9 @@
+.zoom-in {
+    transform: scale(1.25);
+    transform-origin: 50% 0;
+    overflow-x: hidden;
+}
+
 .btn-cell {
     width: 1px;
 }

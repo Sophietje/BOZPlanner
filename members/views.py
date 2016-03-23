@@ -115,6 +115,7 @@ class SettingsView(UpdateView):
         'reminder',
         'agenda_secretary',
         'agenda_organization',
+        'zoom_in',
     ]
 
     def get_object(self, queryset=None):

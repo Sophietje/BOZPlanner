@@ -147,7 +147,7 @@ except ImportError:
 
 if HAVE_DEBUG_TOOLBAR and DEBUG:
     INSTALLED_APPS += [
-        'debug_toolbar'
+        # 'debug_toolbar'
     ]
 
 EMAIL_HOST = 'smtp.utwente.nl'
