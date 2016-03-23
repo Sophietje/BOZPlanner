@@ -11,5 +11,5 @@ class UploadForm(forms.Form):
 
 class MeetingForm(forms.ModelForm):
     class Meta:
-        fields = ['place', 'begin_time', 'end_time', 'secretary', 'organization']
+        fields = ['organization', 'secretary', 'begin_time', 'end_time', 'place']
         model = Meeting

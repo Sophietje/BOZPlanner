@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User, Permission, Group, AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.crypto import get_random_string
+from django.utils.translation import ugettext_lazy as _
 
 
 class Person(AbstractUser):
@@ -45,6 +47,20 @@ class Person(AbstractUser):
 
         super(Person, self).save()
 
+    @staticmethod
+    def validate_username(value):
+        error = ValidationError(_('%(value)s is not a valid student number or employee number'),
+            params={'value': value})
+
+        if len(value) != 8:
+            raise error
+
+        if value[0] not in ['m', 's']:
+            raise error
+
+        if any(c not in "0123456789" for c in value[1:8]):
+            raise error
+
     class Meta:
         verbose_name = "person"
         permissions = [
@@ -55,11 +71,16 @@ class Person(AbstractUser):
     def __str__(self):
         return self.get_full_name()
 
+Person._meta.get_field('username').help_text = 'The student number or employee number of the user, for example s1234567 or m1234567'
+Person._meta.get_field('username').validators.append(Person.validate_username)
+Person._meta.get_field('groups').help_text = ''
 
 class Organization(models.Model):
     """An organization for which OLC meetings can be planned in BOZPlanner"""
     name = models.CharField(max_length=255)
-    parent_organization = models.ForeignKey("Organization", null=True, blank=True)
+    parent_organization = models.ForeignKey("Organization", null=True, blank=True,
+        help_text="The organization to which this organization belongs. For example, Technical Computer Science might "
+        "belong to an organization called EWI.")
 
     def all_organizations(self):
         result = [self]
