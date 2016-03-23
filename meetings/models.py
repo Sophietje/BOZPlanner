@@ -49,7 +49,7 @@ class Meeting(models.Model):
 
     def clean(self):
         if self.begin_time > self.end_time:
-            raise ValidationError
+            raise ValidationError(_('End of a meeting cannot be before the start of a meeting.'))
 
     def __str__(self):
         return _("OLC-vergadering van {}").format(self.organization)

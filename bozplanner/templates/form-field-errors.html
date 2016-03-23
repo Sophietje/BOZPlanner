@@ -1,0 +1,6 @@
+{% for error in field.errors %}
+    <div class="alert alert-danger">
+        <i class="glyphicon glyphicon-alert"></i>
+        {{ error }}
+    </div>
+{% endfor %}
