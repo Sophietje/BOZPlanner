@@ -15,6 +15,15 @@
             {{ form.overview|fancy_form_field }}
             {{ form.reminder|fancy_form_field }}
             <h2>Agenda</h2>
+            <p>
+                {% trans 'Add to:' %}
+            </p>
+            <div class="btn-group">
+                <a href="{{ webcal_url }}" class="btn btn-default">Outlook</a>
+                <a href="{{ google_url }}" class="btn btn-default">Google Calendar</a>
+                <a href="{{ webcal_url }}" class="btn btn-default">Apple Calendar</a>
+            </div>
+            <p></p>
             {{ form.agenda_secretary|fancy_form_field }}
             {{ form.agenda_organization|fancy_form_field }}
             <a href="{% url 'members:organizations' %}" class="btn btn-default">{% trans 'Back' %}</a>
