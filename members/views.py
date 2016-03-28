@@ -116,6 +116,7 @@ class SettingsView(UpdateView):
         'agenda_secretary',
         'agenda_organization',
         'zoom_in',
+        'overview_student'
     ]
 
     def get_object(self, queryset=None):
