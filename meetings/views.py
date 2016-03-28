@@ -8,6 +8,8 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, View, TemplateView
 from django.http import HttpResponse, JsonResponse
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
 
 from meetings.forms import MeetingForm
 from meetings.models import Meeting, Minutes
@@ -62,9 +64,11 @@ class MeetingToggleView(View):
         if meeting.secretary is None:
             meeting.secretary = request.user
             meeting.save()
+            send_confirmation_email(meeting,request.user, True)
         elif meeting.secretary == request.user:
             meeting.secretary = None
             meeting.save()
+            send_confirmation_email(meeting,request.user, False)
         else:
             return JsonResponse({"error": True, "error_message": _("Someone has already claimed this meeting.")})
 
@@ -162,6 +166,18 @@ def filter_meetings(perms):
 
 def filter_minutes(perms):
     return Minutes.objects.filter(perms)
+
+def send_confirmation_email(meeting, person, added=True):
+    mail_context = {'meeting' : meeting, 'added' : added}
+    subject = '[BOZPlanner] Confirmation meeting '+meeting.begin_time.strftime('%Y-%m-%d %H:%M')
+    text_content = get_template('confirmation_mail_student_plain.html').render(context=mail_context)
+    html_content = get_template('confirmation_mail_student_html.html').render(context=mail_context)
+    from_email   = 'bozplanner@utwente.nl'
+    to           = [person.email]
+
+    mail = EmailMultiAlternatives(subject, text_content, from_email, to)
+    mail.attach_alternative(html_content, "text/html")
+    mail.send()
 
 
 
