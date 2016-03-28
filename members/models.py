@@ -41,11 +41,11 @@ class Person(AbstractUser):
 
         return result
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.agenda_token is None:
             self.agenda_token = get_random_string(64, "0123456789abcdef")
 
-        super(Person, self).save()
+        super(Person, self).save(*args, **kwargs)
 
     @staticmethod
     def validate_username(value):
