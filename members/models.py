@@ -103,7 +103,8 @@ class Preferences(models.Model):
     agenda_organization = models.BooleanField(default=False,
         verbose_name="Include meetings in your agenda which belong to your organizations")
     overview_student = models.ManyToManyField(Organization, blank=True, related_name='student_pref_overview')
-    #confirmation_student = todo:Kijken wat voor field dan als niet manytomany.
+    confirmation_student = models.BooleanField(default=True,
+        verbose_name="Receive confirmation mail when adding yourself to a meeting")
 
     zoom_in = models.BooleanField(default=False,
         verbose_name="Always zoom in the page")
