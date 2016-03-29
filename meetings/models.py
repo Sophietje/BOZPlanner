@@ -57,6 +57,14 @@ class Meeting(models.Model):
     def get_absolute_url(self):
         return reverse('meetings:meetings-list')
 
+    class Meta:
+        verbose_name = "Meetings"
+        permissions = [
+            ("list_meetings", "Can list meetings"),
+            ("view_organization", "Can view meetings from own organization"),
+            ("view_all", "Can view all meetings"),
+        ]
+
 
 class Minutes(models.Model):
     """Minutes corresponding to a meeting"""

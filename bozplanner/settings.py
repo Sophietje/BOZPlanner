@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'meetings',
     'utwente',
     'bozplanner',
+    'django_extensions',
 ]
 
 if HAVE_DJANGOSAML2:
