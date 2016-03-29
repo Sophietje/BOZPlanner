@@ -36,6 +36,7 @@
     {% if perms.meetings_list_meetings %}
             <h2>E-mail</h2>
             {{ form.overview_student|fancy_form_field }}
+            {{ form.confirmation_student|fancy_form_field }}
     {%  endif %}
 
         <a href="{% url 'members:organizations' %}" class="btn btn-default">{% trans 'Back' %}</a>

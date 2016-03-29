@@ -15,6 +15,7 @@ from meetings.forms import MeetingForm
 from meetings.models import Meeting, Minutes
 from members.auth import permission_required
 from members.models import Person
+from tasks import send_mail
 
 
 @permission_required('meetings.list_meetings')
@@ -176,7 +177,7 @@ def send_confirmation_email(meeting, person, added=True):
 
     mail = EmailMultiAlternatives(subject, text_content, from_email, to)
     mail.attach_alternative(html_content, "text/html")
-    mail.send()
+    send_mail.delay(mail)
 
 
 

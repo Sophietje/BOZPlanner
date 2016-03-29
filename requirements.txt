@@ -1,3 +1,5 @@
 Django==1.9.2
 -e hg+https://bitbucket.org/pieter12321/djangosaml2#egg=djangosaml2
 icalendar
+celery
+django-celery
