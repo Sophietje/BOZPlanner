@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.template.loader import get_template
 from meetings.models import Meeting
 from members.models import Organization
+from tasks import send_mail
 
 
 class Command(BaseCommand):
@@ -24,4 +25,4 @@ class Command(BaseCommand):
 
                 mail = EmailMultiAlternatives(subject, text_content, from_email, to)
                 mail.attach_alternative(html_content, "text/html")
-                mail.send()
+                send_mail.delay(mail)

@@ -1,5 +1,6 @@
 import os
 import sys
+import djcelery
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
@@ -32,6 +33,7 @@ try:
 except ImportError:
     HAVE_DEBUG_TOOLBAR = False
 
+djcelery.setup_loader()
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -44,11 +46,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'djcelery',
+    'kombu.transport.django',
+
     'members',
     'meetings',
     'utwente',
     'bozplanner',
 ]
+
+BROKER_URL = 'django://'
 
 if HAVE_DJANGOSAML2:
     INSTALLED_APPS += [
