@@ -2,12 +2,12 @@
 <!doctype html>
 <html>
     <head>
-        <title>{% trans 'BOZ Planner' %}</title>
+        <title>{% trans 'BOZ-Planner' %}</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
-        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'bootstrap-toggle.css' %}">
 
         <link rel="stylesheet" href="{% static 'datatables.min.css' %}">
 
@@ -21,15 +21,17 @@
         <script src="{% static 'jquery.cookie.js' %}"></script>
         <!-- Include all compiled plugins -->
         <script src="{% static 'bootstrap.min.js' %}"></script>
-        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+        <script src="{% static 'bootstrap-toggle.min.js' %}"></script>
         <!---Include datatables thingie---->
         <script src="{% static 'jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'datatables.bootstrap.min.js' %}"></script>
         <script src="{% static 'bootstrap-multiselect.js' %}"></script>
         <script src="{% static 'pnotify.custom.min.js' %}"></script>
         <!-- Include DateTimePicker thingies ---->
-        <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
-
+        <link rel="stylesheet" href={%  static 'datetimpicker.min.css' %}>
+        <!-- Include datetime thingies ---------->
+        <script src="{% static 'moment.min.js' %}"></script>
+        <script src="{% static 'bootstrap.datetime.min.js' %}"></script>
         <script type="text/javascript">
             $(function() {
                 $('.data-table').each(function() {
