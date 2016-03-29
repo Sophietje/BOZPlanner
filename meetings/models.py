@@ -18,17 +18,16 @@ class Meeting(models.Model):
     objects = MeetingManager()
 
     place = models.CharField(max_length=255)
-    begin_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    begin_time = models.DateTimeField(verbose_name="Begin Date & Time")
+    end_time = models.DateTimeField(verbose_name="End Date & Time")
     secretary = models.ForeignKey("members.Person", related_name="secretary", blank=True, null=True)
     organization = models.ForeignKey("members.Organization")
     planner = models.ForeignKey("members.Person", related_name="planner", blank=True, null=True)
 
     @property
     def is_soon(self):
-        print("in method is_soon")
         td=(self.begin_time - datetime.now())
-        return td.days <= 7
+        return td.days <= 10
 
     def as_icalendar_event(self):
         """Returns a copy of this meeting as an iCalendar event
@@ -50,7 +49,7 @@ class Meeting(models.Model):
 
     def clean(self):
         if self.begin_time > self.end_time:
-            raise ValidationError
+            raise ValidationError(_('End of a meeting cannot be before the start of a meeting.'))
 
     def __str__(self):
         return _("OLC-vergadering van {}").format(self.organization)

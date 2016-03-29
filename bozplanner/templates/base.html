@@ -28,8 +28,7 @@
         <script src="{% static 'bootstrap-multiselect.js' %}"></script>
         <script src="{% static 'pnotify.custom.min.js' %}"></script>
         <!-- Include DateTimePicker thingies ---->
-        <link rel="stylesheet" type="text/css" media="screen"
-         href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
 
         <script type="text/javascript">
             $(function() {
@@ -46,9 +45,33 @@
                     })
                 });
             });
+
+            $(function() {
+                var oldBegin;
+
+               $('input[name=begin_time]').focus(function() {
+                   var self = $(this);
+                   oldBegin = self.closest('.date').data('DateTimePicker').date();
+                   console.log(oldBegin);
+               }).closest('.date').on('dp.change', function() {
+                   var self = $(this);
+
+                   var begin = self.data('DateTimePicker').date();
+                   var endInput = self.closest('form').find('input[name=end_time]');
+                   var end = endInput.closest('.date').data('DateTimePicker').date();
+
+                   if(begin !== null) {
+                       if(end === null) {
+                           endInput.val(begin.format('DD-MM-Y HH:mm'));
+                       } else {
+                           endInput.val(begin.clone().add(end.diff(oldBegin)).format('DD-MM-Y HH:mm'));
+                       }
+                   }
+               });
+            });
         </script>
     </head>
-    <body>
+    <body {% if request.user.preferences.zoom_in %}class="zoom-in"{% endif %}>
         {% block menu %}{% include 'menu.html' with active='' %}{% endblock %}
 
         <div class="container">

@@ -1,11 +1,14 @@
+from urllib.parse import urlencode
+
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView, View
 
+from bozplanner.local import WEBCAL_BASE
 from bozplanner.settings import HAVE_DJANGOSAML2, LOGOUT_REDIRECT_URL
 from members.auth import permission_required
-from members.models import Person, Organization
+from members.models import Person, Organization, Preferences
 
 
 class PermissionDeniedView(TemplateView):
@@ -25,6 +28,7 @@ class PersonCreateView(CreateView):
     model = Person
     success_url = reverse_lazy("members:persons")
     fields = [
+        "username",
         "first_name",
         "last_name",
         "email",
@@ -38,6 +42,7 @@ class PersonUpdateView(UpdateView):
     model = Person
     success_url = reverse_lazy("members:persons")
     fields = [
+        "username",
         "first_name",
         "last_name",
         "email",
@@ -101,5 +106,28 @@ def logout(request):
         auth.logout(request)
         return redirect(LOGOUT_REDIRECT_URL)
 
-class SettingsView(TemplateView):
+class SettingsView(UpdateView):
     template_name = "settings.html"
+    model = Preferences
+    success_url = reverse_lazy("members:preferences")
+    fields = [
+        'overview',
+        'reminder',
+        'agenda_secretary',
+        'agenda_organization',
+        'zoom_in',
+        'overview_student'
+    ]
+
+    def get_object(self, queryset=None):
+       return self.request.user.preferences
+
+    def get_context_data(self, **kwargs):
+        context = super(SettingsView, self).get_context_data()
+        context['webcal_url'] = 'webcal://{}/meetings/agenda/{}/{}'.format(
+            WEBCAL_BASE, self.request.user.id, self.request.user.agenda_token)
+        google_args = {'cid': 'http://{}/meetings/agenda/{}/{}'.format(
+            WEBCAL_BASE, self.request.user.id, self.request.user.agenda_token
+        )}
+        context['google_url'] = 'http://www.google.com/calendar/render?' + urlencode(google_args)
+        return context

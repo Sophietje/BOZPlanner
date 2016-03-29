@@ -4,7 +4,7 @@
 {% block content %}
     <h1>Minutes</h1>
     <hr>
-    <div class="table-responsive">
+    <div class="table">
        <table class="table table-hover data-table" data-order='[[1, "desc"]]'>
             <thead>
                 <tr>
@@ -12,7 +12,7 @@
                     <th>Date & Time</th>
                     <th>Location</th>
                     <th>Secretary</th>
-                    <th class="btn-cell no-sort">Download/Upload</th>
+                    <th class="btn-cell no-sort">Upload&nbsp;-&nbsp;Download</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +22,11 @@
                         <td>{{ meeting.organization }}</td>
                         <td data-order="{{ meeting.begin_time|date:"YmdHi" }}">{{ meeting.begin_time }}</td>
                         <td>{{ meeting.place }}</td>
-                        <td>{{ meeting.secretary }}</td>
+                        {% if meeting.secretary != None %}
+                            <td>{{ meeting.secretary }}</td>
+                        {% else %}
+                            <td><em><small>None</small></em></td>
+                        {% endif %}
 
                         <!------------------There should be a download button to request the meetings-------->
                         <td class="btn-cell"><div>

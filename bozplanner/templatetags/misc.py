@@ -24,3 +24,7 @@ def field_class_is(value, string):
 @register.filter(needs_autoescape=True)
 def fancy_form(value, autoescape=None):
     return get_template("form.html").render({"form": value})
+
+@register.filter(needs_autoescape=True)
+def fancy_form_field(value, autoescape=None):
+    return get_template("form-field.html").render({"field": value})

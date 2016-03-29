@@ -8,10 +8,13 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, View, TemplateView
 from django.http import HttpResponse, JsonResponse
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
 
 from meetings.forms import MeetingForm
 from meetings.models import Meeting, Minutes
 from members.auth import permission_required
+from members.models import Person
 
 
 @permission_required('meetings.list_meetings')
@@ -61,9 +64,11 @@ class MeetingToggleView(View):
         if meeting.secretary is None:
             meeting.secretary = request.user
             meeting.save()
+            send_confirmation_email(meeting,request.user, True)
         elif meeting.secretary == request.user:
             meeting.secretary = None
             meeting.save()
+            send_confirmation_email(meeting,request.user, False)
         else:
             return JsonResponse({"error": True, "error_message": _("Someone has already claimed this meeting.")})
 
@@ -135,12 +140,43 @@ class MinutesDownloadView(View):
         response['Content-Disposition']= 'attachment; filename=%s' % urllib.parse.quote(file.original_name)
         return response
 
+class AgendaView(View):
+    def get(self, request, pk, token):
+        person = get_object_or_404(Person, pk=pk)
+
+        if person.agenda_token != token:
+            raise PermissionError
+
+        meeting_filter = ~Q()
+
+        if person.preferences.agenda_secretary:
+            meeting_filter |= Q(secretary=person)
+
+        if person.preferences.agenda_organization:
+            meeting_filter |= Q(organization__in=person.all_organizations)
+
+        print(Meeting.objects.filter(meeting_filter).query)
+
+        calendar = Meeting.objects.filter(meeting_filter).as_icalendar()
+        return HttpResponse(calendar.to_ical(), content_type="text/calendar")
 
 def filter_meetings(perms):
     return Meeting.objects.filter(perms)
 
 def filter_minutes(perms):
     return Minutes.objects.filter(perms)
+
+def send_confirmation_email(meeting, person, added=True):
+    mail_context = {'meeting' : meeting, 'added' : added}
+    subject = '[BOZPlanner] Confirmation meeting '+meeting.begin_time.strftime('%Y-%m-%d %H:%M')
+    text_content = get_template('confirmation_mail_student_plain.html').render(context=mail_context)
+    html_content = get_template('confirmation_mail_student_html.html').render(context=mail_context)
+    from_email   = 'bozplanner@utwente.nl'
+    to           = [person.email]
+
+    mail = EmailMultiAlternatives(subject, text_content, from_email, to)
+    mail.attach_alternative(html_content, "text/html")
+    mail.send()
 
 
 

@@ -25,6 +25,8 @@ STATIC_URL = '/static/'
 
 USE_DJANGOSAML2 = False
 
+WEBCAL_BASE = 'bozplanner.pieterbos.me'
+
 if SECRET_KEY is None:
     print("Please edit the values in your local setup.")
     sys.exit(1)

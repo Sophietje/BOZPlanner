@@ -29,7 +29,7 @@
                     {% if meeting.secretary != None %}
                         <td id="secretary-{{ meeting.pk }}">{{ meeting.secretary }}</td>
                     {% else %}
-                        <td id="secretary-{{ meeting.pk }}">-</td>
+                        <td id="secretary-{{ meeting.pk }}"><em><small>None</small></em></td>
                     {% endif %}
 
                     {%  if request.user.is_planner %}
@@ -40,7 +40,7 @@
                             <input id="toggle-{{ meeting.pk }}" data-toggle="toggle" type="checkbox" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" data-size="small"
                                autocomplete="off"
                                {% if meeting.secretary != None %}checked{% endif %}
-                               {% if meeting.is_soon %}disabled{% elif meeting.secretary != None and meeting.secretary != request.user %}disabled{% endif %}>
+                               {% if meeting.is_soon and meeting.secretary != None %}disabled{% elif meeting.secretary != None and meeting.secretary != request.user %}disabled{% endif %}>
 
                             <script>
                                 $(function() {
@@ -122,7 +122,7 @@
                             {% endblocktrans %}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                             <input class="btn btn-danger" type="submit" value="Delete">
                         </div>
                     </form>

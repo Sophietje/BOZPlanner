@@ -1,7 +1,7 @@
 Goedendag,
 {% if meetings|length == 1 %}
-Voor de meeting van {{ meetings.0.begin_time|date:"d-m-Y H:i" }} is nog geen notulist aangemeld. {% else %}
-Voor de volgende meetings zijn nog geen notulisten aangemeld:
+Voor de meeting van {{ meetings.0.begin_time|date:"d-m-Y H:i" }} van {{ organization }} is nog geen notulist aangemeld. {% else %}
+Voor de volgende meetings van {{ organization }} zijn nog geen notulisten aangemeld:
 {% for meeting in meetings %}
     - {{ meeting.begin_time|date:"d-m-Y H:i" }}{% endfor %}{% endif %}
 

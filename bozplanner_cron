@@ -1,0 +1,9 @@
+# Cronjobs for BOZPlanner
+# Install into /etc/cron.d/ folder
+# Change user 'root' to user running django!
+
+# Minute   Hour   Day of Month       Month          Day of Week      User      Command
+# (0-59)  (0-23)     (1-31)    (1-12 or Jan-Dec)  (0-6 or Sun-Sat)
+0    8    *    *    1        root        (cd /path/to/bozplanner/ && /usr/bin/python ./manage.py overview_mail)
+0    8    *    *    1        root        (cd /path/to/bozplanner/ && /usr/bin/python ./manage.py overview_mail_student)
+0    8    *    *    *        root        (cd /path/to/bozplanner/ && /usr/bin/python ./manage.py overview_mail)

@@ -1,3 +1,9 @@
+.zoom-in {
+    transform: scale(1.25);
+    transform-origin: 50% 0;
+    overflow-x: hidden;
+}
+
 .btn-cell {
     width: 1px;
 }
@@ -60,4 +66,17 @@ table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after
     bottom: -3px;
     left: 4px;
     display: inline-block;
+}
+
+.panel-title a {
+    text-decoration: none;
+}
+
+.panel-title a i {
+    transform: rotate(180deg);
+    transition: transform 200ms;
+}
+
+.panel-title a.collapsed i {
+    transform: rotate(360deg);
 }
