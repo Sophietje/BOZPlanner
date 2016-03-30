@@ -1,6 +1,7 @@
 from urllib.parse import urlencode
 
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.forms import ModelForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView, View
@@ -8,6 +9,7 @@ from django.views.generic import TemplateView, CreateView, UpdateView, DeleteVie
 from bozplanner.local import WEBCAL_BASE
 from bozplanner.settings import HAVE_DJANGOSAML2, LOGOUT_REDIRECT_URL
 from members.auth import permission_required
+from members.forms import OrganizationForm, PersonForm
 from members.models import Person, Organization, Preferences
 
 
@@ -20,6 +22,10 @@ class PersonsView(TemplateView):
 
     def get_context_data(self):
         object_list = Person.objects.filter(is_active=True)
+
+        for person in object_list:
+            person.form = PersonForm(instance=person, auto_id="%s_" + str(person.pk))
+
         return locals()
 
 @permission_required("members.add_person")
@@ -68,6 +74,10 @@ class OrganizationsView(TemplateView):
 
     def get_context_data(self):
         object_list = Organization.objects.all()
+
+        for organization in object_list:
+            organization.form = OrganizationForm(instance=organization, auto_id="%s_" + str(organization.pk))
+
         return locals()
 
 @permission_required("members.add_organization")
