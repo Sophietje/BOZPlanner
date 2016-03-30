@@ -9,7 +9,7 @@ from django.views.generic import TemplateView, CreateView, UpdateView, DeleteVie
 from bozplanner.local import WEBCAL_BASE
 from bozplanner.settings import HAVE_DJANGOSAML2, LOGOUT_REDIRECT_URL
 from members.auth import permission_required
-from members.forms import OrganizationForm
+from members.forms import OrganizationForm, PersonForm
 from members.models import Person, Organization, Preferences
 
 
@@ -22,6 +22,10 @@ class PersonsView(TemplateView):
 
     def get_context_data(self):
         object_list = Person.objects.filter(is_active=True)
+
+        for person in object_list:
+            person.form = PersonForm(instance=person, auto_id="%s_" + str(person.pk))
+
         return locals()
 
 @permission_required("members.add_person")
