@@ -88,7 +88,7 @@ class TestsStudentMeetingsViews(TestCase):
         resp = self.client.post('/meetings/1/delete/')
         self.assertEqual(resp.status_code, 302)
 
-        # Test whether meeting no longer exists
+        # Ensure that meeting is deleted
         resp = self.client.get(reverse('meetings:meetings-list'))
         self.assertEqual([meeting.pk for meeting in resp.context['object_list']], [2, 3])
 
