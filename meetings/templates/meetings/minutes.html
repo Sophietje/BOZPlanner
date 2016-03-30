@@ -35,9 +35,20 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="meeting" value="{{ meeting.pk }}">
                                 <input type="file" name="minutes" style="display: none">
-                                <button type="button" class="btn btn-default">
-                                  <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
-                                </button>
+                                <!-----------When may you see the upload button?------------>
+                                {%  if meeting.secretary != None %}
+                                    <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                                    </button>
+                                {% elif perms.meetings_create_meeting %}
+                                    <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="btn btn-default" style="display: none;">
+                                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                                    </button>
+                                {% endif %}
                             </form>
 
                             &nbsp;
@@ -51,6 +62,7 @@
                                 </a>
                             {% endwith %}{% else %}
                                 <div class="btn-group">
+
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download <span class="caret"></span>
                                     </button>
