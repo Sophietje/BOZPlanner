@@ -24,7 +24,7 @@
         <script src="{% static 'bootstrap-toggle.min.js' %}"></script>
         <!---Include datatables thingie---->
         <script src="{% static 'jquery.dataTables.min.js' %}"></script>
-        <script src="{% static 'datatables.bootstrap.min.js' %}"></script>
+        <script src="{% static 'datatables.min.js' %}"></script>
         <script src="{% static 'bootstrap-multiselect.js' %}"></script>
         <script src="{% static 'pnotify.custom.min.js' %}"></script>
         <!-- Include DateTimePicker thingies ---->
@@ -32,6 +32,7 @@
         <!-- Include datetime thingies ---------->
         <script src="{% static 'moment.min.js' %}"></script>
         <script src="{% static 'bootstrap.datetime.min.js' %}"></script>
+        <script src="{% static 'ZeroClipboard.min.js' %}"></script>
         <script type="text/javascript">
             $(function() {
                 $('.data-table').each(function() {
@@ -43,7 +44,8 @@
                         aoColumnDefs: [{
                             bSortable: false,
                             aTargets: ["no-sort"]
-                        }]
+                        }],
+                        select: table.attr('data-select')
                     })
                 });
             });
@@ -70,6 +72,10 @@
                        }
                    }
                });
+            });
+
+            $(function() {
+                var client = new ZeroClipboard($('.copy-button'));
             });
         </script>
     </head>
