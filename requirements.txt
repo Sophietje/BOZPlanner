@@ -3,3 +3,5 @@ Django==1.9.2
 icalendar
 celery
 django-celery
+django-celery-email
+django_extensions
