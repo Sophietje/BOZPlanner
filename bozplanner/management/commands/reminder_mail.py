@@ -10,8 +10,8 @@ from tasks import send_mail
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
-        deadline_end = timezone.now().replace(hour=23,minute=59,second=59) + timezone.timedelta(days=7)
-        deadline_start = timezone.now().replace(hour=0,minute=0,second=0) + timezone.timedelta(days=7)
+        deadline_end = timezone.now().replace(hour=23,minute=59,second=59) + timezone.timedelta(days=10)
+        deadline_start = timezone.now().replace(hour=0,minute=0,second=0) + timezone.timedelta(days=10)
 
         for organization in Organization.objects.all():
             meetings = [meeting for meeting in Meeting.objects.filter(secretary = None, organization=organization, begin_time__lt=deadline_end, begin_time__gt=deadline_start).order_by('begin_time')]
