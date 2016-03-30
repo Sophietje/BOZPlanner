@@ -39,6 +39,14 @@ class TestUtils():
         user.set_password('secret')
         user.organizations.add(o)
 
+        # Add permissions belonging to admin accounts
+        user.is_superuser = True
+        user.save()
+
+        # Create a session, log the user in
+        self.client = Client()
+        self.client.force_login(user)
+
     def setupMeeting(self):
         # Get first organization in database, this should be "Test"
         o = Organization.objects.get(pk=1)

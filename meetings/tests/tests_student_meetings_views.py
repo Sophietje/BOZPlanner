@@ -42,8 +42,13 @@ class TestsStudentMeetingsViews(TestCase):
         # Test whether posting incorrect data, or try to post things you are not allowed to change as a student
 
         # Ensure that a non-existent pk throws a 404
-        resp = self.client.post('/meetings/2/toggle/')
+        resp = self.client.post('/meetings/9999/toggle/')
         self.assertEqual(resp.status_code, 404)
+
+        # Try to update a meeting, should not be allowed so user should be redirected
+        student = Person.objects.get(pk=1)
+        resp = self.client.post('/meetings/1/', {'secretary': student})
+        self.assertEqual(resp.status_code, 302)
 
         # Post unnecessary data
         student = Person.objects.get(pk=1)
