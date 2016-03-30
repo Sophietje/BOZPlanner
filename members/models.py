@@ -33,6 +33,10 @@ class Person(AbstractUser):
         return self.groups.filter(name="User Manager").exists()
 
     @property
+    def full_email(self):
+        return '{} {} <{}>'.format(self.first_name, self.last_name, self.email)
+
+    @property
     def all_organizations(self):
         result = []
 
