@@ -5,3 +5,4 @@ local.py
 media/
 venv
 __pycache__/
+*celerybeat*
