@@ -3,14 +3,15 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from meetings.models import Meeting
-from meetings.tests.test_utils import TestUtils
+from meetings.tests.test_meeting_utils import TestMeetingUtils
 from members.models import Person
+from members.tests.test_user_utils import TestUserUtils
 
 
 class TestsStudentMeetingsViews(TestCase):
     def setUp(self):
-        TestUtils.setupStudentSession(self)
-        TestUtils.setupMeeting(self)
+        TestUserUtils.setupStudentSession(self)
+        TestMeetingUtils.setupMeeting(self)
 
     def test_meetings_list(self):
         resp = self.client.get('/meetings/')
