@@ -32,7 +32,7 @@ class MeetingsView(TemplateView):
         if self.request.user.has_perm('meetings.view_organization'):
             # Second condition: Only meetings from own (sub-)organization(s) should be shown
             q2 = Q(organization__in = self.request.user.all_organizations)
-            q1 = q1 & q2
+            q1 = q1 | q2
 
         if self.request.user.has_perm('meetings.view_all'):
             # Should be able to see all meetings
