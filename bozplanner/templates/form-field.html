@@ -31,7 +31,7 @@
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
-            <input type='text' class="form-control" name="{{ field.name }}" placeholder="21-03-2016 15:16" value="{{ field.value|date:"d-m-Y H:i" }}" />
+            <input type='text' class="form-control" name="{{ field.name }}" placeholder="{% now "d-m-Y" %} 00:00" value="{{ field.value|date:"d-m-Y H:i" }}" />
         </div>
 
 
