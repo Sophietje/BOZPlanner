@@ -6,7 +6,7 @@
     {% else %}
         <h1>Create user</h1>
     {% endif %}
-
+    <hr>
     <form method="post">
         {% csrf_token %}
         {{ form|fancy_form }}
