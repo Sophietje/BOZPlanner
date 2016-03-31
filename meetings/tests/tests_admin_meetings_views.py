@@ -78,5 +78,17 @@ class TestsStudentMeetingsViews(TestCase):
         resp = self.client.post('/meetings/1/', {'organization': 5})
         self.assertEqual(resp.status_code, 200)
 
+    def test_meetings_incorrect_delete(self):
+        # Delete non-existent meeting
+        resp = self.client.post('/meetings/9999/delete/')
+        self.assertEqual(resp.status_code, 404)
 
+    def test_meetings_correct_delete(self):
+        # Delete existing meeting
+        resp = self.client.post('/meetings/1/delete/')
+        self.assertEqual(resp.status_code, 302)
+
+        # Ensure that meeting is deleted
+        resp = self.client.get(reverse('meetings:meetings-list'))
+        self.assertEqual([meeting.pk for meeting in resp.context['object_list']], [2, 3])
 

@@ -57,7 +57,13 @@ class TestsStudentMeetingsViews(TestCase):
         meeting_1 = Meeting.objects.get(pk=1)
         self.assertEqual(meeting_1.secretary, student)
 
-
+    def test_meetings_delete(self):
+        # Ensure that student may not delete a meeting
+        resp = self.client.post('/meetings/1/delete/')
+        self.assertEqual(resp.status_code, 302)
+        # Ensure meeting is not deleted
+        resp = self.client.get(reverse('meetings:meetings-list'))
+        self.assertEqual([meeting.pk for meeting in resp.context['object_list']], [1, 3])
 
 
 

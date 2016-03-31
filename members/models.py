@@ -78,6 +78,7 @@ class Person(AbstractUser):
 Person._meta.get_field('username').help_text = 'The student number or employee number of the user, for example s1234567 or m1234567'
 Person._meta.get_field('username').validators.append(Person.validate_username)
 Person._meta.get_field('groups').help_text = ''
+Person._meta.get_field('email').required = True
 
 class Organization(models.Model):
     """An organization for which OLC meetings can be planned in BOZPlanner"""

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     'djcelery',
     'kombu.transport.django',
+    'djcelery_email',
 
     'members',
     'meetings',
@@ -56,6 +57,8 @@ INSTALLED_APPS = [
     'bozplanner',
     'django_extensions',
 ]
+
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
 BROKER_URL = 'django://'
 
