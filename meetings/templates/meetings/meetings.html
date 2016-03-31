@@ -37,7 +37,7 @@
                     {% else  %}
                         <td class="btn-cell">
                         <div>
-                            <input id="toggle-{{ meeting.pk }}" data-toggle="toggle" type="checkbox" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" data-size="small"
+                            <input id="toggle-{{ meeting.pk }}" data-soon="{{ meeting.is_soon }}" data-toggle="toggle" type="checkbox" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" data-size="small"
                                autocomplete="off"
                                {% if meeting.secretary != None %}checked{% endif %}
                                {% if meeting.is_soon and meeting.secretary != None %}disabled{% elif meeting.secretary != None and meeting.secretary != request.user %}disabled{% endif %}>
@@ -57,6 +57,11 @@
                                                     $('#secretary-{{ meeting.pk }}').html('<em><small>None</small></em>');
                                                 } else {
                                                     $('#secretary-{{ meeting.pk }}').text(data.secretary);
+                                                    if($('#toggle-{{ meeting.pk }}').data("soon") == "True") {
+                                                        $('#toggle-{{ meeting.pk }}').prop('disabled', true);
+                                                        console.log($('#toggle-{{ meeting.pk }}').parent());
+                                                        $('#toggle-{{ meeting.pk }}').parent().addClass('disabled');
+                                                    }
                                                 }
                                             }
                                         });
