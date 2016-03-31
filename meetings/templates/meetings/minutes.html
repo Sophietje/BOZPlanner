@@ -55,12 +55,7 @@
 
                             {% if meeting.minutes.all|length == 0%}
                                 {# nop #}
-                            {% elif meeting.minutes.all|length == 1%}{% with meeting.minutes.all|first as minutes %}
-                                <a type="button" class="btn btn-default" href="{% url 'meetings:minutes-download' minutes.pk %}">
-                                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download
-                                    <span class="caret" style="visibility: hidden"><!-- Dummy for whitespace --></span>
-                                </a>
-                            {% endwith %}{% else %}
+                            {% else %}
                                 <div class="btn-group">
 
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,7 +64,15 @@
 
                                     <ul class="dropdown-menu pull-right">
                                         {% for minutes in meeting.minutes.all %}
-                                            <li><a href="{% url 'meetings:minutes-download' minutes.pk %}">{{ minutes.original_name }} <em><small>{{ minutes.date }}</small></em></a></li>
+                                            <li style="vertical-align: middle">
+                                                <a onclick="window.location='{% url 'meetings:minutes-download' minutes.pk %}'">
+                                                    {{ minutes.original_name }}
+                                                    <em><small>{{ minutes.date }}</small></em>
+                                                    <span onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); $('#deleteModal-{{ minutes.pk }}').modal('show')" href="#" class="btn btn-danger btn-sm" style="padding: 2px 5px; margin-left: 4px" data-toggle="modal" data-target="deleteModal-{{ minutes.pk }}">
+                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                    </span>
+                                                </a>
+                                            </li>
                                         {% endfor %}
                                     </ul>
                                 </div>
@@ -80,6 +83,31 @@
            </tbody>
        </table>
     </div>
+
+    {% for meeting in object_list %}
+        {% for minutes in meeting.minutes.all %}
+            <div id="deleteModal-{{ minutes.pk }}" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="post" action="{% url 'meetings:minutes-delete' minutes.pk %}">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Delete minutes</h4>
+                            </div>
+                            <div class="modal-body">
+                                {% csrf_token %}
+                                Are you sure you want to remove the file {{ minutes.original_name }} uploaded at {{ minutes.date }}?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
 
     <script type="text/javascript">
         $(function() {

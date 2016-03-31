@@ -53,7 +53,11 @@
                                                     type: 'error'
                                                 });
                                             } else {
-                                                $('#secretary-{{ meeting.pk }}').text(data.secretary);
+                                                if(data.secretary === null) {
+                                                    $('#secretary-{{ meeting.pk }}').html('<em><small>None</small></em>');
+                                                } else {
+                                                    $('#secretary-{{ meeting.pk }}').text(data.secretary);
+                                                }
                                             }
                                         });
                                     });
@@ -66,6 +70,7 @@
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editModal-{{ meeting.pk }}">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </button>
+
                             &nbsp;
                             {# Delete #}
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteModal-{{ meeting.pk }}">

@@ -72,7 +72,7 @@ class MeetingToggleView(View):
         else:
             return JsonResponse({"error": True, "error_message": _("Someone has already claimed this meeting.")})
 
-        return JsonResponse({"error": False, "secretary": meeting.secretary.get_full_name() if meeting.secretary else "-"})
+        return JsonResponse({"error": False, "secretary": meeting.secretary.get_full_name() if meeting.secretary else None})
 
 @permission_required('meetings.delete_meeting')
 class MeetingDelete(DeleteView):
@@ -133,12 +133,18 @@ class MinuteUploadView(View):
         return redirect('meetings:minutes')
 
 class MinutesDownloadView(View):
-
     def get(self, request, pk):
         file = get_object_or_404(Minutes, pk=pk)
         response = HttpResponse(open(file.file.path, 'rb').read(), content_type=mimetypes.guess_type(file.original_name)[0] or 'application/octet-stream')
         response['Content-Disposition']= 'attachment; filename=%s' % urllib.parse.quote(file.original_name)
         return response
+
+@permission_required("meetings.delete_minutes")
+class MinutesDeleteView(View):
+    def post(self, request, pk):
+        minutes = get_object_or_404(Minutes, pk=pk)
+        minutes.delete()
+        return redirect("meetings:minutes")
 
 class AgendaView(View):
     def get(self, request, pk, token):
