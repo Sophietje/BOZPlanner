@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'djcelery',
     'kombu.transport.django',
     'djcelery_email',
+    'compressor',
 
     'members',
     'meetings',
@@ -61,6 +62,8 @@ INSTALLED_APPS = [
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
 BROKER_URL = 'django://'
+
+COMPRESS_ENABLED = True
 
 if HAVE_DJANGOSAML2:
     INSTALLED_APPS += [
@@ -99,6 +102,12 @@ TEMPLATES = [
         },
     },
 ]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
