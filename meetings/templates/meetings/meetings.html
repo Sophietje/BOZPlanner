@@ -53,7 +53,11 @@
                                                     type: 'error'
                                                 });
                                             } else {
-                                                $('#secretary-{{ meeting.pk }}').text(data.secretary);
+                                                if(data.secretary === null) {
+                                                    $('#secretary-{{ meeting.pk }}').html('<em><small>None</small></em>');
+                                                } else {
+                                                    $('#secretary-{{ meeting.pk }}').text(data.secretary);
+                                                }
                                             }
                                         });
                                     });

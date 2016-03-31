@@ -72,7 +72,7 @@ class MeetingToggleView(View):
         else:
             return JsonResponse({"error": True, "error_message": _("Someone has already claimed this meeting.")})
 
-        return JsonResponse({"error": False, "secretary": meeting.secretary.get_full_name() if meeting.secretary else "-"})
+        return JsonResponse({"error": False, "secretary": meeting.secretary.get_full_name() if meeting.secretary else None})
 
 @permission_required('meetings.delete_meeting')
 class MeetingDelete(DeleteView):
