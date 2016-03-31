@@ -24,4 +24,4 @@ class Command(BaseCommand):
 
                 mail = EmailMultiAlternatives(subject, text_content, from_email, to)
                 mail.attach_alternative(html_content, "text/html")
-				mail.send()
+                mail.send()
