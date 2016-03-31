@@ -82,5 +82,5 @@ table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after
 }
 
 .btn[disabled] {
-    opacity: .4;
+    opacity: .3;
 }
