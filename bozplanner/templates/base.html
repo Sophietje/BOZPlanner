@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load compress %}
+
 <!doctype html>
 <html>
     <head>
@@ -6,33 +8,33 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% compress css %}
         <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'bootstrap-toggle.css' %}">
-
         <link rel="stylesheet" href="{% static 'datatables.min.css' %}">
-
         <link rel="stylesheet" href="{% static 'bootstrap-multiselect.css' %}">
+        <link rel="stylesheet" href={%  static 'datetimpicker.min.css' %}>
         <link rel="stylesheet" href="{% static 'pnotify.custom.min.css' %}">
 
         <link rel="stylesheet" href="{% static 'style.css' %}">
+        {% endcompress %}
 
-        <!-- jQuery -->
+        {% compress js %}
         <script src="{% static 'jquery.min.js' %}"></script>
         <script src="{% static 'jquery.cookie.js' %}"></script>
-        <!-- Include all compiled plugins -->
+        <script src="{% static 'jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'moment.min.js' %}"></script>
+        <script src="{% static 'datatables.min.js' %}"></script>
+        <script src="{% static 'ZeroClipboard.min.js' %}"></script>
+
         <script src="{% static 'bootstrap.min.js' %}"></script>
         <script src="{% static 'bootstrap-toggle.min.js' %}"></script>
-        <!---Include datatables thingie---->
-        <script src="{% static 'jquery.dataTables.min.js' %}"></script>
-        <script src="{% static 'datatables.min.js' %}"></script>
         <script src="{% static 'bootstrap-multiselect.js' %}"></script>
         <script src="{% static 'pnotify.custom.min.js' %}"></script>
-        <!-- Include DateTimePicker thingies ---->
-        <link rel="stylesheet" href={%  static 'datetimpicker.min.css' %}>
-        <!-- Include datetime thingies ---------->
-        <script src="{% static 'moment.min.js' %}"></script>
         <script src="{% static 'bootstrap.datetime.min.js' %}"></script>
-        <script src="{% static 'ZeroClipboard.min.js' %}"></script>
+        {% endcompress %}
+
         <script type="text/javascript">
             $(function() {
                 $('.data-table').each(function() {
