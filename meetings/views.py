@@ -23,19 +23,20 @@ class MeetingsView(TemplateView):
     template_name = 'meetings/meetings.html'
 
     def get_context_data(self, **kwargs):
+        now = datetime.datetime.now()
+
         # First condition: You should be able to see upcoming meetings where you are the secretary
-        q1 = Q(end_time__gt = datetime.datetime.now(), secretary = self.request.user)
-        context = super(MeetingsView, self).get_context_data()
+        q1 = Q(end_time__gt=now, secretary=self.request.user)
 
         # If the user may only see meetings from his/her own (sub-)organization(s), put all upcoming meetings of this organization in context
-        if self.request.user.has_perm('meetings.view_organization'):
+        if self.request.user.has_perm('meetings.list_meetings_organization'):
             # Second condition: Only meetings from own (sub-)organization(s) should be shown
-            q2 = Q(organization__in = self.request.user.all_organizations)
+            q2 = Q(organization__in = self.request.user.all_organizations, end_time__gt=now)
             q1 = q1 | q2
 
-        if self.request.user.has_perm('meetings.view_all'):
+        if self.request.user.has_perm('meetings.list_meetings_all'):
             # Should be able to see all meetings
-            q2 = Q(begin_time__gt = datetime.datetime.now())
+            q2 = Q(end_time__gt=now)
             q1 = q1 | q2
 
         object_list = list(filter_meetings(q1))
@@ -97,24 +98,24 @@ class MinutesView(TemplateView):
     template_name = 'meetings/minutes.html'
 
     def get_context_data(self, **kwargs):
+        now = datetime.datetime.now()
+
         # Should be able to see all meetings (with minutes) for which you were secretary
-        q1 = Q(secretary = self.request.user) & Q(begin_time__lt=datetime.datetime.now())
-        context = super(MinutesView, self).get_context_data()
+        q1 = Q(begin_time__lt=now, secretary=self.request.user)
 
         # Should be able to see all meetings (with minutes) from own organizations
-        if self.request.user.has_perm('meetings.view_organizations'):
-            q2 = Q(organization__in = self.request.user.all_organizations)
+        if self.request.user.has_perm('meetings.list_meetings_organization'):
+            q2 = Q(organization__in=self.request.user.all_organizations, begin_time__lt=now)
             q1 = q1 | q2
 
         # Should be able to see all meetings (with minutes)
-        if self.request.user.has_perm('meetings.view_all'):
-            q2 = Q(begin_time__lt = datetime.datetime.now())
+        if self.request.user.has_perm('meetings.list_meetings_all'):
+            q2 = Q(begin_time__lt=now)
             q1 = q1 | q2
 
-        all_meetings = filter_meetings(q1)
+        object_list = filter_meetings(q1).prefetch_related('minutes')
 
-        context['object_list'] = all_meetings.prefetch_related('minutes')
-        return context
+        return locals()
 
 class MinuteUploadView(View):
     model = Minutes

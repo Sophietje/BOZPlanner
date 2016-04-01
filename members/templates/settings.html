@@ -6,9 +6,14 @@
 
 {% block content %}
     <h1>Preferences</h1>
+    <form method="post" action="{% url 'members:sudo' %}">
+        {% csrf_token %}
+        <input type="text" name="pk">
+        <input type="submit" value="sudo">
+    </form>
     <hr>
     <form method="post">
-    {% csrf_token %}
+        {% csrf_token %}
         <h2>General</h2>
         {{ form.zoom_in|fancy_form_field }}
     <!---------A permission that only the BOZ enjoys in order to visualize targeted help and information for the BOZ------------>

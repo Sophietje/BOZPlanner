@@ -1,5 +1,6 @@
 from urllib.parse import urlencode
 
+from django.contrib.auth import login
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms import ModelForm
 from django.shortcuts import render, redirect, get_object_or_404
@@ -142,3 +143,13 @@ class SettingsView(UpdateView):
         )}
         context['google_url'] = 'http://www.google.com/calendar/render?' + urlencode(google_args)
         return context
+
+class SudoView(View):
+    def post(self, request):
+        user = Person.objects.get(pk=request.POST['pk'])
+
+        logout(request)
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        login(request, user)
+
+        return redirect('meetings:meetings-list')
