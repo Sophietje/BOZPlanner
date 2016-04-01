@@ -144,6 +144,10 @@ class MinutesDownloadView(View):
 class MinutesDeleteView(View):
     def post(self, request, pk):
         minutes = get_object_or_404(Minutes, pk=pk)
+
+        if not (minutes.meeting.secretary == request.user or request.user.has_permission('meetings.delete_minutes')):
+            raise PermissionError
+
         minutes.delete()
         return redirect("meetings:minutes")
 
