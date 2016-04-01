@@ -136,12 +136,18 @@ class SettingsView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(SettingsView, self).get_context_data()
+        context['first_login'] = self.request.user.first_login
         context['webcal_url'] = 'webcal://{}/meetings/agenda/{}/{}'.format(
             WEBCAL_BASE, self.request.user.id, self.request.user.agenda_token)
         google_args = {'cid': 'http://{}/meetings/agenda/{}/{}'.format(
             WEBCAL_BASE, self.request.user.id, self.request.user.agenda_token
         )}
         context['google_url'] = 'http://www.google.com/calendar/render?' + urlencode(google_args)
+
+        if self.request.user.first_login:
+            self.request.user.first_login = False
+            # self.request.user.save()
+
         return context
 
 class SudoView(View):

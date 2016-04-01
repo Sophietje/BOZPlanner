@@ -5,6 +5,39 @@
 {% endblock %}
 
 {% block content %}
+    {% if first_login %}
+        <div id="first-login-modal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Welcome!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            {% blocktrans %}
+                                Welcome to BOZ-Planner! Please review your preferences, where you can:
+                                <ul>
+                                    <li>Configure which emails you receive;</li>
+                                    <li>Add meetings of which you are the secretary to your agenda or calendar;</li>
+                                    <li>Change the text size of BOZ-planner.</li>
+                                </ul>
+                            {% endblocktrans %}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                $('#first-login-modal').modal().show();
+            })
+        </script>
+    {% endif %}
+
     <h1>Preferences</h1>
     <form method="post" action="{% url 'members:sudo' %}">
         {% csrf_token %}

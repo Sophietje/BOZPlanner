@@ -11,7 +11,10 @@ from bozplanner.settings import LOGIN_REDIRECT_URL
 
 def index(request):
     if request.user.is_authenticated():
-        return redirect('meetings:meetings-list')
+        if request.user.first_login:
+            return redirect('members:preferences')
+        else:
+            return redirect('meetings:meetings-list')
     else:
         return redirect('/saml2/login/')
 
