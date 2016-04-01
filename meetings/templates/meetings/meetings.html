@@ -2,10 +2,13 @@
 
 
 {% block content %}
-    <h1>Meetings
-        <a href="{% url 'meetings:meeting-add' %}" class="btn btn-default">
-            <i class="glyphicon glyphicon-plus"></i>
-        </a>
+    <h1>
+        Meetings
+        {% if perms.meetings.add_meeting %}
+            <a href="{% url 'meetings:meeting-add' %}" class="btn btn-default">
+                <i class="glyphicon glyphicon-plus"></i>
+            </a>
+        {% endif %}
     </h1>
     <hr>
     <div class="table-responsive">
