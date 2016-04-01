@@ -11,6 +11,7 @@ class Person(AbstractUser):
     """Any user that can log in to BOZPlanner"""
     organizations = models.ManyToManyField("Organization", blank=True)
     agenda_token = models.CharField(max_length=64, editable=False, null=True)
+    first_login = models.BooleanField(default=True)
 
     @property
     def is_admin(self):
