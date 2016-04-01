@@ -98,6 +98,12 @@ class Organization(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "organization"
+        permissions = [
+            ("list_organizations", "Can list organizations"),
+        ]
+
 class Preferences(models.Model):
     person = models.OneToOneField("Person")
     overview = models.ManyToManyField(Organization, blank=True, related_name='pref_overview')
