@@ -1,7 +1,7 @@
 Goedendag,
 Deze week vind{% if meetings|length == 1 %}t{% else %}en{% endif %} de volgende vergadering{% if meetings|length > 1 %}en{% endif %} plaats van {{ organization }}:
 {% for meeting in meetings %}
-    - {{ meeting.begin_time|date:"d-m-Y H:i" }}{% endfor %}
+    - {{ meeting.begin_time|date:"d-m-Y H:i" }}{% if meeting.secretary == None %}, nog geen notulist{% endif %}{% endfor %}
 
 Met vriendelijke groet,
 BOZPlanner

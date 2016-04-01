@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'djcelery',
     'kombu.transport.django',
     'djcelery_email',
-    'compressor',
 
     'members',
     'meetings',
@@ -102,12 +101,6 @@ TEMPLATES = [
         },
     },
 ]
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
-)
 
 AUTH_PASSWORD_VALIDATORS = [
     {

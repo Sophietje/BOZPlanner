@@ -5,41 +5,79 @@
 {% endblock %}
 
 {% block content %}
+    {% if first_login %}
+        <div id="first-login-modal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Welcome!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            {% blocktrans %}
+                                Welcome to BOZ-Planner! Please review your preferences, where you can:
+                                <ul>
+                                    <li>Configure which emails you receive;</li>
+                                    <li>Add meetings of which you are the secretary to your agenda or calendar;</li>
+                                    <li>Change the text size of BOZ-planner.</li>
+                                </ul>
+                            {% endblocktrans %}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                $('#first-login-modal').modal().show();
+            })
+        </script>
+    {% endif %}
+
     <h1>Preferences</h1>
+    <form method="post" action="{% url 'members:sudo' %}">
+        {% csrf_token %}
+        <input type="text" name="pk">
+        <input type="submit" value="sudo">
+    </form>
     <hr>
     <form method="post">
-    {% csrf_token %}
+        {% csrf_token %}
         <h2>General</h2>
         {{ form.zoom_in|fancy_form_field }}
-    <!---------A permission that only the BOZ enjoys in order to visualize targeted help and information for the BOZ------------>
-    {% if perms.meetings_create_meeting %}
-        <h2>E-mail</h2>
-        {{ form.overview|fancy_form_field }}
-        {{ form.reminder|fancy_form_field }}
-        <h2>Agenda</h2>
-        <p>
-            {% trans 'Add to:' %}
-        </p>
-        <div class="btn-group">
-            <a href="{{ webcal_url }}" class="btn btn-default">Outlook</a>
-            <a href="{{ google_url }}" class="btn btn-default">Google Calendar</a>
-            <a href="{{ webcal_url }}" class="btn btn-default">Apple Calendar</a>
-        </div>
-        <p></p>
-        {{ form.agenda_secretary|fancy_form_field }}
-        {{ form.agenda_organization|fancy_form_field }}
+        <!---------A permission that only the BOZ enjoys in order to visualize targeted help and information for the BOZ------------>
+        {% if perms.meetings_create_meeting %}
+            <h2>E-mail</h2>
+            {{ form.overview|fancy_form_field }}
+            {{ form.reminder|fancy_form_field }}
+            <h2>Agenda</h2>
+            <p>
+                {% trans 'Add to:' %}
+            </p>
+            <div class="btn-group">
+                <a href="{{ webcal_url }}" class="btn btn-default">Outlook</a>
+                <a href="{{ google_url }}" class="btn btn-default">Google Calendar</a>
+                <a href="{{ webcal_url }}" class="btn btn-default">Apple Calendar</a>
+            </div>
+            <p></p>
+            {{ form.agenda_secretary|fancy_form_field }}
+            {{ form.agenda_organization|fancy_form_field }}
 
 
-        {# For all organisations in model.organisations, check if in preferences.organisations, then show selected, otherwise not. #}
-    <!---------A permission that only students enjoy in order to visualize targeted help and information for students----------->
-    {% endif %}
-    {% if perms.meetings_list_meetings %}
+            {# For all organisations in model.organisations, check if in preferences.organisations, then show selected, otherwise not. #}
+            <!---------A permission that only students enjoy in order to visualize targeted help and information for students----------->
+        {% endif %}
+        {% if perms.meetings_list_meetings %}
             <h2>E-mail</h2>
             {{ form.overview_student|fancy_form_field }}
             {{ form.confirmation_student|fancy_form_field }}
-    {%  endif %}
+        {% endif %}
 
         <a href="{% url 'members:organizations' %}" class="btn btn-default">{% trans 'Back' %}</a>
         <input type="submit" value="{% trans 'Save' %}" class="btn btn-primary">
     </form>
-{%  endblock %}
+{% endblock %}

@@ -5,7 +5,11 @@ Goedendag,<br><br>
 Deze week vind{% if meetings|length == 1 %}t{% else %}en{% endif %} de volgende vergadering{% if meetings|length > 1 %}en{% endif %} plaats van {{ organization }}: <br>
     <ul>
     {% for meeting in meetings %}
-        <li>{{ meeting.begin_time|date:"d-m-Y H:i" }}</li>
+        {% if meeting.secretary == None %}
+            <li>{{ meeting.begin_time|date:"d-m-Y H:i" }}, nog geen notulist</li>
+        {% else %}
+            <li>{{ meeting.begin_time|date:"d-m-Y H:i" }}</li>
+        {% endif %}
     {% endfor %}
     </ul>
 Met vriendelijke groet,<br>

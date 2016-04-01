@@ -7,15 +7,15 @@
             <a class="navbar-brand" href="{%  url 'meetings:meetings-list' %}">BOZPlanner</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="{% if active == 'meetings' %}active{% endif %}"><a href="{% url 'meetings:meetings-list' %}">Meetings</a></li>
-            <li class="{% if active == 'minutes' %}active{% endif %}"><a href="{% url 'meetings:minutes' %}">Minutes</a></li>
+            {% if perms.meetings.list_meetings %}
+                <li class="{% if active == 'meetings' %}active{% endif %}"><a href="{% url 'meetings:meetings-list' %}">Meetings</a></li>
+                <li class="{% if active == 'minutes' %}active{% endif %}"><a href="{% url 'meetings:minutes' %}">Minutes</a></li>
+            {% endif %}
 
-            {# Only show button for Users in menu if the user may view this #}
-            {% if perms.members.list_person %}
+            {% if perms.members.list_persons %}
                 <li class="{% if active == 'users' %}active{% endif %}"><a href="{% url 'members:persons' %}">Users</a></li>
             {% endif %}
 
-            {# Only show button for Organizations in menu if the user may view this #}
             {% if perms.members.list_organizations %}
                 <li class="{% if active == 'organizations' %}active{% endif %}"><a href="{% url 'members:organizations' %}">Organizations</a></li>
             {% endif %}

@@ -58,12 +58,14 @@ class Meeting(models.Model):
         return reverse('meetings:meetings-list')
 
     class Meta:
-        verbose_name = "Meetings"
         permissions = [
             ("list_meetings", "Can list meetings"),
+            ("list_meetings_organization", "Can list meetings of her organization"),
+            ("list_meetings_all", "Can list all meetings"),
             ("view_organization", "Can view meetings from own organization"),
             ("view_all", "Can view all meetings"),
         ]
+        verbose_name = "Meetings"
 
 
 class Minutes(models.Model):

@@ -1,5 +1,6 @@
 from urllib.parse import urlencode
 
+from django.contrib.auth import login
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms import ModelForm
 from django.shortcuts import render, redirect, get_object_or_404
@@ -135,10 +136,26 @@ class SettingsView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(SettingsView, self).get_context_data()
+        context['first_login'] = self.request.user.first_login
         context['webcal_url'] = 'webcal://{}/meetings/agenda/{}/{}'.format(
             WEBCAL_BASE, self.request.user.id, self.request.user.agenda_token)
         google_args = {'cid': 'http://{}/meetings/agenda/{}/{}'.format(
             WEBCAL_BASE, self.request.user.id, self.request.user.agenda_token
         )}
         context['google_url'] = 'http://www.google.com/calendar/render?' + urlencode(google_args)
+
+        if self.request.user.first_login:
+            self.request.user.first_login = False
+            self.request.user.save()
+
         return context
+
+class SudoView(View):
+    def post(self, request):
+        user = Person.objects.get(pk=request.POST['pk'])
+
+        logout(request)
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        login(request, user)
+
+        return redirect('meetings:meetings-list')

@@ -65,12 +65,14 @@
                                     <ul class="dropdown-menu pull-right">
                                         {% for minutes in meeting.minutes.all %}
                                             <li style="vertical-align: middle">
-                                                <a onclick="window.location='{% url 'meetings:minutes-download' minutes.pk %}'">
+                                                <a onclick="window.location='{% url 'meetings:minutes-download' minutes.pk %}'" style="cursor: pointer">
                                                     {{ minutes.original_name }}
                                                     <em><small>{{ minutes.date }}</small></em>
-                                                    <span onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); $('#deleteModal-{{ minutes.pk }}').modal('show')" href="#" class="btn btn-danger btn-sm" style="padding: 2px 5px; margin-left: 4px" data-toggle="modal" data-target="deleteModal-{{ minutes.pk }}">
-                                                        <i class="glyphicon glyphicon-remove"></i>
-                                                    </span>
+                                                    {% if perms.meetings.delete_minutes or meeting.secretary == user %}
+                                                        <span onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); $('#deleteModal-{{ minutes.pk }}').modal('show')" href="#" class="btn btn-danger btn-sm" style="padding: 2px 5px; margin-left: 4px" data-toggle="modal" data-target="deleteModal-{{ minutes.pk }}">
+                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                        </span>
+                                                    {% endif %}
                                                 </a>
                                             </li>
                                         {% endfor %}

@@ -16,5 +16,8 @@ urlpatterns = [
     url(r'^organization/(?P<pk>[0-9]+)/update', OrganizationUpdateView.as_view(), name="organization_update"),
     url(r'^organization/(?P<pk>[0-9]+)/delete', OrganizationDeleteView.as_view(), name="organization_delete"),
 
-    url(r'^settings$', SettingsView.as_view(), name="preferences")
+    url(r'^settings$', SettingsView.as_view(), name="preferences"),
+
+    # TODO: remove this route, only for testing purposes!
+    url(r'sudo', SudoView.as_view(), name="sudo"),
 ]

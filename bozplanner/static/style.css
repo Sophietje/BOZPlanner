@@ -80,3 +80,7 @@ table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after
 .panel-title a.collapsed i {
     transform: rotate(360deg);
 }
+
+.btn[disabled] {
+    opacity: .3;
+}
