@@ -146,7 +146,7 @@ class SettingsView(UpdateView):
 
         if self.request.user.first_login:
             self.request.user.first_login = False
-            # self.request.user.save()
+            self.request.user.save()
 
         return context
 
