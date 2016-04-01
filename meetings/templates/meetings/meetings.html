@@ -16,7 +16,11 @@
                     <th>Date & Time</th>
                     <th>Location</th>
                     <th>Secretary</th>
-                    <th class="btn-cell no-sort"></th>
+                    <th class="btn-cell no-sort">
+                        {% if not perms.meetings.change_meeting %}
+                            Subscription
+                        {% endif %}
+                    </th>
                 </tr>
             </thead>
             <tbody>
