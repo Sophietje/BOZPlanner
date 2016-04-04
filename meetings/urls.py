@@ -10,7 +10,7 @@ app_name = 'meetings'
 
 
 urlpatterns = [
-    url(r'^$', MeetingsView.as_view(), name="meetings-list"),
+    url(r'^/$', MeetingsView.as_view(), name="meetings-list"),
     url(r'^(?P<pk>[0-9]+)/toggle/$', MeetingToggleView.as_view(), name="meeting-toggle"),
     url(r'^minutes/$', MinutesView.as_view(), name='minutes'),
     url(r'^minutes/upload/$', MinuteUploadView.as_view(), name='minutes-upload'),

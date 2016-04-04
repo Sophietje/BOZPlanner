@@ -84,3 +84,8 @@ table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after
 .btn[disabled] {
     opacity: .3;
 }
+
+.dropdown-button {
+    padding: 2px 5px;
+    margin-left: 4px
+}

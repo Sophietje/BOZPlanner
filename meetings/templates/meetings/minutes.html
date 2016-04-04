@@ -36,16 +36,8 @@
                                 <input type="hidden" name="meeting" value="{{ meeting.pk }}">
                                 <input type="file" name="minutes" style="display: none">
                                 <!-----------When may you see the upload button?------------>
-                                {%  if meeting.secretary != None %}
+                                {%  if meeting.secretary == user or perms.meetings.add_minutes %}
                                     <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
-                                    </button>
-                                {% elif perms.meetings_create_meeting %}
-                                    <button type="button" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
-                                    </button>
-                                {% else %}
-                                    <button type="button" class="btn btn-default" style="display: none;">
                                         <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
                                     </button>
                                 {% endif %}
@@ -59,7 +51,7 @@
                                 <div class="btn-group">
 
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download <span class="caret"></span>
+                                        Minutes <span class="caret"></span>
                                     </button>
 
                                     <ul class="dropdown-menu pull-right">
@@ -68,8 +60,11 @@
                                                 <a onclick="window.location='{% url 'meetings:minutes-download' minutes.pk %}'" style="cursor: pointer">
                                                     {{ minutes.original_name }}
                                                     <em><small>{{ minutes.date }}</small></em>
+                                                    <span class="btn btn-default btn-sm dropdown-button">
+                                                        <i class="glyphicon glyphicon-save"></i>
+                                                    </span>
                                                     {% if perms.meetings.delete_minutes or meeting.secretary == user %}
-                                                        <span onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); $('#deleteModal-{{ minutes.pk }}').modal('show')" href="#" class="btn btn-danger btn-sm" style="padding: 2px 5px; margin-left: 4px" data-toggle="modal" data-target="deleteModal-{{ minutes.pk }}">
+                                                        <span onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); $('#deleteModal-{{ minutes.pk }}').modal('show')" href="#" class="btn btn-danger btn-sm dropdown-button"  data-toggle="modal" data-target="deleteModal-{{ minutes.pk }}">
                                                             <i class="glyphicon glyphicon-remove"></i>
                                                         </span>
                                                     {% endif %}
