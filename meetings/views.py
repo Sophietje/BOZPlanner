@@ -13,7 +13,7 @@ from django.core.mail import EmailMultiAlternatives
 
 from meetings.forms import MeetingForm
 from meetings.models import Meeting, Minutes
-from members.auth import permission_required
+from members.auth import permission_required, login_required
 from members.models import Person
 
 
@@ -117,6 +117,7 @@ class MinutesView(TemplateView):
 
         return locals()
 
+@login_required
 class MinuteUploadView(View):
     model = Minutes
     succes_url = reverse_lazy('meetings')
@@ -124,15 +125,20 @@ class MinuteUploadView(View):
 
     def post(self, request, *args, **kwargs):
         form = request.POST
+        meeting = get_object_or_404(Meeting, pk=form.get('meeting'))
+
+        if not (meeting.secretary == request.user or request.user.has_perm('meetings.add_minutes')):
+            raise PermissionError
+
         file = request.FILES['minutes']
         date = datetime.datetime.now()
         original_name = file.name
-        meeting = Meeting.objects.get(id=form.get('meeting'))
         minutes = Minutes.objects.create(file=file, meeting=meeting, original_name=original_name, date=date)
         minutes.save()
 
         return redirect('meetings:minutes')
 
+@permission_required('meetings.list_meetings')
 class MinutesDownloadView(View):
     def get(self, request, pk):
         file = get_object_or_404(Minutes, pk=pk)
@@ -140,12 +146,12 @@ class MinutesDownloadView(View):
         response['Content-Disposition']= 'attachment; filename=%s' % urllib.parse.quote(file.original_name)
         return response
 
-@permission_required("meetings.delete_minutes")
+@login_required
 class MinutesDeleteView(View):
     def post(self, request, pk):
         minutes = get_object_or_404(Minutes, pk=pk)
 
-        if not (minutes.meeting.secretary == request.user or request.user.has_permission('meetings.delete_minutes')):
+        if not (minutes.meeting.secretary == request.user or request.user.has_perm('meetings.delete_minutes')):
             raise PermissionError
 
         minutes.delete()
