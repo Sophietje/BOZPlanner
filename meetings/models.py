@@ -65,7 +65,7 @@ class Meeting(models.Model):
             ("view_organization", "Can view meetings from own organization"),
             ("view_all", "Can view all meetings"),
         ]
-        verbose_name = "Meetings"
+        verbose_name = "Meeting"
 
 
 class Minutes(models.Model):
