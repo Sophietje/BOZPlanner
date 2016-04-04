@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from meetings.models import Meeting
+from meetings.models import Meeting, Minutes
 from members.models import Organization
 
 
@@ -21,3 +21,11 @@ class TestMeetingUtils():
         q = Organization.objects.create(name='Subtest', parent_organization=o)
         m = Meeting.objects.create(organization=q, begin_time=datetime(9999, 11, 12, 11, 12, 0), end_time=datetime(9999, 11, 12, 12, 0, 0), place='CR 2D')
         m.save()
+
+        # Add meeting in the past
+        p = Organization.objects.get(pk=1)
+        m = Meeting.objects.create(organization=p, begin_time=datetime(1990,9,9,10,11,0), end_time=datetime(1990,9,9,11,11,0), place='RA 3224')
+
+        # Add minutes to Meeting "m"
+        minutes = Minutes.objects.create(meeting=m, file="minutes.txt", date=datetime(1999,10,10,11,12,0))
+        minutes.save()
