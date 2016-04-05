@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^organization/create/$', OrganizationCreateView.as_view(), name="organization_create"),
     url(r'^organization/(?P<pk>[0-9]+)/update/', OrganizationUpdateView.as_view(), name="organization_update"),
     url(r'^organization/(?P<pk>[0-9]+)/delete/', OrganizationDeleteView.as_view(), name="organization_delete"),
+    url(r'^organization/emails/(?P<organizations>[0-9]+(,[0-9]+)*)', OrganizationEmailView.as_view(), name="organization_email"),
 
     url(r'^settings/$', SettingsView.as_view(), name="preferences"),
 

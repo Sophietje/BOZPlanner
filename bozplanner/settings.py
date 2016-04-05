@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'utwente',
     'bozplanner',
     'django_extensions',
+    'debug_toolbar',
 ]
 
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
