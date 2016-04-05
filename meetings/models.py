@@ -1,13 +1,8 @@
-import os
-from uuid import uuid4
-
-
 from django.utils.translation import ugettext as _
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.urlresolvers import reverse
-from time import strftime
-from datetime import datetime, timedelta
+from datetime import datetime
 import icalendar
 
 from meetings.managers import MeetingManager
