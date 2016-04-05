@@ -1,12 +1,10 @@
 from urllib.parse import urlencode
-
 from django.contrib.auth import login
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.forms import ModelForm
-from django.http import JsonResponse, HttpResponse
+from django.core.urlresolvers import reverse_lazy
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
-from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, ListView, View
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, View
 
 from bozplanner.local import WEBCAL_BASE
 from bozplanner.settings import HAVE_DJANGOSAML2, LOGOUT_REDIRECT_URL
