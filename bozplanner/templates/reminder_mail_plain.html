@@ -1,9 +1,9 @@
-Goedendag,
+Hello,
 {% if meetings|length == 1 %}
-Voor de meeting van {{ meetings.0.begin_time|date:"d-m-Y H:i" }} van {{ organization }} is nog geen notulist aangemeld. {% else %}
-Voor de volgende meetings van {{ organization }} zijn nog geen notulisten aangemeld:
-{% for meeting in meetings %}
+The meeting of {{ meetings.0.begin_time|date:"d-m-Y H:i" }} of {{ organization }} does not have a secretary yet.
+{% else %}
+    The following meetings of {{ organization }} do not have a secretary yet:
+    {% for meeting in meetings %}
     - {{ meeting.begin_time|date:"d-m-Y H:i" }}{% endfor %}{% endif %}
-
-Met vriendelijke groet,
+Kind regards,
 BOZPlanner

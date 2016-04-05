@@ -1,13 +1,13 @@
 {% extends "mail_base.html" %}
 {% block content %}
-Goedendag,<br><br>
+Hello,<br><br>
 
-Deze week vind{% if meetings|length == 1 %}t{% else %}en{% endif %} de volgende vergadering{% if meetings|length > 1 %}en{% endif %} plaats van {{ organization }} die nog geen secretaris {% if meetings|length == 1 %}heeft{% else %}hebben{% endif %}: <br>
+This week the following meeting{% if meetings|length == 1 %}{% else %}s{% endif %} take{% if meetings|length == 1 %}s{% else %}{% endif %} place of {{ organization }} that do{% if meetings|length == 1 %}es{% else %}{% endif %}es not yet have a secretary: <br>
     <ul>
     {% for meeting in meetings %}
         <li>{{ meeting.begin_time|date:"d-m-Y H:i" }}</li>
     {% endfor %}
     </ul>
-Met vriendelijke groet,<br>
+Kind regards,<br>
 BOZPlanner
 {% endblock %}
