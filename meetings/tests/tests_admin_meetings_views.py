@@ -9,7 +9,7 @@ from members.models import Person, Organization
 from members.tests.test_user_utils import TestUserUtils
 
 
-class TestsStudentMeetingsViews(TestCase):
+class TestsAdminMeetingsViews(TestCase):
     def setUp(self):
         TestUserUtils.setupAdminSession(self)
         TestMeetingUtils.setupMeeting(self)

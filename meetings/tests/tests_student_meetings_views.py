@@ -24,6 +24,7 @@ class TestsStudentMeetingsViews(TestCase):
         # 1 represents a meeting belonging to the organization of the student
         # 2 represents a meeting belonging to another organization that the student is not a part of, it should NOT see this meeting
         # 3 represents a meeting belonging to a suborganization of the organization of the student
+        # 4 represents a meeting in the past
         resp = self.client.get(reverse('meetings:meetings-list'))
         self.assertEqual([meeting.pk for meeting in resp.context['object_list']], [1, 3])
 
@@ -49,7 +50,7 @@ class TestsStudentMeetingsViews(TestCase):
         # Try to update a meeting, should not be allowed so user should be redirected
         student = Person.objects.get(pk=1)
         resp = self.client.post(reverse('meetings:meeting-update', kwargs={'pk': 1}), {'secretary': student})
-        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.status_code, 403)
 
         # Post unnecessary data
         student = Person.objects.get(pk=1)
@@ -61,7 +62,7 @@ class TestsStudentMeetingsViews(TestCase):
     def test_meetings_delete(self):
         # Ensure that student may not delete a meeting
         resp = self.client.post(reverse('meetings:meeting-delete', kwargs={'pk': 1}))
-        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.status_code, 403)
         # Ensure meeting is not deleted
         resp = self.client.get(reverse('meetings:meetings-list'))
         self.assertEqual([meeting.pk for meeting in resp.context['object_list']], [1, 3])

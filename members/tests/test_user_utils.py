@@ -21,7 +21,7 @@ class TestUserUtils():
         user.user_permissions.add(permission_3)
         permission_4 = Permission.objects.get(codename='delete_minutes')
         user.user_permissions.add(permission_4)
-        permission_5 = Permission.objects.get(codename='view_organization')
+        permission_5 = Permission.objects.get(codename='list_meetings_organization')
         user.user_permissions.add(permission_5)
         user.save()
 
