@@ -1,7 +1,7 @@
 from urllib.parse import urlencode
-
 from django.contrib.auth import login
 from django.core.urlresolvers import reverse_lazy
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, View
@@ -105,6 +105,20 @@ class OrganizationDeleteView(DeleteView):
     template_name = "organization/delete.html"
     model = Organization
     success_url = reverse_lazy("members:organizations")
+
+@permission_required("members.list_organizations")
+class OrganizationEmailView(View):
+    def get(self, request, organizations):
+        # Verified by URL pattern
+        org_ids = map(int, organizations.split(","))
+        organizations = set()
+
+        for org_id in org_ids:
+            organization = get_object_or_404(Organization, pk=org_id)
+            organizations = organizations | set(organization.all_organizations())
+
+        persons = Person.objects.filter(organizations__in=organizations)
+        return JsonResponse({"result": list(map(lambda person: person.full_email, persons))})
 
 def logout(request):
     if HAVE_DJANGOSAML2:
