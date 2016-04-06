@@ -1,16 +1,16 @@
 {% extends "mail_base.html" %}
 {% block content %}
-Goedendag,<br><br>
+Hello,<br><br>
 {% if meetings|length == 1 %}
-Voor de meeting van {{ meetings.0.begin_time|date:"d-m-Y H:i" }} van {{ organization }} is nog geen notulist aangemeld.<br><br>
+The meeting of {{ meetings.0.begin_time|date:"d-m-Y H:i" }} of {{ organization }} does not have a secretary yet.<br><br>
 {% else %}
-    Voor de volgende meetings van {{ organization }} zijn nog geen notulisten aangemeld: <br>
+    The following meetings of {{ organization }} do not have a secretary yet: <br>
     <ul>
     {% for meeting in meetings %}
         <li>{{ meeting.begin_time|date:"d-m-Y H:i" }}</li>
     {% endfor %}
     </ul>
 {% endif %}
-Met vriendelijke groet,<br>
+Kind regards,<br>
 BOZPlanner
 {% endblock %}

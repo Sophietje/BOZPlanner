@@ -1,13 +1,6 @@
 from django.shortcuts import redirect
-import os
+from django.views.generic import TemplateView
 
-import datetime
-from django.core.urlresolvers import reverse_lazy
-from django.db.models import Q
-from django.views.generic import CreateView, UpdateView, DeleteView, View, TemplateView
-from django.http import HttpResponse
-
-from bozplanner.settings import LOGIN_REDIRECT_URL
 
 def index(request):
     if request.user.is_authenticated():

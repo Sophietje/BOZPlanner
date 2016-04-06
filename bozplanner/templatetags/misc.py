@@ -1,5 +1,4 @@
 from django import template
-from django.shortcuts import render
 from django.template.loader import get_template
 from django.utils.safestring import mark_safe
 

@@ -1,9 +1,9 @@
 {% extends "mail_base.html" %}
 {% block content %}
-Goedendag,<br><br>
+Hello,<br><br>
 
-Je hebt je {% if added %}in{% else %}uit{% endif %}geschreven voor de meeting op {{ meeting.begin_time|date:"d-m-Y H:i" }}. <br><br>
+You have {% if added %}{% else %}de{% endif %}registered for the meeting on {{ meeting.begin_time|date:"d-m-Y H:i" }}. <br><br>
 
-Met vriendelijke groet,<br>
+Kind regards,<br>
 BOZPlanner
 {% endblock %}
