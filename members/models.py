@@ -39,12 +39,12 @@ class Person(AbstractUser):
 
     @property
     def all_organizations(self):
-        result = []
+        result = set()
 
         for organization in self.organizations.all():
-            result += organization.all_organizations()
+            result |= organization.all_organizations()
 
-        return result
+        return list(result)
 
     def save(self, *args, **kwargs):
         if self.agenda_token is None:
@@ -89,12 +89,18 @@ class Organization(models.Model):
         "belong to an organization called EWI.")
 
     def all_organizations(self):
-        result = [self]
+        todo = {self}
+        done = {self}
 
-        for organization in Organization.objects.filter(parent_organization=self):
-            result += organization.all_organizations()
+        while todo:
+            org = todo.pop()
 
-        return result
+            for child in Organization.objects.filter(parent_organization=org):
+                if child not in done:
+                    todo.add(child)
+                    done.add(child)
+
+        return done
 
     def __str__(self):
         return self.name
