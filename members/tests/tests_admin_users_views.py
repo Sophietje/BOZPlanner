@@ -2,21 +2,21 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from members.models import Person, Organization
-from members.tests.test_user_utils import TestUserUtils
+from members.tests.test_user_utils import TestUserMixin
 
 
-class TestAdminUsersViews(TestCase):
+class TestAdminUsersViews(TestCase, TestUserMixin):
     def setUp(self):
-        TestUserUtils.setupAdminSession(self)
+        self.setupAdminSession()
 
     def test_users_list(self):
         resp = self.client.get(reverse('members:persons'))
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual([user.pk for user in resp.context['object_list']], [1])
+        self.assertEqual([user for user in resp.context['object_list']], [self.user])
 
     def test_users_correct_update(self):
         # User that will be updated
-        user_1 = Person.objects.get(pk=1)
+        user_1 = Person.objects.get()
 
         # The to-be-updated data
         username = 'm7654321'
@@ -29,17 +29,17 @@ class TestAdminUsersViews(TestCase):
         self.assertEqual(user_1.first_name, 'test')
         self.assertEqual(user_1.last_name, '')
         self.assertEqual(user_1.email, '')
-        self.assertEqual(user_1.all_organizations, [Organization.objects.get(pk=1)])
+        self.assertEqual(user_1.all_organizations, [self.o])
 
         # Post the data
-        resp = self.client.post(reverse('members:person_update', kwargs={'pk': 1}), {'username': username, 'first_name':first_name, 'last_name':last_name, 'email':email})
+        resp = self.client.post(reverse('members:person_update', kwargs={'pk': user_1.pk}), {'username': username, 'first_name':first_name, 'last_name':last_name, 'email':email})
 
         # Assert that it redirects to the overview Users page
         self.assertEqual(resp.status_code, 302)
         self.assertEqual(resp.url, reverse('members:persons'))
 
-        # Assert that
-        user_1 = Person.objects.get(pk=1)
+        # Assert that the user now contains the new data posted to person_update
+        user_1 = Person.objects.get(pk=user_1.pk)
         self.assertEqual(user_1.username, 'm7654321')
         self.assertEqual(user_1.first_name, first_name)
         self.assertEqual(user_1.last_name, 'Tester')
@@ -52,11 +52,11 @@ class TestAdminUsersViews(TestCase):
         self.assertEqual(resp.status_code, 404)
 
         # Post NO data
-        resp = self.client.post(reverse('members:person_update', kwargs={'pk': 1}))
+        resp = self.client.post(reverse('members:person_update', kwargs={'pk': self.user.pk}))
         self.assertEqual(resp.status_code, 200)
 
         # Post junk data
-        resp = self.client.post(reverse('members:person_update', kwargs={'pk': 1}), {'foo': 'bar'})
+        resp = self.client.post(reverse('members:person_update', kwargs={'pk': self.user.pk}), {'foo': 'bar'})
         self.assertEqual(resp.status_code, 200)
 
         # Send non-existent Organization pk
@@ -68,15 +68,15 @@ class TestAdminUsersViews(TestCase):
     def test_users_correct_delete(self):
         # Add user to delete
         user = Person.objects.create(username='foo', first_name='foo')
-        self.assertEqual(Person.objects.get(pk=2).username, 'foo')
+        self.assertEqual(Person.objects.get(pk=user.pk).username, 'foo')
 
         # Delete existing user
-        resp = self.client.post(reverse('members:person_delete', kwargs={'pk': 2}))
+        resp = self.client.post(reverse('members:person_delete', kwargs={'pk': user.pk}))
         self.assertEqual(resp.status_code, 302)
 
         # Assert that user no longer exists
         resp = self.client.get(reverse('members:persons'))
-        self.assertEqual([user.pk for user in resp.context['object_list']], [1])
+        self.assertEqual([user for user in resp.context['object_list']], [self.user])
 
     def test_users_incorrect_delete(self):
         # Delete non-existing meeting
