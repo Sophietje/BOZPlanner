@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Help & Manual</h1>
+    <h1>{% trans 'Help & Manual' %}</h1>
     <hr>
-    <!---------A permission that only the BOZ enjoys in order to visualize targeted help and information for the BOZ------------>
-    {% if perms.meetings_create_meeting %}
+    <!--------- you may see information on scheduling meeting when you are allowed to create them (Admin and Planner) ------------>
+    {% if perms.meetings.add_meeting %}
         <div id="questions" class="panel-group" role ="tablist" aria-multiselectable="true">
             <div class ="panel panel-default">
                 <div id="schedule-heading" class="panel-heading" role="tab">
@@ -25,36 +25,9 @@
                     </div>
                 </div>
              </div>
-            <div class ="panel panel-default">
-                <div id="meetings-heading" class="panel-heading" role="tab">
-                    <h2 class="panel-title">
-                        <a class="collapsed btn-block" role="button" data-toggle="collapse" data-parent="#questions" href="#meetings-question" aria-expanded="false" aria-controls="meetings-question">
-                            <i class="caret"></i>
-                            {% trans 'Scheduled meetings' %}
-                        </a>
-                    </h2>
-                </div>
-                <div id="meetings-question" class="panel-collapse collapse " style ="height: 0px" aria-expanded="false" role="tabpanel" aria-labelledby="meetings-heading">
-                    <div class="panel-body" STYLE="text-align: justify;">
-                        {%  trans 'Scheduled meetings can be found in the menu called "Meetings", this menu lists the meetings and it indicates whether someone is assigned to the meeting to take the minutes. Furthermore, with the button in the header, a meeting can be scheduled instantly without having to navigate to the menu "Schedule a meeting".'%}
-                    </div>
-                </div>
-             </div>
-            <div class ="panel panel-default">
-                <div id="minutes-heading" class="panel-heading" role="tab">
-                    <h2 class="panel-title">
-                        <a class="collapsed btn-block" role="button" data-toggle="collapse" data-parent="#questions" href="#minutes-question" aria-expanded="false" aria-controls="minutes-question">
-                            <i class="caret"></i>
-                            {% trans 'Minutes' %}
-                        </a>
-                    </h2>
-                </div>
-                <div id="minutes-question" class="panel-collapse collapse " style ="height: 0px" aria-expanded="false" role="tabpanel" aria-labelledby="minutes-heading">
-                    <div class="panel-body" STYLE="text-align: justify;">
-                        {% trans 'In order to download minutes from meetings that took place in the past, you should navigate to the menu named "Minutes". In this menu, the past meetings are listed. When minutes are uploaded by the student, a download button can be found on the right hand side in the list. It could be the case that a student has uploaded multiple versions of the minutes. In that case, you are able to chose which version you would like to download.' %}
-                    </div>
-                </div>
-            </div>
+    {% endif %}
+    <!--------- you may see information on the users overview when you are allowed to add persons or be a planner (Admin, Planner and User Manager) ------------>
+    {% if perms.members.add_person or perms.meetings.add_meeting %}
             <div class ="panel panel-default">
                 <div id="users-heading" class="panel-heading" role="tab">
                     <h2 class="panel-title">
@@ -84,6 +57,9 @@
                     </div>
                 </div>
             </div>
+    {% endif %}
+    <!--------- you may see information on the organizations list when you may see this page (User Managers and Admin) ------------>
+    {% if perms.members.list_organizations %}
             <div class ="panel panel-default">
                 <div id="organizations-heading" class="panel-heading" role="tab">
                     <h2 class="panel-title">
@@ -98,6 +74,45 @@
                     </div>
                 </div>
             </div>
+    {% endif %}
+    <!--------- you may see information on scheduled meeting when you are allowed to see them (Admin, Planners and Secretaries)------------>
+    {% if perms.meetings.list_meetings %}
+            <div class ="panel panel-default">
+                <div id="meetings-heading" class="panel-heading" role="tab">
+                    <h2 class="panel-title">
+                        <a class="collapsed btn-block" role="button" data-toggle="collapse" data-parent="#questions" href="#meetings-question" aria-expanded="false" aria-controls="meetings-question">
+                            <i class="caret"></i>
+                            {% trans 'Scheduled meetings' %}
+                        </a>
+                    </h2>
+                </div>
+                <div id="meetings-question" class="panel-collapse collapse " style ="height: 0px" aria-expanded="false" role="tabpanel" aria-labelledby="meetings-heading">
+                    <div class="panel-body" STYLE="text-align: justify;">
+                        {% blocktrans %}
+                            Scheduled meetings can be found in the menu called "Meetings", this menu lists the meetings and it indicates whether someone is assigned to the meeting to take the minutes. Furthermore, with the button in the header, a meeting can be scheduled instantly without having to navigate to the menu "Schedule a meeting".
+                        {% endblocktrans %}
+                    </div>
+                </div>
+            </div>
+            <div class ="panel panel-default">
+                <div id="minutes-heading" class="panel-heading" role="tab">
+                    <h2 class="panel-title">
+                        <a class="collapsed btn-block" role="button" data-toggle="collapse" data-parent="#questions" href="#minutes-question" aria-expanded="false" aria-controls="minutes-question">
+                            <i class="caret"></i>
+                            {% trans 'Minutes' %}
+                        </a>
+                    </h2>
+                </div>
+                <div id="minutes-question" class="panel-collapse collapse " style ="height: 0px" aria-expanded="false" role="tabpanel" aria-labelledby="minutes-heading">
+                    <div class="panel-body" STYLE="text-align: justify;">
+                        {% blocktrans %}
+                            In order to download minutes from meetings that took place in the past, you should navigate to the menu named "Minutes". In this menu, the past meetings are listed. When minutes are uploaded by the student, a download button can be found on the right hand side in the list. It could be the case that a student has uploaded multiple versions of the minutes. In that case, you are able to chose which version you would like to download.
+                        {% endblocktrans %}
+                    </div>
+                </div>
+            </div>
+    {% endif %}
+    <!--------- you may see information on the settings when you are a user of the system (Thus everybody) ------------>
             <div class ="panel panel-default">
                 <div id="settings-heading" class="panel-heading" role="tab">
                     <h2 class="panel-title">
@@ -114,9 +129,5 @@
                 </div>
             </div>
         </div>
-     <!---------A permission that only students enjoy in order to visualize targeted help and information for students----------->
-    {% elif perms.meetings_list_meetings %}
-        <div>{% trans 'nogmeerdingen'%}</div>
-    {%  endif %}
 
 {%  endblock %}
