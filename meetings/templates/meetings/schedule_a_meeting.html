@@ -3,13 +3,13 @@
 <!-------------A new tab for the scheduling of a meeting. This page is used to create a new meeting------>
 {% block content %}
 
-    <h1 style="margin-left: 25%">Schedule a meeting</h1>
+    <h1 style="margin-left: 25%">{% trans 'Schedule a meeting' %}</h1>
     <hr>
-        <div  style="width: 50%; margin-left: 25%">
+        <div style="width: 50%; margin-left: 25%">
             <form method="post"> {% csrf_token %}
                 {{ form|fancy_form }}
                 <input class="btn btn-success btn-lg" type="submit" value="Submit"  style="float: right">
-                <a class="btn btn-default btn-lg" href="{% url 'meetings:meetings-list' %}" style ="float: right; margin-right: 8px"> Cancel </a>
+                <a class="btn btn-default btn-lg" href="{% url 'meetings:meetings-list' %}" style ="float: right; margin-right: 8px"> {% trans 'Cancel' %} </a>
             </form>
         </div>
 

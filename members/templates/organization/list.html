@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>
-        Organizations
+        {% trans 'Organizations' %}
         {% if perms.members.add_organization %}
             <a href="{% url 'members:organization_create' %}" class="btn btn-default">
                 <i class="glyphicon glyphicon-plus"></i>
@@ -56,7 +56,7 @@
                     <form method="post" action="{% url 'members:organization_update' organization.pk %}" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Edit organization</h4>
+                            <h4 class="modal-title">{% trans 'Edit organization' %}</h4>
                         </div>
 
                         <div class="modal-body">
@@ -64,7 +64,7 @@
                             {{ organization.form|fancy_form }}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
                             <input class="btn btn-success" type="submit" value="Submit">
                         </div>
                     </form>
@@ -82,13 +82,15 @@
                         {% csrf_token %}
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Delete organization</h4>
+                            <h4 class="modal-title">{% trans 'Delete organization' %}</h4>
                         </div>
                         <div class="modal-body">
-                            Are you sure you want to permanently delete the organization {{ organization }}? This will <em>delete all suborganizations</em> as well.
+                            {% blocktrans %}
+                                Are you sure you want to permanently delete the organization {{ organization }}? This will <em>delete all suborganizations</em> as well.
+                            {% endblocktrans %}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
                             <input class="btn btn-danger" type="submit" value="Delete">
                         </div>
                     </form>
@@ -102,13 +104,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Copy email addresses</h4>
+                    <h4 class="modal-title">{% trans 'Copy email addresses' %}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="input-group">
                         <input id="email-input" type="text" class="form-control" onclick="this.select()" autofocus>
                         <span class="input-group-btn">
-                            <button id="email-copy-button" class="btn btn-default copy-button"><i class="glyphicon glyphicon-copy"></i> Copy</button>
+                            <button id="email-copy-button" class="btn btn-default copy-button"><i class="glyphicon glyphicon-copy"></i> {% trans 'Copy' %}</button>
                         </span>
                     </div>
                 </div>

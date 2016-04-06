@@ -8,31 +8,31 @@
         </div>
         <ul class="nav navbar-nav">
             {% if perms.meetings.list_meetings %}
-                <li class="{% if active == 'meetings' %}active{% endif %}"><a href="{% url 'meetings:meetings-list' %}">Meetings</a></li>
-                <li class="{% if active == 'minutes' %}active{% endif %}"><a href="{% url 'meetings:minutes' %}">Minutes</a></li>
+                <li class="{% if active == 'meetings' %}active{% endif %}"><a href="{% url 'meetings:meetings-list' %}">{% trans 'Meetings' %}</a></li>
+                <li class="{% if active == 'minutes' %}active{% endif %}"><a href="{% url 'meetings:minutes' %}">{% trans 'Minutes' %}</a></li>
             {% endif %}
 
             {% if perms.members.list_persons %}
-                <li class="{% if active == 'users' %}active{% endif %}"><a href="{% url 'members:persons' %}">Users</a></li>
+                <li class="{% if active == 'users' %}active{% endif %}"><a href="{% url 'members:persons' %}">{%  trans 'Users' %}</a></li>
             {% endif %}
 
             {% if perms.members.list_organizations %}
-                <li class="{% if active == 'organizations' %}active{% endif %}"><a href="{% url 'members:organizations' %}">Organizations</a></li>
+                <li class="{% if active == 'organizations' %}active{% endif %}"><a href="{% url 'members:organizations' %}">{% trans 'Organizations' %}</a></li>
             {% endif %}
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
             <li class="{%  if active == 'help' %}active{% endif %}">
                 <a href="{%  url 'help' %}">
-                    <span class="glyphicon glyphicon-question-sign"></span> Help
+                    <span class="glyphicon glyphicon-question-sign"></span> {% trans 'Help' %}
                 </a>
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" type="button" data-toggle="dropdown" href="#">{{ request.user.get_full_name }}
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{% url 'members:preferences' %}"><span class="glyphicon glyphicon-cog"></span> Preferences</a></li>
-                    <li><a href="{% url 'members:logout' %}"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
+                    <li><a href="{% url 'members:preferences' %}"><span class="glyphicon glyphicon-cog"></span> {% trans 'Preferences' %}</a></li>
+                    <li><a href="{% url 'members:logout' %}"><span class="glyphicon glyphicon-off"></span> {% trans 'Log out' %}</a></li>
                 </ul>
             </li>
         </ul>

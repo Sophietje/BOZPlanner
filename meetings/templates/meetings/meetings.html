@@ -3,7 +3,7 @@
 
 {% block content %}
     <h1>
-        Meetings
+         {% trans 'Meetings' %}
         {% if perms.meetings.add_meeting %}
             <a href="{% url 'meetings:meeting-add' %}" class="btn btn-default">
                 <i class="glyphicon glyphicon-plus"></i>
@@ -15,13 +15,13 @@
         <table class="table table-hover data-table" data-order='[[1, "asc"]]'>
             <thead>
                 <tr>
-                    <th>Organization</th>
-                    <th>Date & Time</th>
-                    <th>Location</th>
-                    <th>Secretary</th>
+                    <th>{%  trans 'Organization' %}</th>
+                    <th>{% trans 'Date & Time' %}</th>
+                    <th>{% trans 'Location' %}</th>
+                    <th>{% trans 'Secretary' %}</th>
                     <th class="btn-cell no-sort">
                         {% if not perms.meetings.change_meeting %}
-                            Subscription
+                            {% trans 'Subscription' %}
                         {% endif %}
                     </th>
                 </tr>
@@ -36,7 +36,7 @@
                     {% if meeting.secretary != None %}
                         <td id="secretary-{{ meeting.pk }}">{{ meeting.secretary }}</td>
                     {% else %}
-                        <td id="secretary-{{ meeting.pk }}"><em><small>None</small></em></td>
+                        <td id="secretary-{{ meeting.pk }}"><em><small>{% trans 'None' %}</small></em></td>
                     {% endif %}
                     <td class="btn-cell">
                         <div>
@@ -58,7 +58,7 @@
                                                 });
                                             } else {
                                                 if(data.secretary === null) {
-                                                    $('#secretary-{{ meeting.pk }}').html('<em><small>None</small></em>');
+                                                    $('#secretary-{{ meeting.pk }}').html('<em><small>{% trans 'None' %}</small></em>');
                                                 } else {
                                                     $('#secretary-{{ meeting.pk }}').text(data.secretary);
                                                     if($('#toggle-{{ meeting.pk }}').data("soon") == "True") {
@@ -117,7 +117,7 @@
                     <form method="post" action="{% url 'meetings:meeting-update' meeting.id %}" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Edit meeting</h4>
+                            <h4 class="modal-title">{% trans 'Edit meeting' %}</h4>
                         </div>
 
                         <div class="modal-body">
@@ -125,7 +125,7 @@
                             {{ meeting.form|fancy_form }}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel'%}</button>
                             <input class="btn btn-success" type="submit" value="Submit">
                         </div>
                     </form>
@@ -143,7 +143,7 @@
                         {% csrf_token %}
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Delete meeting</h4>
+                            <h4 class="modal-title">{% trans 'Delete meeting' %}</h4>
                         </div>
                         <div class="modal-body">
                             {% blocktrans with begin_time=meeting.begin_time%}
@@ -151,7 +151,7 @@
                             {% endblocktrans %}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
                             <input class="btn btn-danger" type="submit" value="Delete">
                         </div>
                     </form>

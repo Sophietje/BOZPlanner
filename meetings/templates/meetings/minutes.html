@@ -2,17 +2,17 @@
 
 <!-------------some sort of permissions can be build in, the BOZ and OLC should see this page------>
 {% block content %}
-    <h1>Minutes</h1>
+    <h1>{% trans 'Minutes' %}</h1>
     <hr>
     <div class="table">
        <table class="table table-hover data-table" data-order='[[1, "desc"]]'>
             <thead>
                 <tr>
-                    <th>Subject</th>
-                    <th>Date & Time</th>
-                    <th>Location</th>
-                    <th>Secretary</th>
-                    <th class="btn-cell no-sort">Upload&nbsp;-&nbsp;Options</th>
+                    <th>{% trans 'Subject' %}</th>
+                    <th>{% trans 'Date & Time' %}</th>
+                    <th>{% trans 'Location' %}</th>
+                    <th>{% trans 'Secretary' %}</th>
+                    <th class="btn-cell no-sort">{%  trans 'Upload&nbsp;-&nbsp;Options' %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
                         {% if meeting.secretary != None %}
                             <td>{{ meeting.secretary }}</td>
                         {% else %}
-                            <td><em><small>None</small></em></td>
+                            <td><em><small>{% trans 'None' %}</small></em></td>
                         {% endif %}
 
                         <!------------------There should be a download button to request the meetings-------->
@@ -89,14 +89,16 @@
                         <form method="post" action="{% url 'meetings:minutes-delete' minutes.pk %}">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Delete minutes</h4>
+                                <h4 class="modal-title">{% trans 'Delete minutes' %}</h4>
                             </div>
                             <div class="modal-body">
                                 {% csrf_token %}
-                                Are you sure you want to remove the file {{ minutes.original_name }} uploaded at {{ minutes.date }}?
+                                {% blocktrans with name=minutes.original_name date=minutes.date%}
+                                    Are you sure you want to remove the file {{ name }} uploaded at {{ date }}?
+                                {% endblocktrans %}
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
                                 <input class="btn btn-danger" type="submit" value="Delete">
                             </div>
                         </form>
