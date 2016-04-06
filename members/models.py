@@ -120,7 +120,7 @@ class Preferences(models.Model):
         verbose_name="Include meetings in your agenda of which you are the secretary")
     agenda_organization = models.BooleanField(default=False,
         verbose_name="Include meetings in your agenda which belong to your organizations")
-    overview_student = models.ManyToManyField(Organization, blank=True, related_name='student_pref_overview')
+    overview_student = models.ManyToManyField(Organization, verbose_name="overview secretary", blank=True, related_name='student_pref_overview')
     confirmation_student = models.BooleanField(default=False,
         verbose_name="Receive confirmation mail when adding yourself to a meeting")
 
