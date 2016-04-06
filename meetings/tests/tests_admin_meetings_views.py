@@ -42,7 +42,7 @@ class TestsAdminMeetingsViews(TestCase, TestMeetingMixin, TestUserMixin):
         resp = self.client.post(reverse('meetings:meeting-update', kwargs={'pk': 1}), {'secretary':student,
                 'begin_time':begin_time, 'end_time':end_time, 'place':place, 'organization':organization })
         self.assertEqual(resp.status_code, 200)
-        meeting_1 = Meeting.objects.get(pk=meeting_1.pk)
+        meeting_1 = Meeting.objects.get(pk=self.meeting_1.pk)
         self.assertTrue(meeting_1.secretary, student)
         self.assertTrue(meeting_1.begin_time, begin_time)
         self.assertTrue(meeting_1.end_time, end_time)
