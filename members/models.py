@@ -24,11 +24,7 @@ class Person(AbstractUser):
     @property
     def is_secretary(self):
         return self.groups.filter(name="Secretary").exists()
-    
-    @property
-    def is_approver(self):
-        return self.groups.filter(name="Approver").exists()
-    
+
     @property
     def is_user_manager(self):
         return self.groups.filter(name="User Manager").exists()
@@ -42,7 +38,7 @@ class Person(AbstractUser):
         result = set()
 
         for organization in self.organizations.all():
-            result |= organization.all_organizations()
+            result |= organization.all_organizations
 
         return list(result)
 
@@ -81,13 +77,15 @@ Person._meta.get_field('username').validators.append(Person.validate_username)
 Person._meta.get_field('groups').help_text = ''
 Person._meta.get_field('email').required = True
 
+
 class Organization(models.Model):
     """An organization for which OLC meetings can be planned in BOZPlanner"""
     name = models.CharField(max_length=255)
     parent_organization = models.ForeignKey("Organization", null=True, blank=True,
         help_text="The organization to which this organization belongs. For example, Technical Computer Science might "
-        "belong to an organization called EWI.")
+            "belong to an organization called EWI.")
 
+    @property
     def all_organizations(self):
         todo = {self}
         done = {self}
@@ -120,12 +118,12 @@ class Preferences(models.Model):
         verbose_name="Include meetings in your agenda of which you are the secretary")
     agenda_organization = models.BooleanField(default=False,
         verbose_name="Include meetings in your agenda which belong to your organizations")
-    overview_student = models.ManyToManyField(Organization, verbose_name="overview secretary", blank=True, related_name='student_pref_overview')
+    overview_student = models.ManyToManyField(Organization, verbose_name="overview secretary", blank=True,
+        related_name='student_pref_overview')
     confirmation_student = models.BooleanField(default=False,
         verbose_name="Receive confirmation mail when adding yourself to a meeting")
 
-    zoom_in = models.BooleanField(default=False,
-        verbose_name="Always zoom in the page")
+    zoom_in = models.BooleanField(default=False, verbose_name="Always zoom in the page")
 
     class Meta:
         verbose_name_plural = 'Preferences'

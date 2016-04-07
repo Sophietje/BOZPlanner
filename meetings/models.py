@@ -2,7 +2,7 @@ from django.utils.translation import ugettext as _
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.urlresolvers import reverse
-from datetime import datetime
+from datetime import datetime, timedelta
 import icalendar
 
 from meetings.managers import MeetingManager
@@ -13,16 +13,15 @@ class Meeting(models.Model):
     objects = MeetingManager()
 
     place = models.CharField(max_length=255)
-    begin_time = models.DateTimeField(verbose_name="Begin Date & Time")
-    end_time = models.DateTimeField(verbose_name="End Date & Time")
+    begin_time = models.DateTimeField(verbose_name=_("begin date & time"))
+    end_time = models.DateTimeField(verbose_name=_("end date & time"))
     secretary = models.ForeignKey("members.Person", related_name="secretary", blank=True, null=True)
     organization = models.ForeignKey("members.Organization")
-    planner = models.ForeignKey("members.Person", related_name="planner", blank=True, null=True)
 
     @property
     def is_soon(self):
-        td=(self.begin_time - datetime.now())
-        return td.days <= 10
+        td = self.begin_time - datetime.now()
+        return td <= timedelta(days=10)
 
     def as_icalendar_event(self):
         """Returns a copy of this meeting as an iCalendar event
@@ -43,14 +42,13 @@ class Meeting(models.Model):
         return event
 
     def clean(self):
+        super(Meeting, self).clean()
+
         if self.begin_time > self.end_time:
             raise ValidationError(_('End of a meeting cannot be before the start of a meeting.'))
 
     def __str__(self):
-        return _("OLC-vergadering van {}").format(self.organization)
-
-    def get_absolute_url(self):
-        return reverse('meetings:meetings-list')
+        return _("OLC meeting of {}").format(self.organization)
 
     class Meta:
         permissions = [
@@ -72,7 +70,7 @@ class Minutes(models.Model):
     approved_by = models.ForeignKey("members.Person", blank=True, null=True)
 
     class Meta:
-        verbose_name_plural = "Minutes"
-        permissions=[
+        verbose_name_plural = "minutes"
+        permissions = [
             ("approve", "Can approve minutes"),
         ]

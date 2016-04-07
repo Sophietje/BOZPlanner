@@ -10,13 +10,13 @@ class TestStudentOrganizationsViews(TestCase, TestUserMixin):
         self.setupStudentSession()
 
     def test_organizations_list(self):
-        resp = self.client.get(reverse('members:organizations'))
+        resp = self.client.get(reverse('members:list_organization'))
         # Student is not allowed to view organizations so should be redirected (302)
         self.assertEqual(resp.status_code, 403)
 
     def test_organizations_correct_update(self):
         p_orga = Organization.objects.create(name='Parent')
-        resp = self.client.post(reverse('members:organization_update', kwargs={'pk': self.o.pk}), {'name':'Child', 'parent_organization': p_orga.pk})
+        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': self.o.pk}), {'name':'Child', 'parent_organization': p_orga.pk})
 
         self.assertEqual(resp.status_code, 403)
         # Ensure nothing has been updated (student is not allowed to update organizations)
@@ -25,19 +25,19 @@ class TestStudentOrganizationsViews(TestCase, TestUserMixin):
 
     def test_organizations_incorrect_update(self):
         # Ensure that a non-existent pk throws a 404
-        resp = self.client.post(reverse('members:organization_update', kwargs={'pk': 9999}))
+        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': 9999}))
         self.assertEqual(resp.status_code, 403)
 
         # Post NO data
-        resp = self.client.post(reverse('members:organization_update', kwargs={'pk': self.o.pk}))
+        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': self.o.pk}))
         self.assertEqual(resp.status_code, 403)
 
         # Post junk data
-        resp = self.client.post(reverse('members:organization_update', kwargs={'pk': self.o.pk}), {'foo': 'bar'})
+        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': self.o.pk}), {'foo': 'bar'})
         self.assertEqual(resp.status_code, 403)
 
         # Send non-existent parent-organization pk
-        resp = self.client.post(reverse('members:organization_update', kwargs={'pk': self.o.pk}), {'parent_organization': 9999})
+        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': self.o.pk}), {'parent_organization': 9999})
         self.assertEqual(resp.status_code, 403)
         self.assertEqual(Organization.objects.get(pk=self.o.pk).parent_organization, None)
 
@@ -46,7 +46,7 @@ class TestStudentOrganizationsViews(TestCase, TestUserMixin):
         orga = Organization.objects.create(name='Parent')
         self.assertEqual('Parent', Organization.objects.get(pk=orga.pk).name)
         # Delete newly added organization
-        resp = self.client.post(reverse('members:organization_delete', kwargs={'pk': orga.pk}))
+        resp = self.client.post(reverse('members:delete_organization', kwargs={'pk': orga.pk}))
         self.assertEqual(resp.status_code, 403)
         # Ensure that organization has NOT been deleted
         self.assertNotEqual(None, Organization.objects.get(pk=orga.pk))
@@ -55,7 +55,7 @@ class TestStudentOrganizationsViews(TestCase, TestUserMixin):
 
     def test_organizations_incorrect_delete(self):
         # Delete non-existing organization
-        resp = self.client.post(reverse('members:organization_delete', kwargs={'pk': 9999}))
+        resp = self.client.post(reverse('members:delete_organization', kwargs={'pk': 9999}))
         self.assertEqual(resp.status_code, 403)
         # Assert that list of organizations did not change
         self.assertEqual([orga for orga in Organization.objects.all()], [self.o])

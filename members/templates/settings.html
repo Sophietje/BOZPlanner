@@ -10,7 +10,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">{% trans 'Welcome'%}!</h4>
                     </div>
                     <div class="modal-body">
@@ -34,17 +34,13 @@
         <script type="text/javascript">
             $(function() {
                 $('#first-login-modal').modal().show();
-            })
+            });
         </script>
     {% endif %}
 
     <h1>Preferences</h1>
-    <form method="post" action="{% url 'members:sudo' %}">
-        {% csrf_token %}
-        <input type="text" name="pk">
-        <input type="submit" value="sudo">
-    </form>
     <hr>
+
     <form method="post">
         {% csrf_token %}
         <h2>General</h2>
@@ -54,6 +50,11 @@
             <h2>E-mail</h2>
             {{ form.overview|fancy_form_field }}
             {{ form.reminder|fancy_form_field }}
+
+            {# For all organisations in model.organisations, check if in preferences.organisations, then show selected, otherwise not. #}
+            <!---------A permission that only students enjoy in order to visualize targeted help and information for students----------->
+        {% endif %}
+        {% if perms.meetings_list_meetings %}
             <h2>Agenda</h2>
             <p>
                 {% trans 'Add to:' %}
@@ -67,17 +68,12 @@
             {{ form.agenda_secretary|fancy_form_field }}
             {{ form.agenda_organization|fancy_form_field }}
 
-
-            {# For all organisations in model.organisations, check if in preferences.organisations, then show selected, otherwise not. #}
-            <!---------A permission that only students enjoy in order to visualize targeted help and information for students----------->
-        {% endif %}
-        {% if perms.meetings_list_meetings %}
             <h2>E-mail</h2>
             {{ form.overview_student|fancy_form_field }}
             {{ form.confirmation_student|fancy_form_field }}
         {% endif %}
 
-        <a href="{% url 'members:organizations' %}" class="btn btn-default">{% trans 'Back' %}</a>
+        <a href="{% url 'members:list_organization' %}" class="btn btn-default">{% trans 'Back' %}</a>
         <input type="submit" value="{% trans 'Submit' %}" class="btn btn-primary">
     </form>
 {% endblock %}

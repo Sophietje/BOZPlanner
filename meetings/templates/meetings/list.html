@@ -3,19 +3,21 @@
 
 {% block content %}
     <h1>
-         {% trans 'Meetings' %}
+        {% trans 'Meetings' %}
         {% if perms.meetings.add_meeting %}
-            <a href="{% url 'meetings:meeting-add' %}" class="btn btn-default">
+            <a href="{% url 'meetings:add_meeting' %}" class="btn btn-default">
                 <i class="glyphicon glyphicon-plus"></i>
             </a>
         {% endif %}
     </h1>
     <hr>
+
+    <!-- List of meetings -->
     <div class="table-responsive">
         <table class="table table-hover data-table" data-order='[[1, "asc"]]'>
             <thead>
                 <tr>
-                    <th>{%  trans 'Organization' %}</th>
+                    <th>{% trans 'Organization' %}</th>
                     <th>{% trans 'Date & Time' %}</th>
                     <th>{% trans 'Location' %}</th>
                     <th>{% trans 'Secretary' %}</th>
@@ -26,25 +28,38 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
-            {% for meeting in object_list %}
+
+            <tbody>{% for meeting in object_list %}
                 <tr>
                     <td>{{ meeting.organization }}</td>
-
                     <td data-order="{{ meeting.begin_time|date:"YmdHi" }}">{{ meeting.begin_time }}</td>
                     <td>{{ meeting.place }}</td>
                     {% if meeting.secretary != None %}
-                        <td id="secretary-{{ meeting.pk }}">{{ meeting.secretary }}</td>
+                        <td id="secretary-{{ meeting.pk }}">
+                            {{ meeting.secretary }}
+                        </td>
                     {% else %}
-                        <td id="secretary-{{ meeting.pk }}"><em><small>{% trans 'None' %}</small></em></td>
+                        <td id="secretary-{{ meeting.pk }}">
+                            <em><small>{% trans 'None' %}</small></em>
+                        </td>
                     {% endif %}
                     <td class="btn-cell">
                         <div>
                             {% if not perms.meetings.change_meeting %}
-                            <input id="toggle-{{ meeting.pk }}" data-soon="{{ meeting.is_soon }}" data-toggle="toggle" type="checkbox" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger" data-size="small"
-                               autocomplete="off"
-                               {% if meeting.secretary != None %}checked{% endif %}
-                               {% if meeting.is_soon and meeting.secretary != None %}disabled{% elif meeting.secretary != None and meeting.secretary != request.user %}disabled{% endif %}/>
+                            <input id="toggle-{{ meeting.pk }}" data-soon="{{ meeting.is_soon }}" data-toggle="toggle"
+                               type="checkbox" data-on=" " data-off=" " data-onstyle="success" data-offstyle="danger"
+                               data-size="small" autocomplete="off"
+
+                               {% if meeting.secretary != None %}
+                                   checked
+                               {% endif %}
+
+                               {% if meeting.is_soon and meeting.secretary != None %}
+                                   disabled
+                               {% elif meeting.secretary != None and meeting.secretary != request.user %}
+                                   disabled
+                               {% endif %}
+                            />
 
                             <script>
                                 $(function() {
@@ -61,6 +76,7 @@
                                                     $('#secretary-{{ meeting.pk }}').html('<em><small>{% trans 'None' %}</small></em>');
                                                 } else {
                                                     $('#secretary-{{ meeting.pk }}').text(data.secretary);
+
                                                     if($('#toggle-{{ meeting.pk }}').data("soon") == "True") {
                                                         $('#toggle-{{ meeting.pk }}').prop('disabled', true);
                                                         console.log($('#toggle-{{ meeting.pk }}').parent());
@@ -70,17 +86,15 @@
                                             }
                                         });
                                     });
+
                                     $('#toggle-{{ meeting.pk }}').parent().click(function() {
-                                        console.log(123);
-                                        if ($('#toggle-{{ meeting.pk }}').prop('disabled')) {
-                                            console.log(345);
+                                        if($('#toggle-{{ meeting.pk }}').prop('disabled')) {
                                             new PNotify({
                                                 title: 'Deregistration period expired',
                                                 text: 'You cannot unsubscribe from this meeting anymore',
                                                 type: 'error'
-                                            })
+                                            });
                                         }
-
                                     });
                                 });
                             </script>
@@ -104,17 +118,16 @@
                         </div>
                     </td>
                 </tr>
-            {% endfor %}
-            </tbody>
+            {% endfor %}</tbody>
         </table>
     </div>
 
+    <!-- Modals to edit meetings -->
     {% for meeting in object_list %}
-        {# Pop-up window for editing a meeting #}
         <div id="editModal-{{ meeting.pk }}" class="modal fade" role="form">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" action="{% url 'meetings:meeting-update' meeting.id %}" enctype="multipart/form-data">
+                    <form method="post" action="{% url 'meetings:change_meeting' meeting.id %}">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">{% trans 'Edit meeting' %}</h4>
@@ -126,7 +139,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel'%}</button>
-                            <input class="btn btn-success" type="submit" value="Submit">
+                            <input class="btn btn-primary" type="submit" value="Submit">
                         </div>
                     </form>
                 </div>
@@ -134,12 +147,12 @@
         </div>
     {% endfor %}
 
+    <!-- Modals to delete meetings -->
     {% for meeting in object_list %}
-        {# Pop-up window for deleting a meeting #}
         <div id="deleteModal-{{ meeting.pk }}" class="modal fade" role="form">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" action="{% url 'meetings:meeting-delete' meeting.pk %}" enctype="multipart/form-data">
+                    <form method="post" action="{% url 'meetings:delete_meeting' meeting.pk %}">
                         {% csrf_token %}
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>

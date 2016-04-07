@@ -1,8 +1,0 @@
-{% extends "base-meetings.html" %}
-
-{% block content %}
-    <form method="post">{% csrf_token %}
-        {{ form|fancy_form }}
-        <input type="submit" value="Submit" class="btn btn-primary" />
-    </form>
-{% endblock %}

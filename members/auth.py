@@ -12,11 +12,13 @@ logger = logging.getLogger('bozplanner')
 
 login_required = method_decorator(decorators.login_required, name='dispatch')
 
+csrf_exempt = method_decorator(csrf.csrf_exempt, name='dispatch')
+
+
 def permission_required(*args, **kwargs):
     kwargs['raise_exception'] = True
     return method_decorator(decorators.permission_required(*args, **kwargs), name='dispatch')
 
-csrf_exempt = method_decorator(csrf.csrf_exempt, name='dispatch')
 
 class SAML2Backend:
     def authenticate(self, session_info, attribute_mapping, create_unknown_user):

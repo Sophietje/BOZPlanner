@@ -1,31 +1,25 @@
+"""Global project settings"""
 import os
 import sys
 import djcelery
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
-
-# Application definition
-from django.conf.global_settings import DATETIME_INPUT_FORMATS
 from django.utils.formats import iter_format_modules
 
+# Determine available modules
 try:
     from bozplanner import local
-    if local.USE_DJANGOSAML2 == True:
-        # Check wether djangosaml2 is available
-        try:
-            import djangosaml2
-            HAVE_DJANGOSAML2 = True
-        except ImportError:
-            HAVE_DJANGOSAML2 = False
-    else:
-        HAVE_DJANGOSAML2 = False
-
 except ImportError:
     print("If you just cloned the project, you need to copy local.template.py to local.py and edit the values for your local setup.")
     raise
+
+if local.USE_DJANGOSAML2:
+    try:
+        import djangosaml2
+        HAVE_DJANGOSAML2 = True
+    except ImportError:
+        HAVE_DJANGOSAML2 = False
+else:
+    HAVE_DJANGOSAML2 = False
 
 try:
     import debug_toolbar
@@ -33,12 +27,58 @@ try:
 except ImportError:
     HAVE_DEBUG_TOOLBAR = False
 
-djcelery.setup_loader()
-
+# Project base path
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+# Localization
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = False
+
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+DATETIME_INPUT_FORMATS = ["%d-%m-%Y+%H:%M"]
+
+DATE_FORMAT = 'd-m-Y'
+DATETIME_FORMAT = 'd-m-Y H:i'
+SHORT_DATE_FORMAT = DATE_FORMAT
+SHORT_DATETIME_FORMAT = DATETIME_FORMAT
+
+# Authentication
+LOGIN_URL = '/saml2/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = "members.Person"
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+if HAVE_DJANGOSAML2:
+    AUTHENTICATION_BACKENDS = [
+        'members.auth.SAML2Backend'
+    ] + AUTHENTICATION_BACKENDS
+
+# Project apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,23 +93,30 @@ INSTALLED_APPS = [
 
     'members',
     'meetings',
-    'utwente',
+    'help',
     'bozplanner',
     'django_extensions',
-    'debug_toolbar',
 ]
-
-EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
-
-BROKER_URL = 'django://'
-
-COMPRESS_ENABLED = True
 
 if HAVE_DJANGOSAML2:
     INSTALLED_APPS += [
         'djangosaml2',
     ]
 
+if HAVE_DEBUG_TOOLBAR and local.DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+
+# Email settings
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+BROKER_URL = 'django://'
+EMAIL_HOST = 'smtp.utwente.nl'
+EMAIL_HOST_USER = 'bozplanner@utwente.nl'
+
+djcelery.setup_loader()
+
+# Middlewares
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -82,6 +129,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Views
 ROOT_URLCONF = 'bozplanner.urls'
 
 TEMPLATES = [
@@ -103,67 +151,9 @@ TEMPLATES = [
     },
 ]
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-AUTH_USER_MODEL = "members.Person"
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-]
-
-LOGIN_URL = '/saml2/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
-
-
-if HAVE_DJANGOSAML2:
-    AUTHENTICATION_BACKENDS = [
-        'members.auth.SAML2Backend'
-    ] + AUTHENTICATION_BACKENDS
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = False
-
-
-DATE_INPUT_FORMATS = ['%d-%m-%Y']
-DATETIME_INPUT_FORMATS = ["%d-%m-%Y+%H:%M"]
-
-DATE_FORMAT = 'd-m-Y'
-DATETIME_FORMAT = 'd-m-Y H:i'
-SHORT_DATE_FORMAT = DATE_FORMAT
-SHORT_DATETIME_FORMAT = DATETIME_FORMAT
-
+# Local settings
 try:
     from bozplanner.local import *
 except ImportError:
     print("If you just cloned the project, you need to copy local.template.py to local.py and edit the values for your local setup.")
     raise
-
-if HAVE_DEBUG_TOOLBAR and DEBUG:
-    INSTALLED_APPS += [
-        # 'debug_toolbar'
-    ]
-
-EMAIL_HOST = 'smtp.utwente.nl'
-EMAIL_HOST_USER = 'bozplanner@utwente.nl'

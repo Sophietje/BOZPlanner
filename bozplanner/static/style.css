@@ -89,3 +89,11 @@ table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after
     padding: 2px 5px;
     margin-left: 4px
 }
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    padding-right: 0 !important;
+}

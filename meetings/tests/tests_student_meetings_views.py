@@ -14,7 +14,7 @@ class TestsStudentMeetingsViews(TestCase, TestMeetingMixin, TestUserMixin):
         self.setupMeeting()
 
     def test_meetings_list(self):
-        resp = self.client.get(reverse('meetings:meetings-list'))
+        resp = self.client.get(reverse('meetings:list_meeting'))
         # User is logged in with permission to list meetings thus the page should load (response should be 200)
         self.assertEqual(resp.status_code, 200)
         self.assertTrue('object_list' in resp.context)
@@ -25,7 +25,7 @@ class TestsStudentMeetingsViews(TestCase, TestMeetingMixin, TestUserMixin):
         # 2 represents a meeting belonging to another organization that the student is not a part of, it should NOT see this meeting
         # 3 represents a meeting belonging to a suborganization of the organization of the student
         # 4 represents a meeting in the past
-        resp = self.client.get(reverse('meetings:meetings-list'))
+        resp = self.client.get(reverse('meetings:list_meeting'))
         self.assertEqual([meeting for meeting in resp.context['object_list']], [self.meeting_1, self.meeting_3])
 
     def test_meetings_correct_update(self):
@@ -36,7 +36,7 @@ class TestsStudentMeetingsViews(TestCase, TestMeetingMixin, TestUserMixin):
 
         # Change secretary to student
         student = Person.objects.get(pk=self.user.pk)
-        resp = self.client.post(reverse('meetings:meeting-toggle', kwargs={'pk': self.meeting_1.pk}))
+        resp = self.client.post(reverse('meetings:toggle_meeting', kwargs={'pk': self.meeting_1.pk}))
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(Meeting.objects.get(pk=self.meeting_1.pk).secretary, student)
 
@@ -44,27 +44,27 @@ class TestsStudentMeetingsViews(TestCase, TestMeetingMixin, TestUserMixin):
         # Test whether posting incorrect data, or try to post things you are not allowed to change as a student
 
         # Ensure that a non-existent pk throws a 404
-        resp = self.client.post(reverse('meetings:meeting-toggle', kwargs={'pk': 9999}))
+        resp = self.client.post(reverse('meetings:toggle_meeting', kwargs={'pk': 9999}))
         self.assertEqual(resp.status_code, 404)
 
         # Try to update a meeting, should not be allowed so user should be redirected
         student = Person.objects.get(pk=self.user.pk)
-        resp = self.client.post(reverse('meetings:meeting-update', kwargs={'pk': self.meeting_1.pk}), {'secretary': student})
+        resp = self.client.post(reverse('meetings:change_meeting', kwargs={'pk': self.meeting_1.pk}), {'secretary': student})
         self.assertEqual(resp.status_code, 403)
 
         # Post unnecessary data
         student = Person.objects.get(pk=self.user.pk)
-        resp = self.client.post(reverse('meetings:meeting-toggle', kwargs={'pk': self.meeting_1.pk}), {'secretary': student})
+        resp = self.client.post(reverse('meetings:toggle_meeting', kwargs={'pk': self.meeting_1.pk}), {'secretary': student})
         self.assertEqual(resp.status_code, 200)
         meeting_1 = Meeting.objects.get(pk=self.meeting_1.pk)
         self.assertEqual(meeting_1.secretary, student)
 
     def test_meetings_delete(self):
         # Ensure that student may not delete a meeting
-        resp = self.client.post(reverse('meetings:meeting-delete', kwargs={'pk': self.meeting_1.pk}))
+        resp = self.client.post(reverse('meetings:delete_meeting', kwargs={'pk': self.meeting_1.pk}))
         self.assertEqual(resp.status_code, 403)
         # Ensure meeting is not deleted
-        resp = self.client.get(reverse('meetings:meetings-list'))
+        resp = self.client.get(reverse('meetings:list_meeting'))
         self.assertEqual([meeting for meeting in resp.context['object_list']], [self.meeting_1, self.meeting_3])
 
 

@@ -1,9 +1,10 @@
 {% extends "base-minutes.html" %}
 
-<!-------------some sort of permissions can be build in, the BOZ and OLC should see this page------>
 {% block content %}
     <h1>{% trans 'Minutes' %}</h1>
     <hr>
+
+    <!-- List of meetings with minutes -->
     <div class="table">
        <table class="table table-hover data-table" data-order='[[1, "desc"]]'>
             <thead>
@@ -16,55 +17,56 @@
                 </tr>
             </thead>
             <tbody>
-                <!------------------table filled in, there is not much more for this block--------->
                 {% for meeting in object_list %}
                     <tr>
                         <td>{{ meeting.organization }}</td>
                         <td data-order="{{ meeting.begin_time|date:"YmdHi" }}">{{ meeting.begin_time }}</td>
                         <td>{{ meeting.place }}</td>
                         {% if meeting.secretary != None %}
-                            <td>{{ meeting.secretary }}</td>
+                            <td>
+                                {{ meeting.secretary }}
+                            </td>
                         {% else %}
-                            <td><em><small>{% trans 'None' %}</small></em></td>
+                            <td>
+                                <em><small>{% trans 'None' %}</small></em>
+                            </td>
                         {% endif %}
 
-                        <!------------------There should be a download button to request the meetings-------->
                         <td class="btn-cell"><div>
-                            {# Upload minutes form #}
-                            <form method="post" action="{% url 'meetings:minutes-upload' %}" class="upload-form" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <input type="hidden" name="meeting" value="{{ meeting.pk }}">
-                                <input type="file" name="minutes" style="display: none">
-                                <!-----------When may you see the upload button?------------>
-                                {%  if meeting.secretary == user or perms.meetings.add_minutes %}
+                            <!-- Upload minutes form -->
+                            {% if meeting.secretary == user or perms.meetings.add_minutes %}
+                                <form method="post" action="{% url 'meetings:upload_minutes' %}" class="upload-form" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="meeting" value="{{ meeting.pk }}">
+                                    <input type="file" name="minutes" style="display: none">
                                     <button type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
                                     </button>
-                                {% endif %}
-                            </form>
+                                </form>
+                            {% endif %}
 
                             &nbsp;
 
-                            {% if meeting.minutes.all|length == 0%}
-                                {# nop #}
-                            {% else %}
+                            {% if meeting.minutes.all|length > 0 %}
                                 <div class="btn-group">
-
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Minutes <span class="caret"></span>
                                     </button>
 
                                     <ul class="dropdown-menu pull-right">
                                         {% for minutes in meeting.minutes.all %}
-                                            <li style="vertical-align: middle">
-                                                <a onclick="window.location='{% url 'meetings:minutes-download' minutes.pk %}'" style="cursor: pointer">
-                                                    {{ minutes.original_name }}
-                                                    <em><small>{{ minutes.date }}</small></em>
+                                            <li style="vertical-align: middle;">
+                                                <a onclick="window.location='{% url 'meetings:download_minutes' minutes.pk %}'" style="cursor: pointer; display: flex">
+                                                    <span style="margin-right: 8px">{{ minutes.original_name }}</span>
+                                                    <em style="flex-grow: 1"><small>{{ minutes.date }}</small></em>
                                                     <span class="btn btn-default btn-sm dropdown-button">
                                                         <i class="glyphicon glyphicon-save"></i>
                                                     </span>
                                                     {% if perms.meetings.delete_minutes or meeting.secretary == user %}
-                                                        <span onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); $('#deleteModal-{{ minutes.pk }}').modal('show')" href="#" class="btn btn-danger btn-sm dropdown-button"  data-toggle="modal" data-target="deleteModal-{{ minutes.pk }}">
+                                                        <span onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); $('#deleteModal-{{ minutes.pk }}').modal('show')"
+                                                           href="#" class="btn btn-danger btn-sm dropdown-button"
+                                                           data-toggle="modal" data-target="deleteModal-{{ minutes.pk }}"
+                                                           style="margin-left: 3px">
                                                             <i class="glyphicon glyphicon-remove"></i>
                                                         </span>
                                                     {% endif %}
@@ -81,12 +83,13 @@
        </table>
     </div>
 
+    <!-- Modals to delete minutes -->
     {% for meeting in object_list %}
         {% for minutes in meeting.minutes.all %}
             <div id="deleteModal-{{ minutes.pk }}" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form method="post" action="{% url 'meetings:minutes-delete' minutes.pk %}">
+                        <form method="post" action="{% url 'meetings:delete_minutes' minutes.pk %}">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">{% trans 'Delete minutes' %}</h4>
@@ -110,8 +113,8 @@
 
     <script type="text/javascript">
         $(function() {
-            $('.upload-form').each(function(_, form) {
-                form = $(form);
+            $('.upload-form').each(function() {
+                var form = $(this);
 
                 form.find('button').click(function() {
                     form.find('input[type=file]').click();

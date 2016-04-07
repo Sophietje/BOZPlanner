@@ -7,10 +7,10 @@ from members.models import Organization, Person
 class TestUserMixin:
     def setupStudentSession(self):
         # Add user to the database
-        o = Organization.objects.create(name='Test')
+        self.o = Organization.objects.create(name='Test')
         self.user = Person.objects.create(username='s1234567', password='secret', first_name='test')
         self.user.set_password('secret')
-        self.user.organizations.add(o)
+        self.user.organizations.add(self.o)
 
         # Add permissions belonging to general student accounts
         permission_1 = Permission.objects.get(codename='list_meetings')

@@ -13,11 +13,8 @@ from members.forms import OrganizationForm, PersonForm
 from members.models import Person, Organization, Preferences
 
 
-class PermissionDeniedView(TemplateView):
-    template_name = "http/templates/403.html"
-
 @permission_required("members.list_persons")
-class PersonsView(TemplateView):
+class ListPersonView(TemplateView):
     template_name = "person/list.html"
 
     def get_context_data(self):
@@ -28,11 +25,12 @@ class PersonsView(TemplateView):
 
         return locals()
 
+
 @permission_required("members.add_person")
-class PersonCreateView(CreateView):
+class AddPersonView(CreateView):
     template_name = "person/form.html"
     model = Person
-    success_url = reverse_lazy("members:persons")
+    success_url = reverse_lazy("members:list_person")
     fields = [
         "username",
         "first_name",
@@ -41,12 +39,13 @@ class PersonCreateView(CreateView):
         "groups",
         "organizations",
     ]
+
 
 @permission_required("members.change_person")
-class PersonUpdateView(UpdateView):
+class ChangePersonView(UpdateView):
     template_name = "person/form.html"
     model = Person
-    success_url = reverse_lazy("members:persons")
+    success_url = reverse_lazy("members:list_person")
     fields = [
         "username",
         "first_name",
@@ -56,20 +55,18 @@ class PersonUpdateView(UpdateView):
         "organizations",
     ]
 
-@permission_required("members.delete_person")
-class PersonDeleteView(View):
-    def get(self, request, pk):
-        object = get_object_or_404(Person, pk=pk)
-        return render(request, "person/delete.html", locals())
 
+@permission_required("members.delete_person")
+class DeletePersonView(View):
     def post(self, request, pk):
         object = get_object_or_404(Person, pk=pk)
         object.is_active = False
         object.save()
-        return redirect("members:persons")
+        return redirect("members:list_person")
+
 
 @permission_required("members.list_organizations")
-class OrganizationsView(TemplateView):
+class ListOrganizationView(TemplateView):
     template_name = "organization/list.html"
 
     def get_context_data(self):
@@ -81,33 +78,33 @@ class OrganizationsView(TemplateView):
         return locals()
 
 @permission_required("members.add_organization")
-class OrganizationCreateView(CreateView):
+class AddOrganizationView(CreateView):
     template_name = "organization/form.html"
     model = Organization
-    success_url = reverse_lazy("members:organizations")
+    success_url = reverse_lazy("members:list_organization")
     fields = [
         "name",
         "parent_organization",
     ]
 
 @permission_required("members.change_organization")
-class OrganizationUpdateView(UpdateView):
+class ChangeOrganizationView(UpdateView):
     template_name = "organization/form.html"
     model = Organization
-    success_url = reverse_lazy("members:organizations")
+    success_url = reverse_lazy("members:list_organization")
     fields = [
         "name",
         "parent_organization",
     ]
 
 @permission_required("members.delete_organization")
-class OrganizationDeleteView(DeleteView):
+class DeleteOrganizationView(DeleteView):
     template_name = "organization/delete.html"
     model = Organization
-    success_url = reverse_lazy("members:organizations")
+    success_url = reverse_lazy("members:list_organization")
 
 @permission_required("members.list_organizations")
-class OrganizationEmailView(View):
+class EmailOrganizationView(View):
     def get(self, request, organizations):
         # Verified by URL pattern
         org_ids = map(int, organizations.split(","))
@@ -120,6 +117,7 @@ class OrganizationEmailView(View):
         persons = Person.objects.filter(organizations__in=organizations)
         return JsonResponse({"result": list(map(lambda person: person.full_email, persons))})
 
+
 def logout(request):
     if HAVE_DJANGOSAML2:
         import djangosaml2.views
@@ -130,7 +128,8 @@ def logout(request):
         auth.logout(request)
         return redirect(LOGOUT_REDIRECT_URL)
 
-class SettingsView(UpdateView):
+
+class PreferencesView(UpdateView):
     template_name = "settings.html"
     model = Preferences
     success_url = reverse_lazy("members:preferences")
@@ -148,7 +147,7 @@ class SettingsView(UpdateView):
        return self.request.user.preferences
 
     def get_context_data(self, **kwargs):
-        context = super(SettingsView, self).get_context_data()
+        context = super(PreferencesView, self).get_context_data()
         context['first_login'] = self.request.user.first_login
         context['webcal_url'] = 'webcal://{}/meetings/agenda/{}/{}'.format(
             WEBCAL_BASE, self.request.user.id, self.request.user.agenda_token)
@@ -162,13 +161,3 @@ class SettingsView(UpdateView):
             self.request.user.save()
 
         return context
-
-class SudoView(View):
-    def post(self, request):
-        user = Person.objects.get(pk=request.POST['pk'])
-
-        logout(request)
-        user.backend = 'django.contrib.auth.backends.ModelBackend'
-        login(request, user)
-
-        return redirect('meetings:meetings-list')

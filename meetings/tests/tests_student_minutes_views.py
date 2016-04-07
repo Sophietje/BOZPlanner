@@ -14,7 +14,7 @@ class TestStudentMinutesViews(TestCase, TestMeetingMixin, TestUserMixin):
         self.setupMeeting()
 
     def test_minutes_list(self):
-        resp = self.client.get(reverse('meetings:minutes'))
+        resp = self.client.get(reverse('meetings:list_minutes'))
         self.assertEqual(resp.status_code, 200)
         self.assertEqual([meeting for meeting in resp.context['object_list']], [self.meeting_4])
 
@@ -22,20 +22,20 @@ class TestStudentMinutesViews(TestCase, TestMeetingMixin, TestUserMixin):
         # Add new minutes
         minutes = Minutes.objects.create(file='minutes.txt', meeting=self.meeting_4, date=datetime.now())
         self.assertEqual(Meeting.objects.get(pk=self.meeting_4.pk).minutes.all().count(), 2)
-        resp = self.client.get(reverse('meetings:minutes'))
+        resp = self.client.get(reverse('meetings:list_minutes'))
         self.assertEqual([meeting for meeting in resp.context['object_list']], [self.meeting_4])
         # Delete newly added minutes
-        resp = self.client.post(reverse('meetings:minutes-delete', kwargs={'pk': minutes.pk}))
+        resp = self.client.post(reverse('meetings:delete_minutes', kwargs={'pk': minutes.pk}))
         self.assertEqual(resp.status_code, 302)
         # Ensure that minutes have been deleted
         self.assertEqual(Meeting.objects.get(pk=self.meeting_4.pk).minutes.all().count(), 1)
-        resp = self.client.get(reverse('meetings:minutes'))
+        resp = self.client.get(reverse('meetings:list_minutes'))
         self.assertEqual([meeting for meeting in resp.context['object_list']], [self.meeting_4])
 
     def test_minutes_incorrect_delete(self):
         # Delete non-existing minutes
-        resp = self.client.post(reverse('meetings:minutes-delete', kwargs={'pk': 9999}))
+        resp = self.client.post(reverse('meetings:delete_minutes', kwargs={'pk': 9999}))
         self.assertEqual(resp.status_code, 404)
         # Assert that list of minutes did not change
-        resp = self.client.get(reverse('meetings:minutes'))
+        resp = self.client.get(reverse('meetings:list_minutes'))
         self.assertEqual(Meeting.objects.get(pk=self.meeting_4.pk).minutes.all().count(), 1)
