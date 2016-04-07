@@ -11,6 +11,7 @@
                 <form method="post">
                     {% csrf_token %}
                     {{ form|fancy_form }}
+                    <hr>
                     <a class="btn btn-default" href="{% url 'meetings:list_meeting' %}">{% trans 'Cancel' %}</a>
                     <input class="btn btn-primary" type="submit" value="{% trans 'Submit' %}">
                 </form>
