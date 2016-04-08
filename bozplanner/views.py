@@ -13,6 +13,7 @@ class EditModalListView(View):
     template_name = None
     model = None
     success_url = None
+    edit_permission = None
 
     @abstractmethod
     def get_context_data(self):
@@ -33,6 +34,9 @@ class EditModalListView(View):
     def post(self, request):
         if "edit" not in request.POST:
             return self.get(request)
+
+        if not request.user.has_perm(type(self).edit_permission):
+            raise PermissionError
 
         instance = get_object_or_404(type(self).model, pk=int(request.POST["edit"]))
 

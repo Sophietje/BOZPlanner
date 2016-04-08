@@ -22,6 +22,7 @@ from members.models import Person
 class ListMeetingView(EditModalListView):
     model = Meeting
     form = MeetingForm
+    edit_permission = "meetings.change_meeting"
     success_url = reverse_lazy("meetings:list_meeting")
     template_name = 'meetings/list.html'
 
@@ -52,14 +53,6 @@ class AddMeetingView(CreateView):
     fields = ['organization', 'begin_time', 'end_time', 'place']
     success_url = reverse_lazy('meetings:list_meeting')
     template_name = 'meetings/form.html'
-
-
-@permission_required("meetings.change_meeting")
-class ChangeMeetingView(UpdateView):
-    template_name = "meetings/form.html"
-    model = Meeting
-    form_class = MeetingForm
-    success_url = reverse_lazy('meetings:list_meeting')
 
 
 class ToggleMeetingView(View):

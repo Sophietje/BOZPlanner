@@ -18,6 +18,7 @@ from members.models import Person, Organization, Preferences
 class ListPersonView(EditModalListView):
     model = Person
     form = PersonForm
+    edit_permission = "members.change_person"
     success_url = reverse_lazy("members:list_person")
     template_name = "person/list.html"
 
@@ -28,21 +29,6 @@ class ListPersonView(EditModalListView):
 
 @permission_required("members.add_person")
 class AddPersonView(CreateView):
-    template_name = "person/form.html"
-    model = Person
-    success_url = reverse_lazy("members:list_person")
-    fields = [
-        "username",
-        "first_name",
-        "last_name",
-        "email",
-        "groups",
-        "organizations",
-    ]
-
-
-@permission_required("members.change_person")
-class ChangePersonView(UpdateView):
     template_name = "person/form.html"
     model = Person
     success_url = reverse_lazy("members:list_person")
@@ -69,12 +55,14 @@ class DeletePersonView(View):
 class ListOrganizationView(EditModalListView):
     model = Organization
     form = OrganizationForm
-    success_url = reverse_lazy("meetings:list_organization")
+    edit_permission = "members.change_organization"
+    success_url = reverse_lazy("members:list_organization")
     template_name = "organization/list.html"
 
     def get_context_data(self):
         object_list = Organization.objects.all()
         return locals()
+
 
 @permission_required("members.add_organization")
 class AddOrganizationView(CreateView):
@@ -86,21 +74,13 @@ class AddOrganizationView(CreateView):
         "parent_organization",
     ]
 
-@permission_required("members.change_organization")
-class ChangeOrganizationView(UpdateView):
-    template_name = "organization/form.html"
-    model = Organization
-    success_url = reverse_lazy("members:list_organization")
-    fields = [
-        "name",
-        "parent_organization",
-    ]
 
 @permission_required("members.delete_organization")
 class DeleteOrganizationView(DeleteView):
     template_name = "organization/delete.html"
     model = Organization
     success_url = reverse_lazy("members:list_organization")
+
 
 @permission_required("members.list_organizations")
 class EmailOrganizationView(View):
