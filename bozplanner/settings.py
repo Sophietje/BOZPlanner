@@ -79,8 +79,17 @@ AUTHENTICATION_BACKENDS = [
 
 if HAVE_DJANGOSAML2:
     AUTHENTICATION_BACKENDS = [
-        'members.auth.SAML2Backend'
+        'djangosaml2.backends.Saml2Backend',
     ] + AUTHENTICATION_BACKENDS
+
+SAML_DJANGO_USER_MAIN_ATTRIBUTE = 'username'
+SAML_CREATE_UNKNOWN_USER = False
+SAML_ATTRIBUTE_MAPPING = {
+    'uid': ('username',),
+    'mail': ('email',),
+    'givenName': ('first_name',),
+    'surname': ('last_name',),
+}
 
 # Project apps
 INSTALLED_APPS = [
