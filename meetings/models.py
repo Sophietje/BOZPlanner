@@ -67,7 +67,6 @@ class Minutes(models.Model):
     file = models.FileField()
     original_name = models.TextField()
     date = models.DateTimeField()
-    approved_by = models.ForeignKey("members.Person", blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "minutes"
