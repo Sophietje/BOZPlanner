@@ -51,21 +51,30 @@
 
     <!-- Pop-up windows for editing a person -->
     {% for person in object_list %}
-        <div id="editModal-{{ person.pk }}" class="modal fade" role="form">
+        <div id="editModal-{{ person.pk }}" class="modal fade" role="form" {% if edit != None %}data-backdrop="static"{% endif %}>
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" action="{% url 'members:change_person' person.pk %}">
+                    <form method="post" action="{% url 'members:list_person' %}">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            {% if edit == person.pk %}
+                                <a href="{% url 'members:list_person' %}" type="button" class="close">&times;</a>
+                            {% else %}
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            {% endif %}
                             <h4 class="modal-title">{% trans 'Edit user' %}</h4>
                         </div>
 
                         <div class="modal-body">
+                            <input type="hidden" name="edit" value="{{ person.pk }}">
                             {% csrf_token %}
                             {{ person.form|fancy_form }}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
+                            {% if edit == person.pk %}
+                                <a href="{% url 'members:list_person' %}" class="btn btn-default">{% trans 'Cancel' %}</a>
+                            {% else %}
+                                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel'%}</button>
+                            {% endif %}
                             <input class="btn btn-primary" type="submit" value="{% trans 'Submit' %}">
                         </div>
                     </form>
@@ -73,6 +82,14 @@
             </div>
         </div>
     {% endfor %}
+
+    {% if edit %}
+        <script type="text/javascript">
+            $(function() {
+                $('#editModal-{{ edit }}').modal().show();
+            })
+        </script>
+    {% endif %}
 
     <!-- Pop-up windows for deactivating a person -->
     {% for person in object_list %}

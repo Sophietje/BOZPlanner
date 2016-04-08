@@ -47,21 +47,30 @@
 
     <!-- Pop-up windows for editing an organization -->
     {% for organization in object_list %}
-        <div id="editModal-{{ organization.pk }}" class="modal fade" role="form">
+        <div id="editModal-{{ organization.pk }}" class="modal fade" role="form" {% if edit != None %}data-backdrop="static"{% endif %}>
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="post" action="{% url 'members:change_organization' organization.pk %}">
+                    <form method="post" action="{% url 'members:list_organization' %}">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            {% if edit == organization.pk %}
+                                <a href="{% url 'members:list_organization' %}" type="button" class="close">&times;</a>
+                            {% else %}
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            {% endif %}
                             <h4 class="modal-title">{% trans 'Edit organization' %}</h4>
                         </div>
 
                         <div class="modal-body">
+                            <input type="hidden" name="edit" value="{{ organization.pk }}">
                             {% csrf_token %}
                             {{ organization.form|fancy_form }}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
+                            {% if edit == organization.pk %}
+                                <a href="{% url 'members:list_organization' %}" class="btn btn-default">{% trans 'Cancel' %}</a>
+                            {% else %}
+                                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel'%}</button>
+                            {% endif %}
                             <input class="btn btn-primary" type="submit" value="Submit">
                         </div>
                     </form>
@@ -69,6 +78,14 @@
             </div>
         </div>
     {% endfor %}
+
+    {% if edit %}
+        <script type="text/javascript">
+            $(function() {
+                $('#editModal-{{ edit }}').modal().show();
+            })
+        </script>
+    {% endif %}
 
     <!-- Pop-up windows for deleting an organization -->
     {% for organization in object_list %}

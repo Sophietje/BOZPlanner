@@ -11,6 +11,7 @@ from django.http import HttpResponse, JsonResponse
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 
+from bozplanner.views import EditModalListView
 from meetings.forms import MeetingForm
 from meetings.models import Meeting, Minutes
 from members.auth import permission_required, login_required
@@ -18,11 +19,13 @@ from members.models import Person
 
 
 @permission_required('meetings.list_meetings')
-class ListMeetingView(View):
+class ListMeetingView(EditModalListView):
     model = Meeting
+    form = MeetingForm
+    success_url = reverse_lazy("meetings:list_meeting")
     template_name = 'meetings/list.html'
 
-    def _context(self):
+    def get_context_data(self):
         now = datetime.datetime.now()
 
         # First condition: You should be able to see upcoming meetings where you are the secretary
@@ -40,37 +43,7 @@ class ListMeetingView(View):
 
         object_list = list(filter_meetings(q))
 
-        for meeting in object_list:
-            meeting.form = MeetingForm(instance=meeting, auto_id='%s_' + str(meeting.pk))
-
         return locals()
-
-    def get(self, request):
-        return render(request, 'meetings/list.html', self._context())
-
-    def post(self, request):
-        if "edit" not in request.POST:
-            return self.get(request)
-
-        instance = get_object_or_404(Meeting, pk=int(request.POST["edit"]))
-
-        form = MeetingForm(request.POST, instance=instance)
-
-        if form.is_valid():
-            form.save()
-            return redirect("meetings:list_meeting")
-        else:
-            ctx = self._context()
-
-            # Insert the user values in the correct form
-            for meeting in ctx["object_list"]:
-                if meeting == instance:
-                    meeting.form = form
-
-            # Tell the template to open this modal immediately
-            ctx["edit"] = instance.pk
-
-            return render(request, 'meetings/list.html', ctx)
 
 
 @permission_required("meetings.add_meeting")

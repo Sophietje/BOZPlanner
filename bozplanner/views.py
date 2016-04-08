@@ -1,6 +1,58 @@
-from django.shortcuts import redirect
+from abc import ABCMeta, abstractmethod
+
+from django.forms import ModelForm
+from django.shortcuts import redirect, render, get_object_or_404
+from django.views.generic import View
 
 from bozplanner.settings import LOGIN_URL
+
+
+class EditModalListView(View):
+    __metaclass__ = ABCMeta
+    form = ModelForm
+    template_name = None
+    model = None
+    success_url = None
+
+    @abstractmethod
+    def get_context_data(self):
+        pass
+
+    def _context(self):
+        """Add forms to the subclass-provided object_list"""
+        ctx = self.get_context_data()
+
+        for obj in ctx["object_list"]:
+            obj.form = type(self).form(instance=obj, auto_id='%s_' + str(obj.pk))
+
+        return ctx
+
+    def get(self, request):
+        return render(request, type(self).template_name, self._context())
+
+    def post(self, request):
+        if "edit" not in request.POST:
+            return self.get(request)
+
+        instance = get_object_or_404(type(self).model, pk=int(request.POST["edit"]))
+
+        form = type(self).form(request.POST, instance=instance)
+
+        if form.is_valid():
+            form.save()
+            return redirect(type(self).success_url or instance.get_absolute_url())
+        else:
+            ctx = self._context()
+
+            # Insert the user values in the correct form
+            for obj in ctx["object_list"]:
+                if obj == instance:
+                    obj.form = form
+
+            # Tell the template to open this modal immediately
+            ctx["edit"] = instance.pk
+
+            return render(request, type(self).template_name, ctx)
 
 
 def index(request):

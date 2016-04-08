@@ -8,21 +8,21 @@ from django.views.generic import TemplateView, CreateView, UpdateView, DeleteVie
 
 from bozplanner.local import WEBCAL_BASE
 from bozplanner.settings import HAVE_DJANGOSAML2, LOGOUT_REDIRECT_URL
+from bozplanner.views import EditModalListView
 from members.auth import permission_required
 from members.forms import OrganizationForm, PersonForm
 from members.models import Person, Organization, Preferences
 
 
 @permission_required("members.list_persons")
-class ListPersonView(TemplateView):
+class ListPersonView(EditModalListView):
+    model = Person
+    form = PersonForm
+    success_url = reverse_lazy("members:list_person")
     template_name = "person/list.html"
 
     def get_context_data(self):
         object_list = Person.objects.filter(is_active=True)
-
-        for person in object_list:
-            person.form = PersonForm(instance=person, auto_id="%s_" + str(person.pk))
-
         return locals()
 
 
@@ -66,15 +66,14 @@ class DeletePersonView(View):
 
 
 @permission_required("members.list_organizations")
-class ListOrganizationView(TemplateView):
+class ListOrganizationView(EditModalListView):
+    model = Organization
+    form = OrganizationForm
+    success_url = reverse_lazy("meetings:list_organization")
     template_name = "organization/list.html"
 
     def get_context_data(self):
         object_list = Organization.objects.all()
-
-        for organization in object_list:
-            organization.form = OrganizationForm(instance=organization, auto_id="%s_" + str(organization.pk))
-
         return locals()
 
 @permission_required("members.add_organization")
