@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/delete/$', DeleteMeetingView.as_view(), name='delete_meeting'),
     url(r'^minutes/(?P<pk>[0-9]+)/download/$', DownloadMinutesView.as_view(), name='download_minutes'),
     url(r'^minutes/(?P<pk>[0-9]+)/delete/$', DeleteMinutesView.as_view(), name='delete_minutes'),
-    url(r'^agenda/(?P<pk>[0-9]+)/(?P<token>[0-9a-f]{64})/$', AgendaMeetingView.as_view(), name='agenda_meeting'),
+    url(r'^calendar/(?P<pk>[0-9]+)/(?P<token>[0-9a-f]{64})/$', CalendarMeetingView.as_view(), name='calendar_meeting'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

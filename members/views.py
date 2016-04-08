@@ -115,8 +115,8 @@ class PreferencesView(UpdateView):
     fields = [
         'overview',
         'reminder',
-        'agenda_secretary',
-        'agenda_organization',
+        'calendar_secretary',
+        'calendar_organization',
         'zoom_in',
         'overview_secretary',
         'confirmation_secretary'
@@ -128,10 +128,10 @@ class PreferencesView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(PreferencesView, self).get_context_data()
         context['first_login'] = self.request.user.first_login
-        context['webcal_url'] = 'webcal://{}/meetings/agenda/{}/{}'.format(
-            WEBCAL_BASE, self.request.user.id, self.request.user.agenda_token)
-        google_args = {'cid': 'http://{}/meetings/agenda/{}/{}'.format(
-            WEBCAL_BASE, self.request.user.id, self.request.user.agenda_token
+        context['webcal_url'] = 'webcal://{}/meetings/calendar/{}/{}'.format(
+            WEBCAL_BASE, self.request.user.id, self.request.user.calendar_token)
+        google_args = {'cid': 'http://{}/meetings/calendar/{}/{}'.format(
+            WEBCAL_BASE, self.request.user.id, self.request.user.calendar_token
         )}
         context['google_url'] = 'http://www.google.com/calendar/render?' + urlencode(google_args)
 

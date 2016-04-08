@@ -56,8 +56,8 @@
             <a href="{{ webcal_url }}" class="btn btn-default">Apple Calendar</a>
         </div>
         <p></p>
-        {{ form.agenda_secretary|fancy_form_field }}
-        {{ form.agenda_organization|fancy_form_field }}
+        {{ form.calendar_secretary|fancy_form_field }}
+        {{ form.calendar_organization|fancy_form_field }}
 
         {% if perms.meetings.list_meetings_all %}
             <h2>E-mail</h2>

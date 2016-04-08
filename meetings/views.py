@@ -152,19 +152,19 @@ class DeleteMinutesView(View):
         return redirect("meetings:list_minutes")
 
 
-class AgendaMeetingView(View):
+class CalendarMeetingView(View):
     def get(self, request, pk, token):
         person = get_object_or_404(Person, pk=pk)
 
-        if person.agenda_token != token:
+        if person.calendar != token:
             raise PermissionError
 
         meeting_filter = ~Q()
 
-        if person.preferences.agenda_secretary:
+        if person.preferences.calendar_secretary:
             meeting_filter |= Q(secretary=person)
 
-        if person.preferences.agenda_organization:
+        if person.preferences.calendar_organization:
             meeting_filter |= Q(organization__in=person.all_organizations)
 
         calendar = Meeting.objects.filter(meeting_filter).as_icalendar()

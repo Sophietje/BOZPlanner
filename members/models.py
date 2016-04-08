@@ -114,9 +114,9 @@ class Preferences(models.Model):
     overview = models.ManyToManyField(Organization, blank=True, related_name='pref_overview')
     reminder = models.ManyToManyField(Organization, blank=True, related_name='pref_reminder')
 
-    agenda_secretary = models.BooleanField(default=True,
+    calendar_secretary = models.BooleanField(default=True,
         verbose_name="Include meetings in your calendar of which you are the secretary")
-    agenda_organization = models.BooleanField(default=False,
+    calendar_organization = models.BooleanField(default=False,
         verbose_name="Include meetings in your calendar which belong to your organizations")
     overview_secretary = models.ManyToManyField(Organization, verbose_name="overview secretary", blank=True,
         related_name='student_pref_overview')
