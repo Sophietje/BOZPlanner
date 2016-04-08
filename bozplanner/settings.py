@@ -36,11 +36,11 @@ MEDIA_URL = '/media/'
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
-USE_L10N = True
+USE_L10N = False
 USE_TZ = False
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
-DATETIME_INPUT_FORMATS = ["%d-%m-%Y+%H:%M"]
+DATETIME_INPUT_FORMATS = ["%d-%m-%Y %H:%M"]
 
 DATE_FORMAT = 'd-m-Y'
 DATETIME_FORMAT = 'd-m-Y H:i'

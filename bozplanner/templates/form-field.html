@@ -36,7 +36,8 @@
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
-            <input type='text' class="form-control" name="{{ field.name }}" placeholder="{% now "d-m-Y" %} 00:00" value="{{ field.value|date:"d-m-Y H:i" }}" />
+            <input type='text' class="form-control" name="{{ field.name }}" placeholder="{% now "d-m-Y" %} 00:00"
+                   value="{% if field.value|is_str %}{{ field.value }}{% else %}{{ field.value|date:"d-m-Y H:i" }}{% endif %}">
         </div>
 
 
@@ -50,9 +51,6 @@
                 icons: {
                     close: 'glyphicon glyphicon-ok'
                 }
-            }).closest('form').submit(function(e) {
-                var iso = $('#{{ field.id_for_label }}').data('DateTimePicker').date().format('Y-MM-DD HH:mm');
-                $('#{{ field.id_for_label }} input').off('change').off('focus').val(iso);
             });
         </script>
 

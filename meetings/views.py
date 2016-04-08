@@ -3,7 +3,7 @@ import urllib
 import datetime
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, View, TemplateView
@@ -18,11 +18,11 @@ from members.models import Person
 
 
 @permission_required('meetings.list_meetings')
-class ListMeetingView(TemplateView):
+class ListMeetingView(View):
     model = Meeting
     template_name = 'meetings/list.html'
 
-    def get_context_data(self, **kwargs):
+    def _context(self):
         now = datetime.datetime.now()
 
         # First condition: You should be able to see upcoming meetings where you are the secretary
@@ -44,6 +44,32 @@ class ListMeetingView(TemplateView):
             meeting.form = MeetingForm(instance=meeting, auto_id='%s_' + str(meeting.pk))
 
         return locals()
+
+    def get(self, request):
+        return render(request, 'meetings/list.html', self._context())
+
+    def post(self, request):
+        if "edit" not in request.POST:
+            return self.get(request)
+
+        instance = get_object_or_404(Meeting, pk=int(request.POST["edit"]))
+
+        form = MeetingForm(request.POST, instance=instance)
+
+        if form.is_valid():
+            form.save()
+            return redirect("meetings:list_meeting")
+        else:
+            ctx = self._context()
+
+            for meeting in ctx["object_list"]:
+                if meeting == instance:
+                    meeting.form = form
+
+            ctx["edit"] = instance.pk
+
+            return render(request, 'meetings/list.html', ctx)
+
 
 
 @permission_required("meetings.add_meeting")

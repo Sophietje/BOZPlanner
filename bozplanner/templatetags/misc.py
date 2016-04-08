@@ -14,6 +14,11 @@ def bool_as_glyphicon(value, autoescape=True):
 
 
 @register.filter
+def is_str(value):
+    return isinstance(value, str)
+
+
+@register.filter
 def field_class(value):
     return type(value.field.widget).__name__
 
