@@ -62,10 +62,12 @@ class ListMeetingView(View):
         else:
             ctx = self._context()
 
+            # Insert the user values in the correct form
             for meeting in ctx["object_list"]:
                 if meeting == instance:
                     meeting.form = form
 
+            # Tell the template to open this modal immediately
             ctx["edit"] = instance.pk
 
             return render(request, 'meetings/list.html', ctx)
