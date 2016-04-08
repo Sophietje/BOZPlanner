@@ -10,7 +10,7 @@ from bozplanner.local import WEBCAL_BASE
 from bozplanner.settings import HAVE_DJANGOSAML2, LOGOUT_REDIRECT_URL
 from bozplanner.views import EditModalListView
 from members.auth import permission_required
-from members.forms import OrganizationForm, PersonForm
+from members.forms import OrganizationForm, PersonForm, PreferencesForm
 from members.models import Person, Organization, Preferences
 
 
@@ -110,20 +110,16 @@ def logout(request):
 
 class PreferencesView(UpdateView):
     template_name = "settings.html"
-    model = Preferences
+    form_class = PreferencesForm
     success_url = reverse_lazy("members:preferences")
-    fields = [
-        'overview',
-        'reminder',
-        'calendar_secretary',
-        'calendar_organization',
-        'zoom_in',
-        'overview_secretary',
-        'confirmation_secretary'
-    ]
 
     def get_object(self, queryset=None):
        return self.request.user.preferences
+
+    def get_form_kwargs(self):
+        args = super(PreferencesView, self).get_form_kwargs()
+        args['request'] = self.request
+        return args
 
     def get_context_data(self, **kwargs):
         context = super(PreferencesView, self).get_context_data()

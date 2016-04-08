@@ -59,7 +59,7 @@
         {{ form.calendar_secretary|fancy_form_field }}
         {{ form.calendar_organization|fancy_form_field }}
 
-        {% if perms.meetings.list_meetings_all %}
+        {% if False and perms.meetings.list_meetings_all %}
             <h2>E-mail</h2>
             {{ form.overview|fancy_form_field }}
             {{ form.reminder|fancy_form_field }}
