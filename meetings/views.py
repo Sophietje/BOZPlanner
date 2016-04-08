@@ -73,7 +73,6 @@ class ListMeetingView(View):
             return render(request, 'meetings/list.html', ctx)
 
 
-
 @permission_required("meetings.add_meeting")
 class AddMeetingView(CreateView):
     model = Meeting
