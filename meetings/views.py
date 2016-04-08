@@ -85,6 +85,7 @@ class ChangeMeetingView(UpdateView):
     template_name = "meetings/form.html"
     model = Meeting
     form_class = MeetingForm
+    success_url = reverse_lazy('meetings:list_meeting')
 
 
 class ToggleMeetingView(View):
