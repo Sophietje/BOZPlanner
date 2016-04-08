@@ -45,29 +45,25 @@
         {% csrf_token %}
         <h2>General</h2>
         {{ form.zoom_in|fancy_form_field }}
-        <!---------A permission that only the BOZ enjoys in order to visualize targeted help and information for the BOZ------------>
-        {% if perms.meetings_create_meeting %}
+
+        <h2>Calendar</h2>
+        <p>
+            {% trans 'Add to:' %}
+        </p>
+        <div class="btn-group">
+            <a href="{{ webcal_url }}" class="btn btn-default">Outlook</a>
+            <a href="{{ google_url }}" class="btn btn-default">Google Calendar</a>
+            <a href="{{ webcal_url }}" class="btn btn-default">Apple Calendar</a>
+        </div>
+        <p></p>
+        {{ form.agenda_secretary|fancy_form_field }}
+        {{ form.agenda_organization|fancy_form_field }}
+
+        {% if perms.meetings.list_meetings_all %}
             <h2>E-mail</h2>
             {{ form.overview|fancy_form_field }}
             {{ form.reminder|fancy_form_field }}
-
-            {# For all organisations in model.organisations, check if in preferences.organisations, then show selected, otherwise not. #}
-            <!---------A permission that only students enjoy in order to visualize targeted help and information for students----------->
-        {% endif %}
-        {% if perms.meetings_list_meetings %}
-            <h2>Agenda</h2>
-            <p>
-                {% trans 'Add to:' %}
-            </p>
-            <div class="btn-group">
-                <a href="{{ webcal_url }}" class="btn btn-default">Outlook</a>
-                <a href="{{ google_url }}" class="btn btn-default">Google Calendar</a>
-                <a href="{{ webcal_url }}" class="btn btn-default">Apple Calendar</a>
-            </div>
-            <p></p>
-            {{ form.agenda_secretary|fancy_form_field }}
-            {{ form.agenda_organization|fancy_form_field }}
-
+        {% elif perms.meetings.list_meetings %}
             <h2>E-mail</h2>
             {{ form.overview_student|fancy_form_field }}
             {{ form.confirmation_student|fancy_form_field }}
