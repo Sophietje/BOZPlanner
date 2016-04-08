@@ -47,6 +47,10 @@ DATETIME_FORMAT = 'd-m-Y H:i'
 SHORT_DATE_FORMAT = DATE_FORMAT
 SHORT_DATETIME_FORMAT = DATETIME_FORMAT
 
+LOCALE_PATHS = [
+    BASE_DIR + '/bozplanner/locales',
+]
+
 # Authentication
 LOGIN_URL = '/saml2/login/'
 LOGIN_REDIRECT_URL = '/'

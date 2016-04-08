@@ -1,0 +1,418 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-08 14:19+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\bozplanner\templates\base.html:6 .\bozplanner\templates\menu.html.py:8
+msgid "BOZPlanner"
+msgstr ""
+
+#: .\bozplanner\templates\menu.html:15
+#: .\meetings\templates\meetings\list.html:6
+msgid "Meetings"
+msgstr ""
+
+#: .\bozplanner\templates\menu.html:20 .\help\templates\help\help.html:103
+#: .\meetings\templates\minutes\list.html:4
+msgid "Minutes"
+msgstr ""
+
+#: .\bozplanner\templates\menu.html:28 .\members\templates\person\list.html:5
+msgid "Users"
+msgstr ""
+
+#: .\bozplanner\templates\menu.html:36
+#: .\members\templates\organization\list.html:5
+#: .\members\templates\person\list.html:20
+msgid "Organizations"
+msgstr ""
+
+#: .\bozplanner\templates\menu.html:45
+msgid "Help"
+msgstr ""
+
+#: .\bozplanner\templates\menu.html:57
+msgid "Preferences"
+msgstr ""
+
+#: .\bozplanner\templates\menu.html:62
+msgid "Log out"
+msgstr ""
+
+#: .\help\templates\help\help.html:8
+msgid "Help & Manual"
+msgstr ""
+
+#: .\help\templates\help\help.html:18
+msgid "Scheduling a meeting"
+msgstr ""
+
+#: .\help\templates\help\help.html:24
+msgid ""
+"\n"
+"                       <p>In order to schedule a meeting, you should "
+"navigate to the menu named \"Schedule a meeting\" or to the menu named "
+"\"Meetings\". When navigating to the \"Schedule a meeting\" menu, you should "
+"see a form which must be filled in by you. You should fill in the location "
+"of the meeting (e.g. RA-5148), at what time the meeting starts (in the "
+"following format: dd/mm/yyyy hh:mm), the datetimepicker can help to fill in "
+"this field, then you should fill in at what time the meeting will end (This "
+"work exactly the same as the previous field). Finally, the organization of "
+"the OLC meeting should be filled in (e.g. BMS).</p>\n"
+"                    "
+msgstr ""
+
+#: .\help\templates\help\help.html:38
+msgid "Users information"
+msgstr ""
+
+#: .\help\templates\help\help.html:44
+msgid ""
+"\n"
+"                        <p>You can find all users of the system in the menu "
+"named \"Users\". This menu serves multiple purposes, firstly you can thus "
+"find all users of the system, thus students, BOZ employees and persons "
+"associated to an OLC. Secondly, an account can be created by means of the "
+"add button (found in the header of the page). Thirdly, data about the users' "
+"data can be changed when requested or even a user can be deleted from the "
+"list.</p>\n"
+"\n"
+"                        <h4>How do I add a user?</h4>\n"
+"                        <p>In order to add a user, you should as previously "
+"mentioned click on the add button on top of the \"Users\" page. Then you "
+"should fill in the name, email and to which organization the user is "
+"associated to. Afterwards, the person can be added by submitting the form. "
+"The person for whom you filled in the data can now access the system.</p>\n"
+"\n"
+"                        <h4>How do I change the data of a user?</h4>\n"
+"                        <p>The data of a user can be changed by clicking on "
+"the change button in the list associated to the user. Then, the data of the "
+"user pops up enabling you to make changes to it. Afterwards, the data should "
+"be submitted.</p>\n"
+"\n"
+"                        <h4>How do I delete a user?</h4>\n"
+"                        <p>A user can be deleted by clicking on the delete "
+"button in the list associated to the user. Then, you will be asked whether "
+"you are certain of deleting the user. Afterwards, the user is deleted.</p>\n"
+"                    "
+msgstr ""
+
+#: .\help\templates\help\help.html:67
+msgid "Organizations information"
+msgstr ""
+
+#: .\help\templates\help\help.html:73
+msgid ""
+"\n"
+"                        <p>You can find all the organizations in the system "
+"in the menu named \"Organizations\". The organizations can be accessed, "
+"added, changed and deleted in similar steps as with users. Please refer to "
+"the previous answered question.</p>\n"
+"                    "
+msgstr ""
+
+#: .\help\templates\help\help.html:87
+msgid "Scheduled meetings"
+msgstr ""
+
+#: .\help\templates\help\help.html:93
+msgid ""
+"\n"
+"                        <p>Scheduled meetings can be found in the menu "
+"called \"Meetings\", this menu lists the meetings and it indicates whether "
+"someone is assigned to the meeting to take the minutes. Furthermore, with "
+"the button in the header, a meeting can be scheduled instantly without "
+"having to navigate to the menu \"Schedule a meeting\".</p>\n"
+"                    "
+msgstr ""
+
+#: .\help\templates\help\help.html:109
+msgid ""
+"\n"
+"                        <p>In order to download minutes from meetings that "
+"took place in the past, you should navigate to the menu named \"Minutes\". "
+"In this menu, the past meetings are listed. When minutes are uploaded by the "
+"student, a download button can be found on the right hand side in the list. "
+"It could be the case that a student has uploaded multiple versions of the "
+"minutes. In that case, you are able to chose which version you would like to "
+"download.</p>\n"
+"                    "
+msgstr ""
+
+#: .\help\templates\help\help.html:122
+msgid "Personal settings"
+msgstr ""
+
+#: .\help\templates\help\help.html:128
+msgid ""
+"\n"
+"                    <p>You can access your personal settings by clicking on "
+"the right hand side on the tab with your name. Then, a dropdown menu opens "
+"including a tab for your settings. You can change your preferred settings by "
+"enabling the different options (notification mails and reminders of your "
+"planned meetings) and you can change your own personal data.'</p>\n"
+"                "
+msgstr ""
+
+#: .\meetings\models.py:16
+msgid "begin date & time"
+msgstr ""
+
+#: .\meetings\models.py:17
+msgid "end date & time"
+msgstr ""
+
+#: .\meetings\models.py:48
+msgid "End of a meeting cannot be before the start of a meeting."
+msgstr ""
+
+#: .\meetings\models.py:51
+msgid "OLC meeting of {}"
+msgstr ""
+
+#: .\meetings\templates\meetings\form.html:8
+msgid "Schedule a meeting"
+msgstr ""
+
+#: .\meetings\templates\meetings\form.html:15
+#: .\meetings\templates\meetings\list.html:147
+#: .\meetings\templates\meetings\list.html:149
+#: .\meetings\templates\meetings\list.html:185
+#: .\meetings\templates\minutes\list.html:104
+#: .\members\templates\organization\form.html:19
+#: .\members\templates\organization\list.html:70
+#: .\members\templates\organization\list.html:72
+#: .\members\templates\organization\list.html:107
+#: .\members\templates\person\form.html:19
+#: .\members\templates\person\list.html:74
+#: .\members\templates\person\list.html:76
+#: .\members\templates\person\list.html:109
+msgid "Cancel"
+msgstr ""
+
+#: .\meetings\templates\meetings\form.html:16
+#: .\members\templates\organization\form.html:20
+#: .\members\templates\person\form.html:20
+#: .\members\templates\person\list.html:78 .\members\templates\settings.html:77
+msgid "Submit"
+msgstr ""
+
+#: .\meetings\templates\meetings\list.html:20
+msgid "Organization"
+msgstr ""
+
+#: .\meetings\templates\meetings\list.html:21
+#: .\meetings\templates\minutes\list.html:13
+msgid "Date & Time"
+msgstr ""
+
+#: .\meetings\templates\meetings\list.html:22
+#: .\meetings\templates\minutes\list.html:14
+msgid "Location"
+msgstr ""
+
+#: .\meetings\templates\meetings\list.html:23
+#: .\meetings\templates\minutes\list.html:15
+msgid "Secretary"
+msgstr ""
+
+#: .\meetings\templates\meetings\list.html:26
+msgid "Subscription"
+msgstr ""
+
+#: .\meetings\templates\meetings\list.html:43
+#: .\meetings\templates\meetings\list.html:76
+#: .\meetings\templates\minutes\list.html:31
+msgid "None"
+msgstr ""
+
+#: .\meetings\templates\meetings\list.html:137
+msgid "Edit meeting"
+msgstr ""
+
+#: .\meetings\templates\meetings\list.html:177
+msgid "Delete meeting"
+msgstr ""
+
+#: .\meetings\templates\meetings\list.html:180
+#, python-format
+msgid ""
+"\n"
+"                                Are you sure you want to permanently delete "
+"the meeting \"%(meeting)s\" at %(begin_time)s?\n"
+"                            "
+msgstr ""
+
+#: .\meetings\templates\meetings\list.html:186
+#: .\members\templates\organization\list.html:108
+msgid "Delete"
+msgstr ""
+
+#: .\meetings\templates\minutes\list.html:12
+msgid "Subject"
+msgstr ""
+
+#: .\meetings\templates\minutes\list.html:16
+msgid "Upload&nbsp;-&nbsp;Options"
+msgstr ""
+
+#: .\meetings\templates\minutes\list.html:95
+msgid "Delete minutes"
+msgstr ""
+
+#: .\meetings\templates\minutes\list.html:99
+#, python-format
+msgid ""
+"\n"
+"                                    Are you sure you want to remove the file "
+"%(name)s uploaded at %(date)s?\n"
+"                                "
+msgstr ""
+
+#: .\meetings\views.py:69
+msgid "You cannot unsubscribe from this meeting anymore"
+msgstr ""
+
+#: .\meetings\views.py:75
+msgid "Someone has already claimed this meeting."
+msgstr ""
+
+#: .\members\models.py:53
+#, python-format
+msgid "%(value)s is not a valid student number or employee number"
+msgstr ""
+
+#: .\members\templates\403.html:9
+msgid "Permission Denied"
+msgstr ""
+
+#: .\members\templates\403.html:10
+msgid ""
+"\n"
+"            You do not have permission to access the requested page. If you "
+"just logged in, you may have not (yet) been added to BOZPlanner.\n"
+"        "
+msgstr ""
+
+#: .\members\templates\organization\form.html:8
+#, python-format
+msgid "Edit organization %(object)s"
+msgstr ""
+
+#: .\members\templates\organization\form.html:10
+msgid "Create organization"
+msgstr ""
+
+#: .\members\templates\organization\list.html:17
+#: .\members\templates\person\list.html:17
+msgid "Name"
+msgstr ""
+
+#: .\members\templates\organization\list.html:18
+msgid "Parent organization"
+msgstr ""
+
+#: .\members\templates\organization\list.html:60
+msgid "Edit organization"
+msgstr ""
+
+#: .\members\templates\organization\list.html:99
+msgid "Delete organization"
+msgstr ""
+
+#: .\members\templates\organization\list.html:102
+#, python-format
+msgid ""
+"\n"
+"                                Are you sure you want to permanently delete "
+"the organization %(organization)s? This will <em>delete all "
+"suborganizations</em> as well.\n"
+"                            "
+msgstr ""
+
+#: .\members\templates\organization\list.html:121
+#: .\members\templates\person\list.html:123
+msgid "Copy email addresses"
+msgstr ""
+
+#: .\members\templates\organization\list.html:128
+#: .\members\templates\person\list.html:130
+msgid "Copy"
+msgstr ""
+
+#: .\members\templates\person\form.html:8
+#, python-format
+msgid "Edit user %(object)s"
+msgstr ""
+
+#: .\members\templates\person\form.html:10
+msgid "Create user"
+msgstr ""
+
+#: .\members\templates\person\list.html:18
+msgid "E-mail address"
+msgstr ""
+
+#: .\members\templates\person\list.html:19
+msgid "Groups"
+msgstr ""
+
+#: .\members\templates\person\list.html:64
+msgid "Edit user"
+msgstr ""
+
+#: .\members\templates\person\list.html:103
+msgid "Deactivate user"
+msgstr ""
+
+#: .\members\templates\person\list.html:106
+#, python-format
+msgid ""
+"Are you sure you want to permanently deactive the account of %(person)s?"
+msgstr ""
+
+#: .\members\templates\person\list.html:110
+msgid "Deactivate"
+msgstr ""
+
+#: .\members\templates\settings.html:14
+msgid "Welcome"
+msgstr ""
+
+#: .\members\templates\settings.html:18
+msgid ""
+"\n"
+"                                Welcome to BOZ-Planner! Please review your "
+"preferences. You can:\n"
+"                                <ul>\n"
+"                                    <li>Configure which emails you receive;</"
+"li>\n"
+"                                    <li>Add meetings to your agenda or "
+"calendar;</li>\n"
+"                                    <li>Change the text size of BOZ-planner."
+"</li>\n"
+"                                </ul>\n"
+"                            "
+msgstr ""
+
+#: .\members\templates\settings.html:60
+msgid "Add to:"
+msgstr ""
+
+#: .\members\templates\settings.html:76
+msgid "Back"
+msgstr ""
