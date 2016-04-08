@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 class Person(AbstractUser):
     """Any user that can log in to BOZPlanner"""
     organizations = models.ManyToManyField("Organization", blank=True)
-    agenda_token = models.CharField(max_length=64, editable=False, null=True)
+    calendar_token = models.CharField(max_length=64, editable=False, null=True)
     first_login = models.BooleanField(default=True)
 
     @property
@@ -43,8 +43,8 @@ class Person(AbstractUser):
         return list(result)
 
     def save(self, *args, **kwargs):
-        if self.agenda_token is None:
-            self.agenda_token = get_random_string(64, "0123456789abcdef")
+        if self.calendar_token is None:
+            self.calendar_token = get_random_string(64, "0123456789abcdef")
 
         super(Person, self).save(*args, **kwargs)
 

@@ -118,8 +118,8 @@ class PreferencesView(UpdateView):
         'agenda_secretary',
         'agenda_organization',
         'zoom_in',
-        'overview_student',
-        'confirmation_student'
+        'overview_secretary',
+        'confirmation_secretary'
     ]
 
     def get_object(self, queryset=None):
