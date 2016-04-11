@@ -48,7 +48,7 @@ SHORT_DATE_FORMAT = DATE_FORMAT
 SHORT_DATETIME_FORMAT = DATETIME_FORMAT
 
 LOCALE_PATHS = [
-    BASE_DIR + '/bozplanner/locales',
+    os.path.join(BASE_DIR, 'bozplanner', 'locales'),
 ]
 
 # Authentication

@@ -4,7 +4,7 @@ import datetime
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, View, TemplateView
 from django.http import HttpResponse, JsonResponse
@@ -140,14 +140,10 @@ class DownloadMinutesView(View):
         return response
 
 
-@login_required
+@permission_required("meetings.delete_minutes")
 class DeleteMinutesView(View):
     def post(self, request, pk):
         minutes = get_object_or_404(Minutes, pk=pk)
-
-        if not (minutes.meeting.secretary == request.user or request.user.has_perm('meetings.delete_minutes')):
-            raise PermissionError
-
         minutes.delete()
         return redirect("meetings:list_minutes")
 

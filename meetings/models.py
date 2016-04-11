@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -12,11 +12,11 @@ class Meeting(models.Model):
     """A meeting planned by a planner"""
     objects = MeetingManager()
 
-    place = models.CharField(max_length=255)
+    place = models.CharField(max_length=255, verbose_name=_("place"))
     begin_time = models.DateTimeField(verbose_name=_("begin date & time"))
     end_time = models.DateTimeField(verbose_name=_("end date & time"))
-    secretary = models.ForeignKey("members.Person", related_name="secretary", blank=True, null=True)
-    organization = models.ForeignKey("members.Organization")
+    secretary = models.ForeignKey("members.Person", related_name="secretary", blank=True, null=True, verbose_name=_("secretary"))
+    organization = models.ForeignKey("members.Organization", verbose_name=_("organization"))
 
     @property
     def is_soon(self):
@@ -63,10 +63,10 @@ class Meeting(models.Model):
 
 class Minutes(models.Model):
     """Minutes corresponding to a meeting"""
-    meeting = models.ForeignKey("Meeting", related_name='minutes')
-    file = models.FileField()
-    original_name = models.TextField()
-    date = models.DateTimeField()
+    meeting = models.ForeignKey("Meeting", related_name='minutes', verbose_name=_("meeting"))
+    file = models.FileField(verbose_name=_("file"))
+    original_name = models.TextField(verbose_name=_("original name"))
+    date = models.DateTimeField(verbose_name=_("date"))
 
     class Meta:
         verbose_name_plural = "minutes"

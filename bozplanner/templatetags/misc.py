@@ -1,6 +1,9 @@
 from django import template
 from django.template.loader import get_template
 from django.utils.safestring import mark_safe
+import json
+
+from django.utils.translation import ugettext as _
 
 register = template.Library()
 
@@ -36,3 +39,8 @@ def fancy_form(value, autoescape=None):
 @register.filter(needs_autoescape=True)
 def fancy_form_field(value, autoescape=None):
     return get_template("form-field.html").render({"field": value})
+
+
+@register.filter(needs_autoescape=True)
+def jstrans(value, autoescape=None):
+    return mark_safe(json.dumps(_(value)))

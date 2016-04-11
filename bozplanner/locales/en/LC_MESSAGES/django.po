@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-08 14:19+0200\n"
+"POT-Creation-Date: 2016-04-11 16:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,6 +28,7 @@ msgstr ""
 
 #: .\bozplanner\templates\menu.html:20 .\help\templates\help\help.html:103
 #: .\meetings\templates\minutes\list.html:4
+#: .\meetings\templates\minutes\list.html:53
 msgid "Minutes"
 msgstr ""
 
@@ -65,14 +66,14 @@ msgstr ""
 msgid ""
 "\n"
 "                       <p>In order to schedule a meeting, you should "
-"navigate to the menu named \"Schedule a meeting\" or to the menu named "
-"\"Meetings\". When navigating to the \"Schedule a meeting\" menu, you should "
-"see a form which must be filled in by you. You should fill in the location "
-"of the meeting (e.g. RA-5148), at what time the meeting starts (in the "
-"following format: dd/mm/yyyy hh:mm), the datetimepicker can help to fill in "
-"this field, then you should fill in at what time the meeting will end (This "
-"work exactly the same as the previous field). Finally, the organization of "
-"the OLC meeting should be filled in (e.g. BMS).</p>\n"
+"navigate in the menu to \"Meetings\" and click on the add button on top of "
+"the page. You should then fill in the location of the meeting (e.g. "
+"RA-5148), at what time the meeting starts (in the following format: dd/mm/"
+"yyyy hh:mm), the datetimepicker can help to fill in this field, then you "
+"should fill in at what time the meeting will end (This work exactly the same "
+"as the previous field). Next, the organization of the OLC meeting should be "
+"filled in (e.g. BMS). Finally click on the save button to save the meeting.</"
+"p>\n"
 "                    "
 msgstr ""
 
@@ -107,7 +108,8 @@ msgid ""
 "                        <h4>How do I delete a user?</h4>\n"
 "                        <p>A user can be deleted by clicking on the delete "
 "button in the list associated to the user. Then, you will be asked whether "
-"you are certain of deleting the user. Afterwards, the user is deleted.</p>\n"
+"you are certain of deleting the user. Afterwards, click on the deactivate "
+"button to permanently deactivate the user.</p>\n"
 "                    "
 msgstr ""
 
@@ -135,8 +137,7 @@ msgid ""
 "                        <p>Scheduled meetings can be found in the menu "
 "called \"Meetings\", this menu lists the meetings and it indicates whether "
 "someone is assigned to the meeting to take the minutes. Furthermore, with "
-"the button in the header, a meeting can be scheduled instantly without "
-"having to navigate to the menu \"Schedule a meeting\".</p>\n"
+"the button in the header, a meeting can be scheduled instantly .</p>\n"
 "                    "
 msgstr ""
 
@@ -168,6 +169,10 @@ msgid ""
 "                "
 msgstr ""
 
+#: .\meetings\models.py:15
+msgid "place"
+msgstr ""
+
 #: .\meetings\models.py:16
 msgid "begin date & time"
 msgstr ""
@@ -176,12 +181,36 @@ msgstr ""
 msgid "end date & time"
 msgstr ""
 
+#: .\meetings\models.py:18
+msgid "secretary"
+msgstr ""
+
+#: .\meetings\models.py:19
+msgid "organization"
+msgstr ""
+
 #: .\meetings\models.py:48
 msgid "End of a meeting cannot be before the start of a meeting."
 msgstr ""
 
 #: .\meetings\models.py:51
 msgid "OLC meeting of {}"
+msgstr ""
+
+#: .\meetings\models.py:66
+msgid "meeting"
+msgstr ""
+
+#: .\meetings\models.py:67
+msgid "file"
+msgstr ""
+
+#: .\meetings\models.py:68
+msgid "original name"
+msgstr ""
+
+#: .\meetings\models.py:69
+msgid "date"
 msgstr ""
 
 #: .\meetings\templates\meetings\form.html:8
@@ -205,9 +234,11 @@ msgid "Cancel"
 msgstr ""
 
 #: .\meetings\templates\meetings\form.html:16
+#: .\meetings\templates\meetings\list.html:152
 #: .\members\templates\organization\form.html:20
+#: .\members\templates\organization\list.html:74
 #: .\members\templates\person\form.html:20
-#: .\members\templates\person\list.html:78 .\members\templates\settings.html:77
+#: .\members\templates\person\list.html:78 .\members\templates\settings.html:73
 msgid "Submit"
 msgstr ""
 
@@ -258,6 +289,7 @@ msgid ""
 msgstr ""
 
 #: .\meetings\templates\meetings\list.html:186
+#: .\meetings\templates\minutes\list.html:105
 #: .\members\templates\organization\list.html:108
 msgid "Delete"
 msgstr ""
@@ -291,9 +323,57 @@ msgstr ""
 msgid "Someone has already claimed this meeting."
 msgstr ""
 
+#: .\members\models.py:12
+msgid "organizations"
+msgstr ""
+
+#: .\members\models.py:13
+msgid "calendar token"
+msgstr ""
+
+#: .\members\models.py:14
+msgid "first login"
+msgstr ""
+
 #: .\members\models.py:53
 #, python-format
 msgid "%(value)s is not a valid student number or employee number"
+msgstr ""
+
+#: .\members\models.py:83
+msgid "name"
+msgstr ""
+
+#: .\members\models.py:85
+msgid "parent organization"
+msgstr ""
+
+#: .\members\models.py:116
+msgid "overview"
+msgstr ""
+
+#: .\members\models.py:118
+msgid "reminder"
+msgstr ""
+
+#: .\members\models.py:121
+msgid "Include meetings in your calendar of which you are the secretary"
+msgstr ""
+
+#: .\members\models.py:123
+msgid "Include meetings in your calendar which belong to your organizations"
+msgstr ""
+
+#: .\members\models.py:124
+msgid "overview secretary"
+msgstr ""
+
+#: .\members\models.py:127
+msgid "Receive confirmation mail when adding yourself to a meeting"
+msgstr ""
+
+#: .\members\models.py:129
+msgid "Always zoom in the page"
 msgstr ""
 
 #: .\members\templates\403.html:9
@@ -409,10 +489,14 @@ msgid ""
 "                            "
 msgstr ""
 
-#: .\members\templates\settings.html:60
+#: .\members\templates\settings.html:49
+msgid "Calendar"
+msgstr ""
+
+#: .\members\templates\settings.html:51
 msgid "Add to:"
 msgstr ""
 
-#: .\members\templates\settings.html:76
+#: .\members\templates\settings.html:72
 msgid "Back"
 msgstr ""

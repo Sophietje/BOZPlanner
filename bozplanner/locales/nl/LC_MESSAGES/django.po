@@ -1,85 +1,94 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-08 14:19+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2016-04-11 16:53+0200\n"
+"PO-Revision-Date: Mon Apr 11 2016 15:04:16 GMT+0200 (W. Europe Standard "
+"Time)\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: LANGUAGE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Loco-Source-Locale: en_GB\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Loco-Target-Locale: zxx\n"
+"X-Generator: Loco - https://localise.biz/\n"
 
 #: .\bozplanner\templates\base.html:6 .\bozplanner\templates\menu.html.py:8
 msgid "BOZPlanner"
-msgstr ""
+msgstr "BOZPlanner"
 
 #: .\bozplanner\templates\menu.html:15
 #: .\meetings\templates\meetings\list.html:6
 msgid "Meetings"
-msgstr ""
+msgstr "Vergaderingen"
 
 #: .\bozplanner\templates\menu.html:20 .\help\templates\help\help.html:103
 #: .\meetings\templates\minutes\list.html:4
+#: .\meetings\templates\minutes\list.html:53
 msgid "Minutes"
-msgstr ""
+msgstr "Notulen"
 
 #: .\bozplanner\templates\menu.html:28 .\members\templates\person\list.html:5
 msgid "Users"
-msgstr ""
+msgstr "Gebruikers"
 
 #: .\bozplanner\templates\menu.html:36
 #: .\members\templates\organization\list.html:5
 #: .\members\templates\person\list.html:20
 msgid "Organizations"
-msgstr ""
+msgstr "Organisaties"
 
 #: .\bozplanner\templates\menu.html:45
 msgid "Help"
-msgstr ""
+msgstr "Help"
 
 #: .\bozplanner\templates\menu.html:57
 msgid "Preferences"
-msgstr ""
+msgstr "Instellingen"
 
 #: .\bozplanner\templates\menu.html:62
 msgid "Log out"
-msgstr ""
+msgstr "Uitloggen"
 
 #: .\help\templates\help\help.html:8
 msgid "Help & Manual"
-msgstr ""
+msgstr "Help & Handleiding"
 
 #: .\help\templates\help\help.html:18
 msgid "Scheduling a meeting"
-msgstr ""
+msgstr "Vergadering plannen"
 
 #: .\help\templates\help\help.html:24
 msgid ""
 "\n"
 "                       <p>In order to schedule a meeting, you should "
-"navigate to the menu named \"Schedule a meeting\" or to the menu named "
-"\"Meetings\". When navigating to the \"Schedule a meeting\" menu, you should "
-"see a form which must be filled in by you. You should fill in the location "
-"of the meeting (e.g. RA-5148), at what time the meeting starts (in the "
-"following format: dd/mm/yyyy hh:mm), the datetimepicker can help to fill in "
-"this field, then you should fill in at what time the meeting will end (This "
-"work exactly the same as the previous field). Finally, the organization of "
-"the OLC meeting should be filled in (e.g. BMS).</p>\n"
+"navigate in the menu to \"Meetings\" and click on the add button on top of "
+"the page. You should then fill in the location of the meeting (e.g. "
+"RA-5148), at what time the meeting starts (in the following format: dd/mm/"
+"yyyy hh:mm), the datetimepicker can help to fill in this field, then you "
+"should fill in at what time the meeting will end (This work exactly the same "
+"as the previous field). Next, the organization of the OLC meeting should be "
+"filled in (e.g. BMS). Finally click on the save button to save the meeting.</"
+"p>\n"
 "                    "
 msgstr ""
+"\n"
+"<p>Om een vergadering te plannen, moet u navigeren in het menu naar "
+"\"Vergaderingen\".Als u hier naar toe bent genavigeerd zult u een formulier "
+"zien dat ingevuld moet worden. U moet de locatie van de vergadering (bijv. "
+"RA 5148), de begin- en endttijd en de organisatie (bijv. BMS) invullen. Om u "
+"te helpen bij het invullen van de begin- en eindtijd kunt u de datum- en "
+"tijdkiezer gebruiken. Klik uiteindelijk op de opslaan knop om de vergadering "
+"op te slaan.</p>"
 
 #: .\help\templates\help\help.html:38
 msgid "Users information"
-msgstr ""
+msgstr "Informatie over gebruikers"
 
 #: .\help\templates\help\help.html:44
 msgid ""
@@ -108,13 +117,40 @@ msgid ""
 "                        <h4>How do I delete a user?</h4>\n"
 "                        <p>A user can be deleted by clicking on the delete "
 "button in the list associated to the user. Then, you will be asked whether "
-"you are certain of deleting the user. Afterwards, the user is deleted.</p>\n"
+"you are certain of deleting the user. Afterwards, click on the deactivate "
+"button to permanently deactivate the user.</p>\n"
 "                    "
 msgstr ""
+"\n"
+"<p>U kunt alle gebruikers vinden door in het menu te navigeren naar "
+"\"Gebruikers\". Op deze pagina kunt u ten eerste alle gebruikers in het "
+"systeem vinden, zoals de notulisten, BOZ-medewerkers en personen betrokken "
+"met een OLC. Ten tweede kan een gebruiker gemaakt worden door middel van de "
+"knop bovenaan de pagina. Ten slotte kan de informatie van gebruikers "
+"gewijzigd worden indien gewenst en kunnen gebruikers verwijderd worden.</p>\n"
+"\n"
+"<h4>Hoe voeg ik een gebruiker toe?</h4>\n"
+"<p>Om een gebruiker toe te voegen zult u moeten klikken op de knop bovenaan "
+"de pagina \"Gebruikers\". Vervolgens zult u de naam, e-mailadres en "
+"organisatie van de gebruiker moeten invullen. Ten slotte kunt u op de "
+"opslaan-knop drukken om de gebruiker op te slaan. De persoon wiens "
+"informatie is ingevuld kan nu inloggen in het systeem.</p>\n"
+"\n"
+"<h4>Hoe verander ik de gegevens van een gebruiker?</h4>\n"
+"<p>De gegevens van een gebruiker kunnen veranderd worden door op de wijzigen-"
+"knop te klikken die hoort bij de gebruiker in de tabel. Een popup zal "
+"verschijnen waarin u uw wijzigingen kunt doorvoeren. Ten slotte klikt u op "
+"de opslaan-knop om de wijzigingen op te slaan.</p>\n"
+"\n"
+"<h4>Hoe verwijder ik een gebruiker?</h4>\n"
+"<p>Een gebruiker kan verwijderd worden door op de verwijder-knop te klikken "
+"die hoort bij de gebruiker in de tabel. Een popup zal verschijnen met de "
+"vraag of u zeker weet dat u de gebruiker wilt verwijderen. Als u vervolgens "
+"op de verwijderknop klikt zal de gebruiker verwijderd worden.</p>"
 
 #: .\help\templates\help\help.html:67
 msgid "Organizations information"
-msgstr ""
+msgstr "Informatie over organisaties"
 
 #: .\help\templates\help\help.html:73
 msgid ""
@@ -125,10 +161,16 @@ msgid ""
 "the previous answered question.</p>\n"
 "                    "
 msgstr ""
+"\n"
+"<p>Alle organisaties in het systeem zijn te vinden door in het menu te "
+"klikken op \"Organisaties\". Organisaties kunnen op deze pagina worden "
+"bekeken, toegevoegd, veranderd en verwijderd met soortgelijke stappen als "
+"bij gebruikers. Gelieve voor deze stappen te kijken bij de voorgaande vragen."
+"</p>"
 
 #: .\help\templates\help\help.html:87
 msgid "Scheduled meetings"
-msgstr ""
+msgstr "Geplande vergaderingen"
 
 #: .\help\templates\help\help.html:93
 msgid ""
@@ -136,10 +178,15 @@ msgid ""
 "                        <p>Scheduled meetings can be found in the menu "
 "called \"Meetings\", this menu lists the meetings and it indicates whether "
 "someone is assigned to the meeting to take the minutes. Furthermore, with "
-"the button in the header, a meeting can be scheduled instantly without "
-"having to navigate to the menu \"Schedule a meeting\".</p>\n"
+"the button in the header, a meeting can be scheduled instantly .</p>\n"
 "                    "
 msgstr ""
+"\n"
+"<p>Geplande vergadering kunnen bekeken worden door in het menu te klikken op "
+"\"Vergaderingen\". Op deze pagina staan alle vergaderingen die nog plaats "
+"moeten vinden en er wordt aangegeven of er al een notulist voor de "
+"vergadering is. Ook kunt u een vergadering toevoegen door op de knop "
+"bovenaan de pagina te klikken.</p>"
 
 #: .\help\templates\help\help.html:109
 msgid ""
@@ -153,11 +200,20 @@ msgid ""
 "download.</p>\n"
 "                    "
 msgstr ""
+"\n"
+"<p>Om notulen te downloaden van een vergadering die al plaats heeft gevonden "
+"moet u navigeren in het menu naar \"Notulen\". Op deze pagina staan alle "
+"vergaderingen in het verleden. Als er notulen zijn geupload door de "
+"notulist, kan u een downloadknop aan de rechterkant in de tabel vinden. Het "
+"is mogelijk dat een notulist meerdere versies van de notulen heeft geupload. "
+"In dit geval heeft u de mogelijkheid om te kiezen welke notulen u wilt "
+"downloaden.</p>"
 
 #: .\help\templates\help\help.html:122
 msgid "Personal settings"
-msgstr ""
+msgstr "Persoonlijke instellingen"
 
+# hallo
 #: .\help\templates\help\help.html:128
 msgid ""
 "\n"
@@ -168,26 +224,62 @@ msgid ""
 "planned meetings) and you can change your own personal data.'</p>\n"
 "                "
 msgstr ""
+"\n"
+"<p>U kan uw persoonlijke instellingen bekijken door te klikken aan de "
+"rechterkant van uw naam. Er zal dan een menu verschijnen met een link naar "
+"uw instellingen. U kan uw persoonlijke instellingen wijzigen, zoals of u "
+"notificatiemails wilt ontvangen of herinneringen voor geplande vergadering "
+"wilt ontvangen.</p>"
+
+#: .\meetings\models.py:15
+msgid "place"
+msgstr "locatie"
 
 #: .\meetings\models.py:16
 msgid "begin date & time"
-msgstr ""
+msgstr "begindatum & -tijd"
 
 #: .\meetings\models.py:17
 msgid "end date & time"
-msgstr ""
+msgstr "einddatum & -tijd"
+
+#: .\meetings\models.py:18
+msgid "secretary"
+msgstr "Notulist"
+
+#: .\meetings\models.py:19
+msgid "organization"
+msgstr "Organisatie"
 
 #: .\meetings\models.py:48
 msgid "End of a meeting cannot be before the start of a meeting."
 msgstr ""
+"Het einde van een vergadering kan niet plaatsvinden voor het begin van een "
+"vergadering zijn."
 
 #: .\meetings\models.py:51
 msgid "OLC meeting of {}"
-msgstr ""
+msgstr "OLC-vergadering van {}"
+
+#: .\meetings\models.py:66
+msgid "meeting"
+msgstr "Vergaderingen"
+
+#: .\meetings\models.py:67
+msgid "file"
+msgstr "bestand"
+
+#: .\meetings\models.py:68
+msgid "original name"
+msgstr "oorspronkelijke naam"
+
+#: .\meetings\models.py:69
+msgid "date"
+msgstr "datum"
 
 #: .\meetings\templates\meetings\form.html:8
 msgid "Schedule a meeting"
-msgstr ""
+msgstr "Vergadering plannen"
 
 #: .\meetings\templates\meetings\form.html:15
 #: .\meetings\templates\meetings\list.html:147
@@ -203,51 +295,53 @@ msgstr ""
 #: .\members\templates\person\list.html:76
 #: .\members\templates\person\list.html:109
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: .\meetings\templates\meetings\form.html:16
+#: .\meetings\templates\meetings\list.html:152
 #: .\members\templates\organization\form.html:20
+#: .\members\templates\organization\list.html:74
 #: .\members\templates\person\form.html:20
-#: .\members\templates\person\list.html:78 .\members\templates\settings.html:77
+#: .\members\templates\person\list.html:78 .\members\templates\settings.html:73
 msgid "Submit"
-msgstr ""
+msgstr "Opslaan"
 
 #: .\meetings\templates\meetings\list.html:20
 msgid "Organization"
-msgstr ""
+msgstr "Organisatie"
 
 #: .\meetings\templates\meetings\list.html:21
 #: .\meetings\templates\minutes\list.html:13
 msgid "Date & Time"
-msgstr ""
+msgstr "Datum & Tijd"
 
 #: .\meetings\templates\meetings\list.html:22
 #: .\meetings\templates\minutes\list.html:14
 msgid "Location"
-msgstr ""
+msgstr "Locatie"
 
 #: .\meetings\templates\meetings\list.html:23
 #: .\meetings\templates\minutes\list.html:15
 msgid "Secretary"
-msgstr ""
+msgstr "Notulist"
 
 #: .\meetings\templates\meetings\list.html:26
 msgid "Subscription"
-msgstr ""
+msgstr "Inschrijving"
 
 #: .\meetings\templates\meetings\list.html:43
 #: .\meetings\templates\meetings\list.html:76
 #: .\meetings\templates\minutes\list.html:31
 msgid "None"
-msgstr ""
+msgstr "Geen"
 
 #: .\meetings\templates\meetings\list.html:137
 msgid "Edit meeting"
-msgstr ""
+msgstr "Vergadering wijzigen"
 
 #: .\meetings\templates\meetings\list.html:177
 msgid "Delete meeting"
-msgstr ""
+msgstr "Vergadering verwijderen"
 
 #: .\meetings\templates\meetings\list.html:180
 #, python-format
@@ -257,23 +351,27 @@ msgid ""
 "the meeting \"%(meeting)s\" at %(begin_time)s?\n"
 "                            "
 msgstr ""
+"\n"
+"Weet u zeker dat u de vergadering \"%(meeting)s\" om %(begin_time)s wilt "
+"verwijderen?"
 
 #: .\meetings\templates\meetings\list.html:186
+#: .\meetings\templates\minutes\list.html:105
 #: .\members\templates\organization\list.html:108
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 #: .\meetings\templates\minutes\list.html:12
 msgid "Subject"
-msgstr ""
+msgstr "Onderwerp"
 
 #: .\meetings\templates\minutes\list.html:16
 msgid "Upload&nbsp;-&nbsp;Options"
-msgstr ""
+msgstr "Upload&nbsp;-&nbsp;Opties"
 
 #: .\meetings\templates\minutes\list.html:95
 msgid "Delete minutes"
-msgstr ""
+msgstr "Verwijder notulen"
 
 #: .\meetings\templates\minutes\list.html:99
 #, python-format
@@ -283,23 +381,74 @@ msgid ""
 "%(name)s uploaded at %(date)s?\n"
 "                                "
 msgstr ""
+"\n"
+"Weet u zeker dat u het bestand %(name)s geupload op %(date)s wilt "
+"verwijderen?"
 
 #: .\meetings\views.py:69
 msgid "You cannot unsubscribe from this meeting anymore"
-msgstr ""
+msgstr "U kan zich niet meer uitschrijven voor deze vergadering."
 
 #: .\meetings\views.py:75
 msgid "Someone has already claimed this meeting."
-msgstr ""
+msgstr "Er is al een notulist voor deze vergadering."
+
+#: .\members\models.py:12
+msgid "organizations"
+msgstr "organisaties"
+
+#: .\members\models.py:13
+msgid "calendar token"
+msgstr "agenda token"
+
+#: .\members\models.py:14
+msgid "first login"
+msgstr "eerste login"
 
 #: .\members\models.py:53
 #, python-format
 msgid "%(value)s is not a valid student number or employee number"
-msgstr ""
+msgstr "%(value)s is geen geldig student- of medewerkersnummer"
+
+#: .\members\models.py:83
+msgid "name"
+msgstr "naam"
+
+#: .\members\models.py:85
+msgid "parent organization"
+msgstr "Overkoepelende organisatie"
+
+#: .\members\models.py:116
+msgid "overview"
+msgstr "overzicht"
+
+#: .\members\models.py:118
+msgid "reminder"
+msgstr "herinnering"
+
+#: .\members\models.py:121
+msgid "Include meetings in your calendar of which you are the secretary"
+msgstr "Voeg vergaderingen waar je notulist bent toe aan je agenda"
+
+#: .\members\models.py:123
+msgid "Include meetings in your calendar which belong to your organizations"
+msgstr "Voeg vergaderingen toe aan je agenda die bij je organisatie horen"
+
+#: .\members\models.py:124
+msgid "overview secretary"
+msgstr "overzicht secretaris"
+
+#: .\members\models.py:127
+msgid "Receive confirmation mail when adding yourself to a meeting"
+msgstr "Ontvang een bevestigingsmail als je je inschrijft voor een vergadering"
+
+#: .\members\models.py:129
+msgid "Always zoom in the page"
+msgstr "Vergroot altijd de pagina"
 
 #: .\members\templates\403.html:9
 msgid "Permission Denied"
-msgstr ""
+msgstr "Toegang geweigerd"
 
 #: .\members\templates\403.html:10
 msgid ""
@@ -308,32 +457,35 @@ msgid ""
 "just logged in, you may have not (yet) been added to BOZPlanner.\n"
 "        "
 msgstr ""
+"\n"
+"U heeft niet de juiste rechten om de opgevraagde pagina te bekijken. Als u "
+"zojuist bent ingelogd, bent u wellicht (nog) niet aan BOZPlanner toegevoegd."
 
 #: .\members\templates\organization\form.html:8
 #, python-format
 msgid "Edit organization %(object)s"
-msgstr ""
+msgstr "Wijzig organisatie %(object)s"
 
 #: .\members\templates\organization\form.html:10
 msgid "Create organization"
-msgstr ""
+msgstr "Organisatie toevoegen"
 
 #: .\members\templates\organization\list.html:17
 #: .\members\templates\person\list.html:17
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: .\members\templates\organization\list.html:18
 msgid "Parent organization"
-msgstr ""
+msgstr "Overkoepelende organisatie"
 
 #: .\members\templates\organization\list.html:60
 msgid "Edit organization"
-msgstr ""
+msgstr "Organisatie wijzigen"
 
 #: .\members\templates\organization\list.html:99
 msgid "Delete organization"
-msgstr ""
+msgstr "Organisatie verwijderen"
 
 #: .\members\templates\organization\list.html:102
 #, python-format
@@ -344,55 +496,59 @@ msgid ""
 "suborganizations</em> as well.\n"
 "                            "
 msgstr ""
+"\n"
+"Weet u zeker dat u de organisatie %(organization)s wilt verwijderen? Dit "
+"verwijdert ook <em>alle suborganisaties</em>."
 
 #: .\members\templates\organization\list.html:121
 #: .\members\templates\person\list.html:123
 msgid "Copy email addresses"
-msgstr ""
+msgstr "E-maildressen kopiëren"
 
 #: .\members\templates\organization\list.html:128
 #: .\members\templates\person\list.html:130
 msgid "Copy"
-msgstr ""
+msgstr "Kopieer"
 
 #: .\members\templates\person\form.html:8
 #, python-format
 msgid "Edit user %(object)s"
-msgstr ""
+msgstr "Wijzig gebruiker %(object)s"
 
 #: .\members\templates\person\form.html:10
 msgid "Create user"
-msgstr ""
+msgstr "Gebruiker toevoegen"
 
 #: .\members\templates\person\list.html:18
 msgid "E-mail address"
-msgstr ""
+msgstr "E-mailadres"
 
 #: .\members\templates\person\list.html:19
 msgid "Groups"
-msgstr ""
+msgstr "Groepen"
 
 #: .\members\templates\person\list.html:64
 msgid "Edit user"
-msgstr ""
+msgstr "Gebruiker wijzigen"
 
 #: .\members\templates\person\list.html:103
 msgid "Deactivate user"
-msgstr ""
+msgstr "Gebruiker deactiveren"
 
 #: .\members\templates\person\list.html:106
 #, python-format
 msgid ""
 "Are you sure you want to permanently deactive the account of %(person)s?"
 msgstr ""
+"Weet u zeker dat u de account van %(person)s permanent wil deactiveren?"
 
 #: .\members\templates\person\list.html:110
 msgid "Deactivate"
-msgstr ""
+msgstr "Deactiveren"
 
 #: .\members\templates\settings.html:14
 msgid "Welcome"
-msgstr ""
+msgstr "Welkom"
 
 #: .\members\templates\settings.html:18
 msgid ""
@@ -409,11 +565,23 @@ msgid ""
 "                                </ul>\n"
 "                            "
 msgstr ""
+"\n"
+"Welkom bij BOZPlanner! Gelieve even uw instellingen door te nemen. U kan:\n"
+"<ul><li>Instellen welke mails u wilt ontvangen;</li>\n"
+"<li>Vergaderingen automatisch toevoegen aan uw agenda;</li>\n"
+"<li>De tekstgrootte van BOZPlanner veranderen.</li></ul>"
 
-#: .\members\templates\settings.html:60
+#: .\members\templates\settings.html:49
+msgid "Calendar"
+msgstr "Agenda"
+
+#: .\members\templates\settings.html:51
 msgid "Add to:"
-msgstr ""
+msgstr "Toevoegen aan:"
 
-#: .\members\templates\settings.html:76
+#: .\members\templates\settings.html:72
 msgid "Back"
-msgstr ""
+msgstr "Terug"
+
+msgid "Email users"
+msgstr "Gebruikers mailen"

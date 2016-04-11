@@ -50,7 +50,7 @@
                             {% if meeting.minutes.all|length > 0 %}
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Minutes <span class="caret"></span>
+                                        {% trans 'Minutes' %} <span class="caret"></span>
                                     </button>
 
                                     <ul class="dropdown-menu pull-right">
@@ -62,7 +62,7 @@
                                                     <span class="btn btn-default btn-sm dropdown-button">
                                                         <i class="glyphicon glyphicon-save"></i>
                                                     </span>
-                                                    {% if perms.meetings.delete_minutes or meeting.secretary == user %}
+                                                    {% if perms.meetings.delete_minutes %}
                                                         <span onclick="event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); $('#deleteModal-{{ minutes.pk }}').modal('show')"
                                                            href="#" class="btn btn-danger btn-sm dropdown-button"
                                                            data-toggle="modal" data-target="deleteModal-{{ minutes.pk }}"
@@ -102,7 +102,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</button>
-                                <input class="btn btn-danger" type="submit" value="Delete">
+                                <input class="btn btn-danger" type="submit" value="{% trans 'Delete' %}">
                             </div>
                         </form>
                     </div>
