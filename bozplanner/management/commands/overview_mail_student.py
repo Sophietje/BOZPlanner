@@ -16,7 +16,7 @@ class Command(BaseCommand):
             meetings = [meeting for meeting in Meeting.objects.filter(secretary = None, organization=organization, begin_time__lt=deadline_end, begin_time__gt=deadline_start).order_by('begin_time')]
             if len(meetings) > 0:
                 mail_context = {'meetings' : meetings, 'organization' : organization}
-                subject = '[BOZPlanner] ['+organization.name+'] Overview meetings this week'
+                subject = '[BOZPlanner] ['+organization.name+'] Overview meetings the coming weeks'
                 text_content = get_template('overview_mail_student_plain.html').render(context=mail_context)
                 html_content = get_template('overview_mail_student_html.html').render(context=mail_context)
                 from_email   = 'bozplanner@utwente.nl'

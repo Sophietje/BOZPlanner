@@ -2,7 +2,7 @@
 {% block content %}
 Hello,<br><br>
 
-This week the following meeting{% if meetings|length == 1 %}{% else %}s{% endif %} take{% if meetings|length == 1 %}s{% else %}{% endif %} place of {{ organization }} that do{% if meetings|length == 1 %}es{% else %}{% endif %}es not yet have a secretary: <br>
+This week the following meeting{% if meetings|length == 1 %}{% else %}s{% endif %} take{% if meetings|length == 1 %}s{% else %}{% endif %} place of {{ organization }} that do{% if meetings|length == 1 %}es{% else %}{% endif %} not yet have a secretary: <br>
     <ul>
     {% for meeting in meetings %}
         <li>{{ meeting.begin_time|date:"d-m-Y H:i" }}</li>
