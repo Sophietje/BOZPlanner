@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
 {% block menu %}
     {% include 'menu.html' with active='help' %}
 {% endblock %}
 
 {% block content %}
-    <h1>{% trans 'Help & Manual' %}</h1>
+    <h1>{% trans 'Help' %}</h1>
     <hr>
     <div id="questions" class="panel-group" role ="tablist" aria-multiselectable="true">
         <!-- You may see information on scheduling meeting when you are allowed to create them (Admin and Planner) -->
@@ -119,7 +121,7 @@
                 <h2 class="panel-title">
                     <a class="collapsed btn-block" role="button" data-toggle="collapse" data-parent="#questions"
                        href="#settings-question" aria-expanded="false" aria-controls="settings-question">
-                        <i class="caret"></i>{% trans 'Personal settings' %}
+                        <i class="caret"></i> {% trans 'Personal settings' %}
                     </a>
                 </h2>
             </div>
@@ -131,5 +133,12 @@
             </div>
         </div>
     </div>
+
+    <h1>{% trans 'Manual' %}</h1>
+    <hr>
+    {% static 'manual.pdf' as static_manual_url %}
+    {% blocktrans %}
+        The complete manual can be downloaded <em><a href="{{ static_manual_url }}">here</a></em>.
+    {% endblocktrans %}
 
 {%  endblock %}

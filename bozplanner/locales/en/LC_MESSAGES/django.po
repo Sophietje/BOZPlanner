@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-12 10:29+0200\n"
+"POT-Creation-Date: 2016-04-12 15:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\bozplanner\templates\base.html:6 .\bozplanner\templates\menu.html.py:8
+#: .\bozplanner\templates\base.html:7 .\bozplanner\templates\menu.html.py:8
 msgid "BOZPlanner"
 msgstr ""
 
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Meetings"
 msgstr ""
 
-#: .\bozplanner\templates\menu.html:20 .\help\templates\help\help.html:103
+#: .\bozplanner\templates\menu.html:20 .\help\templates\help\help.html:105
 #: .\meetings\templates\minutes\list.html:4
 #: .\meetings\templates\minutes\list.html:53
 msgid "Minutes"
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Organizations"
 msgstr ""
 
-#: .\bozplanner\templates\menu.html:45
+#: .\bozplanner\templates\menu.html:45 .\help\templates\help\help.html.py:10
 msgid "Help"
 msgstr ""
 
@@ -54,15 +54,11 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: .\help\templates\help\help.html:8
-msgid "Help & Manual"
-msgstr ""
-
-#: .\help\templates\help\help.html:18
+#: .\help\templates\help\help.html:20
 msgid "Scheduling a meeting"
 msgstr ""
 
-#: .\help\templates\help\help.html:24
+#: .\help\templates\help\help.html:26
 msgid ""
 "\n"
 "                       <p>In order to schedule a meeting, you should "
@@ -77,11 +73,11 @@ msgid ""
 "                    "
 msgstr ""
 
-#: .\help\templates\help\help.html:38
+#: .\help\templates\help\help.html:40
 msgid "Users information"
 msgstr ""
 
-#: .\help\templates\help\help.html:44
+#: .\help\templates\help\help.html:46
 msgid ""
 "\n"
 "                        <p>You can find all users of the system in the menu "
@@ -113,11 +109,11 @@ msgid ""
 "                    "
 msgstr ""
 
-#: .\help\templates\help\help.html:67
+#: .\help\templates\help\help.html:69
 msgid "Organizations information"
 msgstr ""
 
-#: .\help\templates\help\help.html:73
+#: .\help\templates\help\help.html:75
 msgid ""
 "\n"
 "                        <p>You can find all the organizations in the system "
@@ -127,11 +123,11 @@ msgid ""
 "                    "
 msgstr ""
 
-#: .\help\templates\help\help.html:87
+#: .\help\templates\help\help.html:89
 msgid "Scheduled meetings"
 msgstr ""
 
-#: .\help\templates\help\help.html:93
+#: .\help\templates\help\help.html:95
 msgid ""
 "\n"
 "                        <p>Scheduled meetings can be found in the menu "
@@ -141,7 +137,7 @@ msgid ""
 "                    "
 msgstr ""
 
-#: .\help\templates\help\help.html:109
+#: .\help\templates\help\help.html:111
 msgid ""
 "\n"
 "                        <p>In order to download minutes from meetings that "
@@ -154,11 +150,11 @@ msgid ""
 "                    "
 msgstr ""
 
-#: .\help\templates\help\help.html:122
+#: .\help\templates\help\help.html:124
 msgid "Personal settings"
 msgstr ""
 
-#: .\help\templates\help\help.html:128
+#: .\help\templates\help\help.html:130
 msgid ""
 "\n"
 "                    <p>You can access your personal settings by clicking on "
@@ -167,6 +163,19 @@ msgid ""
 "enabling the different options (notification mails and reminders of your "
 "planned meetings) and you can change your own personal data.'</p>\n"
 "                "
+msgstr ""
+
+#: .\help\templates\help\help.html:137
+msgid "Manual"
+msgstr ""
+
+#: .\help\templates\help\help.html:140
+#, python-format
+msgid ""
+"\n"
+"        The complete manual can be downloaded <em><a href="
+"\"%(static_manual_url)s\">here</a></em>.\n"
+"    "
 msgstr ""
 
 #: .\meetings\models.py:15

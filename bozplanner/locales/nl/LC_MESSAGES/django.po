@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-12 10:29+0200\n"
+"POT-Creation-Date: 2016-04-12 15:46+0200\n"
 "PO-Revision-Date: Mon Apr 11 2016 15:04:16 GMT+0200 (W. Europe Standard "
 "Time)\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Loco-Target-Locale: zxx\n"
 "X-Generator: Loco - https://localise.biz/\n"
 
-#: .\bozplanner\templates\base.html:6 .\bozplanner\templates\menu.html.py:8
+#: .\bozplanner\templates\base.html:7 .\bozplanner\templates\menu.html.py:8
 msgid "BOZPlanner"
 msgstr "BOZPlanner"
 
@@ -27,7 +27,7 @@ msgstr "BOZPlanner"
 msgid "Meetings"
 msgstr "Vergaderingen"
 
-#: .\bozplanner\templates\menu.html:20 .\help\templates\help\help.html:103
+#: .\bozplanner\templates\menu.html:20 .\help\templates\help\help.html:105
 #: .\meetings\templates\minutes\list.html:4
 #: .\meetings\templates\minutes\list.html:53
 msgid "Minutes"
@@ -43,7 +43,7 @@ msgstr "Gebruikers"
 msgid "Organizations"
 msgstr "Organisaties"
 
-#: .\bozplanner\templates\menu.html:45
+#: .\bozplanner\templates\menu.html:45 .\help\templates\help\help.html.py:10
 msgid "Help"
 msgstr "Help"
 
@@ -55,15 +55,11 @@ msgstr "Instellingen"
 msgid "Log out"
 msgstr "Uitloggen"
 
-#: .\help\templates\help\help.html:8
-msgid "Help & Manual"
-msgstr "Help & Handleiding"
-
-#: .\help\templates\help\help.html:18
+#: .\help\templates\help\help.html:20
 msgid "Scheduling a meeting"
 msgstr "Vergadering plannen"
 
-#: .\help\templates\help\help.html:24
+#: .\help\templates\help\help.html:26
 msgid ""
 "\n"
 "                       <p>In order to schedule a meeting, you should "
@@ -86,11 +82,11 @@ msgstr ""
 "tijdkiezer gebruiken. Klik uiteindelijk op de opslaan knop om de vergadering "
 "op te slaan.</p>"
 
-#: .\help\templates\help\help.html:38
+#: .\help\templates\help\help.html:40
 msgid "Users information"
 msgstr "Informatie over gebruikers"
 
-#: .\help\templates\help\help.html:44
+#: .\help\templates\help\help.html:46
 msgid ""
 "\n"
 "                        <p>You can find all users of the system in the menu "
@@ -148,11 +144,11 @@ msgstr ""
 "vraag of u zeker weet dat u de gebruiker wilt verwijderen. Als u vervolgens "
 "op de verwijderknop klikt zal de gebruiker verwijderd worden.</p>"
 
-#: .\help\templates\help\help.html:67
+#: .\help\templates\help\help.html:69
 msgid "Organizations information"
 msgstr "Informatie over organisaties"
 
-#: .\help\templates\help\help.html:73
+#: .\help\templates\help\help.html:75
 msgid ""
 "\n"
 "                        <p>You can find all the organizations in the system "
@@ -168,11 +164,11 @@ msgstr ""
 "bij gebruikers. Gelieve voor deze stappen te kijken bij de voorgaande vragen."
 "</p>"
 
-#: .\help\templates\help\help.html:87
+#: .\help\templates\help\help.html:89
 msgid "Scheduled meetings"
 msgstr "Geplande vergaderingen"
 
-#: .\help\templates\help\help.html:93
+#: .\help\templates\help\help.html:95
 msgid ""
 "\n"
 "                        <p>Scheduled meetings can be found in the menu "
@@ -188,7 +184,7 @@ msgstr ""
 "vergadering is. Ook kunt u een vergadering toevoegen door op de knop "
 "bovenaan de pagina te klikken.</p>"
 
-#: .\help\templates\help\help.html:109
+#: .\help\templates\help\help.html:111
 msgid ""
 "\n"
 "                        <p>In order to download minutes from meetings that "
@@ -209,12 +205,12 @@ msgstr ""
 "In dit geval heeft u de mogelijkheid om te kiezen welke notulen u wilt "
 "downloaden.</p>"
 
-#: .\help\templates\help\help.html:122
+#: .\help\templates\help\help.html:124
 msgid "Personal settings"
 msgstr "Persoonlijke instellingen"
 
 # hallo
-#: .\help\templates\help\help.html:128
+#: .\help\templates\help\help.html:130
 msgid ""
 "\n"
 "                    <p>You can access your personal settings by clicking on "
@@ -230,6 +226,21 @@ msgstr ""
 "uw instellingen. U kan uw persoonlijke instellingen wijzigen, zoals of u "
 "notificatiemails wilt ontvangen of herinneringen voor geplande vergadering "
 "wilt ontvangen.</p>"
+
+#: .\help\templates\help\help.html:137
+msgid "Manual"
+msgstr "Handleiding"
+
+#: .\help\templates\help\help.html:140
+#, python-format
+msgid ""
+"\n"
+"        The complete manual can be downloaded <em><a href="
+"\"%(static_manual_url)s\">here</a></em>.\n"
+"    "
+msgstr "\n"
+"De gehele handleiding kan <em><a href\"%(static_manual_url)s\">hier</a></em> "
+"gedownload worden."
 
 #: .\meetings\models.py:15
 msgid "place"
@@ -442,8 +453,9 @@ msgstr "overzicht"
 msgid ""
 "You can use this to indicate of which organizations you would like to "
 "receive a weekly overview."
-msgstr "Hier kunt u aangeven van welke organisaties u een wekelijks "
-"overzicht wenst te ontvangen."
+msgstr ""
+"Hier kunt u aangeven van welke organisaties u een wekelijks overzicht wenst "
+"te ontvangen."
 
 #: .\members\models.py:119
 msgid "reminder"
@@ -454,9 +466,10 @@ msgid ""
 "You can use this to indicate of which organizations you would like to "
 "receive a reminder whenever no secretary has been found 10 days in advance "
 "of a meeting."
-msgstr "Hier kunt u aangeven van welke organisaties u een herinnering wenst "
-"te ontvangen indien er nog geen notulist voor een vergadering beschikbaar "
-"is tien dagen voor de vergadering."
+msgstr ""
+"Hier kunt u aangeven van welke organisaties u een herinnering wenst te "
+"ontvangen indien er nog geen notulist voor een vergadering beschikbaar is "
+"tien dagen voor de vergadering."
 
 #: .\members\models.py:124
 msgid "Include meetings in your calendar of which you are the secretary"
@@ -474,20 +487,22 @@ msgstr "overzicht secretaris"
 msgid ""
 "You can use this to indicate of which organizations you would like to "
 "receive a weekly overview of meetings that do not yet have a secretary."
-msgstr "Hier kunt u aangeven van welke organisaties u graag een wekelijks "
-"overzicht wenst te ontvangen van vergaderingen die nog geen notulist "
-"hebben."
+msgstr ""
+"Hier kunt u aangeven van welke organisaties u graag een wekelijks overzicht "
+"wenst te ontvangen van vergaderingen die nog geen notulist hebben."
 
 #: .\members\models.py:132
 msgid "Receive confirmation mail when adding yourself to a meeting"
-msgstr "Ontvang een bevestigingsmail als u zich inschrijft voor een vergadering"
+msgstr ""
+"Ontvang een bevestigingsmail als u zich inschrijft voor een vergadering"
 
 #: .\members\models.py:133
 msgid ""
 "You can use this to indicate whether you would like to receive a "
 "confirmation mail whenever you subscribe to or unsubscribe from a meeting."
-msgstr "Hier kunt u aangeven of u een bevestigingsmail wenst te ontvangen "
-"indien u zich in- of uitschrijft voor een vergadering."
+msgstr ""
+"Hier kunt u aangeven of u een bevestigingsmail wenst te ontvangen indien u "
+"zich in- of uitschrijft voor een vergadering."
 
 #: .\members\models.py:136
 msgid "Always zoom in the page"
