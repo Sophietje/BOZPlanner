@@ -8,7 +8,7 @@ from members.models import Organization
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        deadline_end = timezone.now().replace(hour=23,minute=59,second=59) + timezone.timedelta(days=7)
+        deadline_end = timezone.now().replace(hour=23,minute=59,second=59) + timezone.timedelta(days=21)
         deadline_start = timezone.now().replace(hour=0,minute=0,second=0)
 
         for organization in Organization.objects.all():
