@@ -136,21 +136,23 @@
 
     <script type="text/javascript">
         $(function() {
-            $('table').on('select.dt deselect.dt', function() {
-                $('.select-info .select-item:nth-child(2)').empty().append(
-                    $('<button>').addClass('btn').addClass('btn-default').text('Email organizations').click(function() {
-                        var query = $('tr.selected').map(function() {
-                            return $(this).attr('data-id');
-                        }).get().join(',');
+            $('table').on('init.dt', function() {
+                $('table').on('select.dt deselect.dt', function() {
+                    $('.select-info .select-item:nth-child(2)').empty().append(
+                        $('<button>').addClass('btn').addClass('btn-default').text({{ 'Email organizations'|jstrans }}).click(function() {
+                            var query = $('tr.selected').map(function() {
+                                return $(this).attr('data-id');
+                            }).get().join(',');
 
-                        $.get('emails/' + query, function(data) {
-                            var value = data.result.join(',');
-                            $('#email-input').val(value);
-                            $('#email-copy-button').attr('data-clipboard-text', value);
-                            $('#email-modal').modal().show();
-                        });
-                    })
-                );
+                            $.get('emails/' + query, function(data) {
+                                var value = data.result.join(',');
+                                $('#email-input').val(value);
+                                $('#email-copy-button').attr('data-clipboard-text', value);
+                                $('#email-modal').modal().show();
+                            });
+                        })
+                    );
+                });
             });
         });
     </script>

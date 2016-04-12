@@ -20,8 +20,8 @@ class PreferencesForm(models.ModelForm):
     def __init__(self, *args, request, **kwargs):
         self.request = request
         super(PreferencesForm, self).__init__(*args, **kwargs)
-        self.fields['overview_secretary'] = forms.MultipleChoiceField(required=True, label="Overview secretary",
-            choices=[(org, str(org)) for org in self.request.user.all_organizations])
+        self.fields['overview_secretary'].queryset = Organization.objects.filter(
+            pk__in=map(lambda org: org.pk, self.request.user.all_organizations))
 
     def clean(self):
         cleaned_data = super(PreferencesForm, self).clean()
