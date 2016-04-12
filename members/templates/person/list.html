@@ -138,16 +138,18 @@
 
     <script type="text/javascript">
         $(function() {
-            $('table').on('select.dt deselect.dt', function() {
-                $('.select-info .select-item:nth-child(2)').empty().append(
-                    $('<button>').addClass('btn').addClass('btn-default').text({{ 'Email users'|jstrans }}).click(function() {
-                        var value = $('tr.selected').map(function() {
-                            return $(this).attr('data-email');
-                        }).get().join(',');
-                        $('#email-input').val(value);
-                        $('#email-copy-button').attr('data-clipboard-text', value);
-                    }).attr('data-toggle', 'modal').attr('data-target', '#email-modal')
-                );
+            $('table').on('init.dt', function() {
+                $('table').on('select.dt deselect.dt', function() {
+                    $('.select-info .select-item:nth-child(2)').empty().append(
+                        $('<button>').addClass('btn').addClass('btn-default').text({{ 'Email users'|jstrans }}).click(function() {
+                            var value = $('tr.selected').map(function() {
+                                return $(this).attr('data-email');
+                            }).get().join(',');
+                            $('#email-input').val(value);
+                            $('#email-copy-button').attr('data-clipboard-text', value);
+                        }).attr('data-toggle', 'modal').attr('data-target', '#email-modal')
+                    );
+                });
             });
         });
     </script>

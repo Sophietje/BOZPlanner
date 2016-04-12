@@ -91,7 +91,7 @@ class EmailOrganizationView(View):
 
         for org_id in org_ids:
             organization = get_object_or_404(Organization, pk=org_id)
-            organizations = organizations | set(organization.all_organizations())
+            organizations = organizations | organization.all_organizations
 
         persons = Person.objects.filter(organizations__in=organizations)
         return JsonResponse({"result": list(map(lambda person: person.full_email, persons))})

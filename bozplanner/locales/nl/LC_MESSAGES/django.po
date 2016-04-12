@@ -636,3 +636,6 @@ msgstr "Terug"
 
 msgid "Email users"
 msgstr "Gebruikers mailen"
+
+msgid "Email organizations"
+msgstr "Organisaties mailen"
