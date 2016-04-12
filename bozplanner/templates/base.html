@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <!doctype html>
 <html>
@@ -35,6 +36,9 @@
                 $('.data-table').each(function() {
                     var table = $(this);
                     table.DataTable({
+                        language: {
+                            url: '{% static 'datatables-i18n' %}/{{ LANGUAGE_CODE }}.json'
+                        },
                         responsive: true,
                         order: JSON.parse(table.attr('data-order')),
                         ordering: true,
