@@ -24,7 +24,13 @@
         {% for organization in object_list %}
             <tr data-id="{{ organization.pk }}">
                 <td>{{ organization }}</td>
-                <td>{{ organization.parent_organization }}</td>
+                <td>
+                    {% if organization.parent_organization != None %}
+                        {{ organization.parent_organization }}
+                    {% else %}
+                        <em><small>{% trans 'None' %}</small></em>
+                    {% endif %}
+                </td>
                 <td class="btn-cell">
                     <div>
                         {% if perms.members.change_organization %}
