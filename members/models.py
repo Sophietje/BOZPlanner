@@ -76,6 +76,7 @@ Person._meta.get_field('username').help_text = _('The student number or employee
 Person._meta.get_field('username').validators.append(Person.validate_username)
 Person._meta.get_field('groups').help_text = ''
 Person._meta.get_field('email').required = True
+Person._meta.get_field('email').verbose_name = _('E-mailadres')
 
 
 class Organization(models.Model):

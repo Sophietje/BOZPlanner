@@ -1,4 +1,3 @@
-from django import forms
 from django.forms import models
 
 from members.models import Organization, Person, Preferences
