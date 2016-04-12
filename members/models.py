@@ -72,7 +72,7 @@ class Person(AbstractUser):
     def __str__(self):
         return self.get_full_name()
 
-Person._meta.get_field('username').help_text = 'The student number or employee number of the user, for example s1234567 or m1234567'
+Person._meta.get_field('username').help_text = _('The student number or employee number of the user, for example s1234567 or m1234567')
 Person._meta.get_field('username').validators.append(Person.validate_username)
 Person._meta.get_field('groups').help_text = ''
 Person._meta.get_field('email').required = True
@@ -83,8 +83,8 @@ class Organization(models.Model):
     name = models.CharField(max_length=255, verbose_name=_("name"))
     parent_organization = models.ForeignKey("Organization", null=True, blank=True,
         verbose_name=_("parent organization"),
-        help_text="The organization to which this organization belongs. For example, Technical Computer Science might "
-            "belong to an organization called EWI.")
+        help_text=_("The organization to which this organization belongs. For example, Technical Computer Science"
+            " might belong to an organization called EWI."  ))
 
     @property
     def all_organizations(self):
@@ -113,18 +113,25 @@ class Organization(models.Model):
 class Preferences(models.Model):
     person = models.OneToOneField("Person")
     overview = models.ManyToManyField(Organization, blank=True, related_name='pref_overview',
-        verbose_name=_("overview"))
+        verbose_name=_("overview"),
+        help_text=_("You can use this to indicate of which organizations you would like to receive a weekly overview."))
     reminder = models.ManyToManyField(Organization, blank=True, related_name='pref_reminder',
-        verbose_name=_("reminder"))
+        verbose_name=_("reminder"),
+        help_text=_("You can use this to indicate of which organizations you would like to receive a reminder "
+                    "whenever no secretary has been found 10 days in advance of a meeting."))
 
     calendar_secretary = models.BooleanField(default=True,
         verbose_name=_("Include meetings in your calendar of which you are the secretary"))
     calendar_organization = models.BooleanField(default=False,
         verbose_name=_("Include meetings in your calendar which belong to your organizations"))
     overview_secretary = models.ManyToManyField(Organization, verbose_name=_("overview secretary"), blank=True,
-        related_name='student_pref_overview')
+        related_name='student_pref_overview',
+        help_text=_("You can use this to indicate of which organizations you would like to receive a weekly overview "
+                    "of meetings that do not yet have a secretary."))
     confirmation_secretary = models.BooleanField(default=False,
-        verbose_name=_("Receive confirmation mail when adding yourself to a meeting"))
+        verbose_name=_("Receive confirmation mail when adding yourself to a meeting"),
+        help_text=_("You can use this to indicate whether you would like to receive a confirmation mail whenever "
+                    "you subscribe to or unsubscribe from a meeting."))
 
     zoom_in = models.BooleanField(default=False, verbose_name=_("Always zoom in the page"))
 

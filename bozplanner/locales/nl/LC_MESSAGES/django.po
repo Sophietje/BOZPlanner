@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-11 16:53+0200\n"
+"POT-Creation-Date: 2016-04-12 10:29+0200\n"
 "PO-Revision-Date: Mon Apr 11 2016 15:04:16 GMT+0200 (W. Europe Standard "
 "Time)\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -47,7 +47,7 @@ msgstr "Organisaties"
 msgid "Help"
 msgstr "Help"
 
-#: .\bozplanner\templates\menu.html:57
+#: .\bozplanner\templates\menu.html:57 .\members\templates\settings.html:41
 msgid "Preferences"
 msgstr "Instellingen"
 
@@ -410,6 +410,14 @@ msgstr "eerste login"
 msgid "%(value)s is not a valid student number or employee number"
 msgstr "%(value)s is geen geldig student- of medewerkersnummer"
 
+#: .\members\models.py:75
+msgid ""
+"The student number or employee number of the user, for example s1234567 or "
+"m1234567"
+msgstr ""
+"Het student- of medewerkersnummer van de gebruiker, bijvoorbeeld s1234567 of "
+"m1234567"
+
 #: .\members\models.py:83
 msgid "name"
 msgstr "naam"
@@ -418,31 +426,70 @@ msgstr "naam"
 msgid "parent organization"
 msgstr "Overkoepelende organisatie"
 
+#: .\members\models.py:86
+msgid ""
+"The organization to which this organization belongs. For example, Technical "
+"Computer Science might belong to an organization called EWI."
+msgstr ""
+"De overkoepelende organisatie waar deze organisatie bij hoort. Bijvoorbeeld "
+"zou Technical Computer Science bij EWI kunnen horen."
+
 #: .\members\models.py:116
 msgid "overview"
 msgstr "overzicht"
 
-#: .\members\models.py:118
+#: .\members\models.py:117
+msgid ""
+"You can use this to indicate of which organizations you would like to "
+"receive a weekly overview."
+msgstr "Hier kunt u aangeven van welke organisaties u een wekelijks "
+"overzicht wenst te ontvangen."
+
+#: .\members\models.py:119
 msgid "reminder"
 msgstr "herinnering"
 
-#: .\members\models.py:121
+#: .\members\models.py:120
+msgid ""
+"You can use this to indicate of which organizations you would like to "
+"receive a reminder whenever no secretary has been found 10 days in advance "
+"of a meeting."
+msgstr "Hier kunt u aangeven van welke organisaties u een herinnering wenst "
+"te ontvangen indien er nog geen notulist voor een vergadering beschikbaar "
+"is tien dagen voor de vergadering."
+
+#: .\members\models.py:124
 msgid "Include meetings in your calendar of which you are the secretary"
 msgstr "Voeg vergaderingen waar je notulist bent toe aan je agenda"
 
-#: .\members\models.py:123
+#: .\members\models.py:126
 msgid "Include meetings in your calendar which belong to your organizations"
 msgstr "Voeg vergaderingen toe aan je agenda die bij je organisatie horen"
 
-#: .\members\models.py:124
+#: .\members\models.py:127
 msgid "overview secretary"
 msgstr "overzicht secretaris"
 
-#: .\members\models.py:127
-msgid "Receive confirmation mail when adding yourself to a meeting"
-msgstr "Ontvang een bevestigingsmail als je je inschrijft voor een vergadering"
-
 #: .\members\models.py:129
+msgid ""
+"You can use this to indicate of which organizations you would like to "
+"receive a weekly overview of meetings that do not yet have a secretary."
+msgstr "Hier kunt u aangeven van welke organisaties u graag een wekelijks "
+"overzicht wenst te ontvangen van vergaderingen die nog geen notulist "
+"hebben."
+
+#: .\members\models.py:132
+msgid "Receive confirmation mail when adding yourself to a meeting"
+msgstr "Ontvang een bevestigingsmail als u zich inschrijft voor een vergadering"
+
+#: .\members\models.py:133
+msgid ""
+"You can use this to indicate whether you would like to receive a "
+"confirmation mail whenever you subscribe to or unsubscribe from a meeting."
+msgstr "Hier kunt u aangeven of u een bevestigingsmail wenst te ontvangen "
+"indien u zich in- of uitschrijft voor een vergadering."
+
+#: .\members\models.py:136
 msgid "Always zoom in the page"
 msgstr "Vergroot altijd de pagina"
 
@@ -570,6 +617,10 @@ msgstr ""
 "<ul><li>Instellen welke mails u wilt ontvangen;</li>\n"
 "<li>Vergaderingen automatisch toevoegen aan uw agenda;</li>\n"
 "<li>De tekstgrootte van BOZPlanner veranderen.</li></ul>"
+
+#: .\members\templates\settings.html:46
+msgid "General"
+msgstr "Algemeen"
 
 #: .\members\templates\settings.html:49
 msgid "Calendar"
