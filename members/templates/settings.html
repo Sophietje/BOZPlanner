@@ -38,12 +38,12 @@
         </script>
     {% endif %}
 
-    <h1>Preferences</h1>
+    <h1>{% trans 'Preferences' %}</h1>
     <hr>
 
     <form method="post">
         {% csrf_token %}
-        <h2>General</h2>
+        <h2>{% trans 'General' %}</h2>
         {{ form.zoom_in|fancy_form_field }}
 
         <h2>{% trans 'Calendar' %}</h2>
@@ -59,7 +59,7 @@
         {{ form.calendar_secretary|fancy_form_field }}
         {{ form.calendar_organization|fancy_form_field }}
 
-        {% if False and perms.meetings.list_meetings_all %}
+        {% if perms.meetings.list_meetings_all %}
             <h2>E-mail</h2>
             {{ form.overview|fancy_form_field }}
             {{ form.reminder|fancy_form_field }}
