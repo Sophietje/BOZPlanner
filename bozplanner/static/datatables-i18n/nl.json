@@ -14,7 +14,7 @@
         "rows": {
             "_": "%d rijen geselecteerd",
             "1": "1 rij geselecteerd",
-            "0": "klik op een rij om te selecteren"
+            "0": ""
         }
     },
     "oPaginate": {
