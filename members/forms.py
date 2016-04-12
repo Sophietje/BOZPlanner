@@ -28,7 +28,7 @@ class PreferencesForm(models.ModelForm):
 
         organizations = self.request.user.all_organizations
 
-        if any(group not in organizations for group in cleaned_data.get('overview_secretary')):
+        if any(group not in organizations for group in cleaned_data.get('overview_secretary') or []):
             raise PermissionError
 
     class Meta:
