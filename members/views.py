@@ -126,8 +126,6 @@ class PreferencesView(UpdateView):
         context['first_login'] = self.request.user.first_login
         context['webcal_url'] = 'webcal://{}/meetings/calendar/{}/{}'.format(
             WEBCAL_BASE, self.request.user.id, self.request.user.calendar_token)
-        context['cal_url'] = 'https://{}/meetings/calendar/{}/{}'.format(
-            WEBCAL_BASE, self.request.user.id, self.request.user.calendar_token)
         google_args = {'cid': 'http://{}/meetings/calendar/{}/{}'.format(
             WEBCAL_BASE, self.request.user.id, self.request.user.calendar_token
         )}
