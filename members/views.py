@@ -93,7 +93,7 @@ class EmailOrganizationView(View):
             organization = get_object_or_404(Organization, pk=org_id)
             organizations = organizations | organization.all_organizations
 
-        persons = Person.objects.filter(organizations__in=organizations)
+        persons = Person.objects.filter(organizations__in=organizations, is_active=True)
         return JsonResponse({"result": list(map(lambda person: person.full_email, persons))})
 
 
