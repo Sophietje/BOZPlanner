@@ -1,3 +1,5 @@
+{% get_current_language as LANGUAGE_CODE %}
+
 <div class="form-group">
     {% if field|field_class_is:"TextInput" %}
         <label for="{{ field.id_for_label }}">{{ field.label }} {% include 'form-field-help.html' %}</label>
@@ -65,6 +67,7 @@
         <script type="text/javascript">
             $('#{{ field.id_for_label }}').datetimepicker({
                 format: 'DD-MM-Y HH:mm',
+                locale: '{{ LANGUAGE_CODE }}',
                 sideBySide: true,
                 allowInputToggle: true,
                 toolbarPlacement: 'bottom',
