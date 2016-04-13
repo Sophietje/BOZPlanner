@@ -1,3 +1,5 @@
+{% get_current_language as LANGUAGE_CODE %}
+
 <div class="form-group">
     {% if field|field_class_is:"TextInput" %}
         <label for="{{ field.id_for_label }}">{{ field.label }} {% include 'form-field-help.html' %}</label>
@@ -21,13 +23,34 @@
         <label for="{{ field.id_for_label }}">{{ field.label }} {% include 'form-field-help.html' %}</label>
         {% include 'form-field-errors.html' %}
         <div>{{ field }}</div>
-        <script type="text/javascript">$("#{{ field.id_for_label }}").multiselect()</script>
+        <script type="text/javascript">
+            $("#{{ field.id_for_label }}").multiselect({
+                disabledText: {{ ''|jstrans }},
+                allSelectedText: {{ 'All selected'|jstrans }},
+                nonSelectedText: {{ 'None selected'|jstrans }},
+                nSelectedText: {{ 'selected'|jstrans }},
+                delimiterText: {{ ', '|jstrans }},
+                selectAllText: {{ 'Select all'|jstrans }},
+                filterPlaceholder: {{ 'Search'|jstrans }}
+            });
+        </script>
 
     {% elif field|field_class_is:"Select" %}
         <label for="{{ field.id_for_label }}">{{ field.label }} {% include 'form-field-help.html' %}</label>
         {% include 'form-field-errors.html' %}
         <div>{{ field }}</div>
-        <script type="text/javascript">$("#{{ field.id_for_label }}").multiselect({ enableFiltering: true })</script>
+        <script type="text/javascript">
+            $("#{{ field.id_for_label }}").multiselect({
+                enableFiltering: true,
+                disabledText: {{ ''|jstrans }},
+                allSelectedText: {{ 'All selected'|jstrans }},
+                nonSelectedText: {{ 'None selected'|jstrans }},
+                nSelectedText: {{ 'selected'|jstrans }},
+                delimiterText: {{ ', '|jstrans }},
+                selectAllText: {{ 'Select all'|jstrans }},
+                filterPlaceholder: {{ 'Search'|jstrans }}
+            });
+        </script>
 
     {% elif field|field_class_is:"DateTimeInput" %}
         <label for="{{ field.id_for_label }}">{{ field.label }} {% include 'form-field-help.html' %}</label>
@@ -44,6 +67,7 @@
         <script type="text/javascript">
             $('#{{ field.id_for_label }}').datetimepicker({
                 format: 'DD-MM-Y HH:mm',
+                locale: '{{ LANGUAGE_CODE }}',
                 sideBySide: true,
                 allowInputToggle: true,
                 toolbarPlacement: 'bottom',

@@ -239,7 +239,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"De gehele handleiding kan <em><a href\"%(static_manual_url)s\">hier</a></em> "
+"De gehele handleiding kan <em><a href=\"%(static_manual_url)s\">hier</a></em> "
 "gedownload worden."
 
 #: meetings/models.py:15
@@ -659,11 +659,31 @@ msgstr "Toevoegen aan:"
 msgid "Back"
 msgstr "Terug"
 
+#: === jstrans translations ===
+
 msgid "Email users"
 msgstr "Gebruikers mailen"
 
 msgid "Email organizations"
 msgstr "Organisaties mailen"
+
+msgid "All selected"
+msgstr "Alles geselecteerd"
+
+msgid "None selected"
+msgstr "Niets geselecteerd"
+
+msgid "selected"
+msgstr "geselecteerd"
+
+msgid ", "
+msgstr ", "
+
+msgid "Select all"
+msgstr "Alles selecteren"
+
+msgid "Search"
+msgstr "Zoeken"
 
 msgid "Deregistration period expired"
 msgstr "Uitschrijfperiode is verstreken"
