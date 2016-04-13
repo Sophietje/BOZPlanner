@@ -57,6 +57,7 @@ class Meeting(models.Model):
             ("list_meetings_all", "Can list all meetings"),
             ("view_organization", "Can view meetings from own organization"),
             ("view_all", "Can view all meetings"),
+            ("view_secretaries", "Can view names of secretaries"),
         ]
         verbose_name = "Meeting"
 
