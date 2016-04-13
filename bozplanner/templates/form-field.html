@@ -37,7 +37,18 @@
         <label for="{{ field.id_for_label }}">{{ field.label }} {% include 'form-field-help.html' %}</label>
         {% include 'form-field-errors.html' %}
         <div>{{ field }}</div>
-        <script type="text/javascript">$("#{{ field.id_for_label }}").multiselect({ enableFiltering: true })</script>
+        <script type="text/javascript">
+            $("#{{ field.id_for_label }}").multiselect({
+                enableFiltering: true,
+                disabledText: {{ ''|jstrans }},
+                allSelectedText: {{ 'All selected'|jstrans }},
+                nonSelectedText: {{ 'None selected'|jstrans }},
+                nSelectedText: {{ 'selected'|jstrans }},
+                delimiterText: {{ ', '|jstrans }},
+                selectAllText: {{ 'Select all'|jstrans }},
+                filterPlaceholder: {{ 'Search'|jstrans }}
+            });
+        </script>
 
     {% elif field|field_class_is:"DateTimeInput" %}
         <label for="{{ field.id_for_label }}">{{ field.label }} {% include 'form-field-help.html' %}</label>
