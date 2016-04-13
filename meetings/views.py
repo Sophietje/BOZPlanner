@@ -96,8 +96,8 @@ class ListMinutesView(TemplateView):
         q = Q(begin_time__lt=now, secretary=self.request.user)
 
         # Should be able to see all meetings (with minutes) from own organizations
-        if self.request.user.has_perm('meetings.list_meetings_organization'):
-            q |= Q(organization__in=self.request.user.all_organizations, begin_time__lt=now)
+        # if self.request.user.has_perm('meetings.list_meetings_organization'):
+        #     q |= Q(organization__in=self.request.user.all_organizations, begin_time__lt=now)
 
         # Should be able to see all meetings (with minutes)
         if self.request.user.has_perm('meetings.list_meetings_all'):
