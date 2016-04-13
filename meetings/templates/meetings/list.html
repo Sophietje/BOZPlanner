@@ -97,7 +97,7 @@
                                         if($('#toggle-{{ meeting.pk }}').prop('disabled')) {
                                             new PNotify({
                                                 title: {{ 'Deregistration period expired'|jstrans }},
-                                                text: {{ 'You cannot unsubscribe from this meeting anymore'|jstrans }},
+                                                text: {{ 'Deregistration is impossible for this meeting'|jstrans }},
                                                 type: 'error'
                                             });
                                         }

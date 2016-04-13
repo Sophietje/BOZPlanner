@@ -685,8 +685,8 @@ msgstr "Alles selecteren"
 msgid "Search"
 msgstr "Zoeken"
 
-msgid "Deregistration period expired"
-msgstr "Uitschrijfperiode is verstreken"
+msgid "Deregistration is impossible for this meeting"
+msgstr "Uitschrijving is niet mogelijk voor deze vergadering"
 
 msgid "error"
 msgstr "foutmelding"
