@@ -239,7 +239,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"De gehele handleiding kan <em><a href\"%(static_manual_url)s\">hier</a></em> "
+"De gehele handleiding kan <em><a href=\"%(static_manual_url)s\">hier</a></em> "
 "gedownload worden."
 
 #: meetings/models.py:15
