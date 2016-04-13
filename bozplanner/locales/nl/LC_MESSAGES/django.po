@@ -681,3 +681,6 @@ msgstr ", "
 
 msgid "Select all"
 msgstr "Alles selecteren"
+
+msgid "Search"
+msgstr "Zoeken"
