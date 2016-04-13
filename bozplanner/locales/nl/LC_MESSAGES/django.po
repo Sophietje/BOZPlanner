@@ -688,7 +688,7 @@ msgstr "Zoeken"
 msgid "Deregistration is impossible for this meeting"
 msgstr "Uitschrijving is niet mogelijk voor deze vergadering"
 
-msgid "Deregistration period is expired"
+msgid "Deregistration period expired"
 msgstr "Uitschrijfperiode is verlopen"
 
 msgid "error"
