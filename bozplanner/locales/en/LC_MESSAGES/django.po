@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-13 08:03+0000\n"
+"POT-Creation-Date: 2016-04-13 11:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,19 +205,19 @@ msgstr ""
 msgid "OLC meeting of {}"
 msgstr ""
 
-#: meetings/models.py:66
+#: meetings/models.py:67
 msgid "meeting"
 msgstr ""
 
-#: meetings/models.py:67
+#: meetings/models.py:68
 msgid "file"
 msgstr ""
 
-#: meetings/models.py:68
+#: meetings/models.py:69
 msgid "original name"
 msgstr ""
 
-#: meetings/models.py:69
+#: meetings/models.py:70
 msgid "date"
 msgstr ""
 

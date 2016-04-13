@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-13 08:03+0000\n"
+"POT-Creation-Date: 2016-04-13 11:20+0000\n"
 "PO-Revision-Date: Mon Apr 11 2016 15:04:16 GMT+0200 (W. Europe Standard "
 "Time)\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -272,19 +272,19 @@ msgstr ""
 msgid "OLC meeting of {}"
 msgstr "OLC-vergadering van {}"
 
-#: meetings/models.py:66
+#: meetings/models.py:67
 msgid "meeting"
 msgstr "Vergaderingen"
 
-#: meetings/models.py:67
+#: meetings/models.py:68
 msgid "file"
 msgstr "bestand"
 
-#: meetings/models.py:68
+#: meetings/models.py:69
 msgid "original name"
 msgstr "oorspronkelijke naam"
 
-#: meetings/models.py:69
+#: meetings/models.py:70
 msgid "date"
 msgstr "datum"
 
@@ -659,8 +659,14 @@ msgstr "Toevoegen aan:"
 msgid "Back"
 msgstr "Terug"
 
-#~ msgid "Email users"
-#~ msgstr "Gebruikers mailen"
+msgid "Email users"
+msgstr "Gebruikers mailen"
 
-#~ msgid "Email organizations"
-#~ msgstr "Organisaties mailen"
+msgid "Email organizations"
+msgstr "Organisaties mailen"
+
+msgid "Deregistration period expired"
+msgstr "Uitschrijfperiode is verstreken"
+
+msgid "error"
+msgstr "foutmelding"

@@ -96,9 +96,9 @@
                                     $('#toggle-{{ meeting.pk }}').parent().click(function() {
                                         if($('#toggle-{{ meeting.pk }}').prop('disabled')) {
                                             new PNotify({
-                                                title: 'Deregistration period expired',
-                                                text: 'You cannot unsubscribe from this meeting anymore',
-                                                type: 'error'
+                                                title: {{ 'Deregistration period expired'|jstrans }},
+                                                text: {{ 'You cannot unsubscribe from this meeting anymore'|jstrans }},
+                                                type: {{ 'error'|jstrans }}
                                             });
                                         }
                                     });
