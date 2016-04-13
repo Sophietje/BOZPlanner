@@ -35,7 +35,7 @@
                     <td data-order="{{ meeting.begin_time|date:"YmdHi" }}">{{ meeting.begin_time }}</td>
                     <td>{{ meeting.place }}</td>
                     {% if meeting.secretary != None %}
-                        {% if perms.meetings.view_secretaries %}
+                        {% if meeting.secretary == request.user or perms.meetings.view_secretaries%}
                             <td id="secretary-{{ meeting.pk }}">
                                 {{ meeting.secretary }}
                             </td>
