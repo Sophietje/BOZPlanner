@@ -152,7 +152,7 @@ class CalendarMeetingView(View):
     def get(self, request, pk, token):
         person = get_object_or_404(Person, pk=pk)
 
-        if person.calendar != token:
+        if person.calendar_token != token:
             raise PermissionError
 
         meeting_filter = ~Q()
