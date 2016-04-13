@@ -659,8 +659,25 @@ msgstr "Toevoegen aan:"
 msgid "Back"
 msgstr "Terug"
 
+#: === jstrans translations ===
+
 msgid "Email users"
 msgstr "Gebruikers mailen"
 
 msgid "Email organizations"
 msgstr "Organisaties mailen"
+
+msgid "All selected"
+msgstr "Alles geselecteerd"
+
+msgid "None selected"
+msgstr "Niets geselecteerd"
+
+msgid "selected"
+msgstr "geselecteerd"
+
+msgid ", "
+msgstr ", "
+
+msgid "Select all"
+msgstr "Alles selecteren"
