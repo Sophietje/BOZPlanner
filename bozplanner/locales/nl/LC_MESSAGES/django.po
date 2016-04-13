@@ -659,8 +659,8 @@ msgstr "Toevoegen aan:"
 msgid "Back"
 msgstr "Terug"
 
-#~ msgid "Email users"
-#~ msgstr "Gebruikers mailen"
+msgid "Email users"
+msgstr "Gebruikers mailen"
 
-#~ msgid "Email organizations"
-#~ msgstr "Organisaties mailen"
+msgid "Email organizations"
+msgstr "Organisaties mailen"
