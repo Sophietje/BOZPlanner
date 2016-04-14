@@ -21,12 +21,6 @@ if local.USE_DJANGOSAML2:
 else:
     HAVE_DJANGOSAML2 = False
 
-try:
-    import debug_toolbar
-    HAVE_DEBUG_TOOLBAR = True
-except ImportError:
-    HAVE_DEBUG_TOOLBAR = False
-
 # Project base path
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -114,11 +108,6 @@ INSTALLED_APPS = [
 if HAVE_DJANGOSAML2:
     INSTALLED_APPS += [
         'djangosaml2',
-    ]
-
-if HAVE_DEBUG_TOOLBAR and local.DEBUG:
-    INSTALLED_APPS += [
-        'debug_toolbar',
     ]
 
 # Email settings
