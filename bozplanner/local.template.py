@@ -27,7 +27,3 @@ WEBCAL_BASE = 'bozplanner.pieterbos.me'
 if SECRET_KEY is None:
     print("Please edit the values in your local setup.")
     sys.exit(1)
-
-if DEBUG and DATABASES['default']['ENGINE'] != 'django.db.backends.sqlite3':
-    print("Debug configurations must run with a local database")
-    sys.exit(1)
