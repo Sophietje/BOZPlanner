@@ -5,6 +5,8 @@ import os
 # from django.utils.crypto import get_random_string; print(get_random_string(50, "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)"))
 SECRET_KEY = None
 
+DEBUG = True
+
 ALLOWED_HOSTS = []
 
 WSGI_APPLICATION = 'bozplanner.wsgi.application'
