@@ -32,7 +32,7 @@ class TestAdminUsersViews(TestCase, TestUserMixin):
         self.assertEqual(user_1.all_organizations, [self.o])
 
         # Post the data
-        resp = self.client.post(reverse('members:change_person', kwargs={'pk': user_1.pk}), {'username': username, 'first_name':first_name, 'last_name':last_name, 'email':email})
+        resp = self.client.post(reverse('members:list_person'), {'edit':user_1.pk, 'username': username, 'first_name':first_name, 'last_name':last_name, 'email':email})
 
         # Assert that it redirects to the overview Users page
         self.assertEqual(resp.status_code, 302)
@@ -48,20 +48,20 @@ class TestAdminUsersViews(TestCase, TestUserMixin):
 
     def test_users_incorrect_update(self):
         # Ensure that a non-existent pk throws a 404
-        resp = self.client.post(reverse('members:change_person', kwargs={'pk': 9999}))
+        resp = self.client.post(reverse('members:list_person'), {'edit': 9999})
         self.assertEqual(resp.status_code, 404)
 
         # Post NO data
-        resp = self.client.post(reverse('members:change_person', kwargs={'pk': self.user.pk}))
+        resp = self.client.post(reverse('members:list_person'), {'edit': self.user.pk})
         self.assertEqual(resp.status_code, 200)
 
         # Post junk data
-        resp = self.client.post(reverse('members:change_person', kwargs={'pk': self.user.pk}), {'foo': 'bar'})
+        resp = self.client.post(reverse('members:list_person'), {'edit': self.user.pk, 'foo': 'bar'})
         self.assertEqual(resp.status_code, 200)
 
         # Send non-existent Organization pk
         organizations = Person.objects.get(pk=1).all_organizations
-        resp = self.client.post(reverse('members:change_person', kwargs={'pk': 1}), {'organizations':[9999]})
+        resp = self.client.post(reverse('members:list_person'), {'edit': self.user.pk, 'organizations':[9999]})
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(organizations, Person.objects.get(pk=1).all_organizations)
 

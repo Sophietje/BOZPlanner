@@ -18,23 +18,23 @@ class TestStudentUsersViews(TestCase, TestUserMixin):
     # Student should not be allowed to edit users so should be redirected
     def test_users_update(self):
         # Ensure non-existent pk throws a 302
-        resp = self.client.post(reverse('members:change_person', kwargs={'pk': 9999}))
+        resp = self.client.post(reverse('members:list_person'), {'edit': 9999})
         self.assertEqual(resp.status_code, 403)
 
         # Post NO data
         user_1 = Person.objects.get(pk=1)
-        resp = self.client.post(reverse('members:change_person', kwargs={'pk': self.user.pk}))
+        resp = self.client.post(reverse('members:list_person'), {'edit': self.user.pk})
         self.assertEqual(resp.status_code, 403)
         # Ensure meeting has not been changed
         self.assertEqual(user_1, Person.objects.get(pk=self.user.pk))
 
         # Post correct data, user should NOT be updated
-        resp = self.client.post(reverse('members:change_person', kwargs={'pk': self.user.pk}), {'first_name': 'Tester'})
+        resp = self.client.post(reverse('members:list_person'), {'edit': self.user.pk, 'first_name': 'Tester'})
         self.assertEqual(resp.status_code, 403)
         self.assertEqual(user_1, Person.objects.get(pk=self.user.pk))
 
         # Post junk data, user should NOT be updated
-        resp = self.client.post(reverse('members:change_person', kwargs={'pk': self.user.pk}), {'test': 'onzin'})
+        resp = self.client.post(reverse('members:list_person'), {'edit': self.user.pk, 'test': 'onzin'})
         self.assertEqual(resp.status_code, 403)
         self.assertEqual(user_1, Person.objects.get(pk=self.user.pk))
 

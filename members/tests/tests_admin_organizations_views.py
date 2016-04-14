@@ -16,7 +16,7 @@ class TestAdminOrganizationsViews(TestCase, TestUserMixin):
 
     def test_organizations_correct_update(self):
         p_orga = Organization.objects.create(name='Parent')
-        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': self.o.pk}), {'name':'Child', 'parent_organization': p_orga.pk})
+        resp = self.client.post(reverse('members:list_organization'), {'edit':self.o.pk, 'name':'Child', 'parent_organization': p_orga.pk})
 
         self.assertEqual(resp.status_code, 302)
         self.assertEqual(Organization.objects.get(pk=self.o.pk).name, 'Child')
@@ -24,19 +24,19 @@ class TestAdminOrganizationsViews(TestCase, TestUserMixin):
 
     def test_organizations_incorrect_update(self):
         # Ensure that a non-existent pk throws a 404
-        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': 9999}))
+        resp = self.client.post(reverse('members:list_organization'), {'edit': 9999})
         self.assertEqual(resp.status_code, 404)
 
         # Post NO data
-        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': 1}))
+        resp = self.client.post(reverse('members:list_organization'), {'edit': 1})
         self.assertEqual(resp.status_code, 200)
 
         # Post junk data
-        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': 1}), {'foo': 'bar'})
+        resp = self.client.post(reverse('members:list_organization'), {'edit': 1, 'foo': 'bar'})
         self.assertEqual(resp.status_code, 200)
 
         # Send non-existent parent-organization pk
-        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': 1}), {'parent_organization': 9999})
+        resp = self.client.post(reverse('members:list_organization'), {'edit':1, 'parent_organization': 9999})
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(Organization.objects.get(pk=1).parent_organization, None)
 

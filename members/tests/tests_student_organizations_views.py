@@ -16,7 +16,7 @@ class TestStudentOrganizationsViews(TestCase, TestUserMixin):
 
     def test_organizations_correct_update(self):
         p_orga = Organization.objects.create(name='Parent')
-        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': self.o.pk}), {'name':'Child', 'parent_organization': p_orga.pk})
+        resp = self.client.post(reverse('members:list_organization'), {'edit': self.o.pk, 'name':'Child', 'parent_organization': p_orga.pk})
 
         self.assertEqual(resp.status_code, 403)
         # Ensure nothing has been updated (student is not allowed to update organizations)
@@ -25,19 +25,19 @@ class TestStudentOrganizationsViews(TestCase, TestUserMixin):
 
     def test_organizations_incorrect_update(self):
         # Ensure that a non-existent pk throws a 404
-        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': 9999}))
+        resp = self.client.post(reverse('members:list_organization'), {'edit': 9999})
         self.assertEqual(resp.status_code, 403)
 
         # Post NO data
-        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': self.o.pk}))
+        resp = self.client.post(reverse('members:list_organization'), {'edit': self.o.pk})
         self.assertEqual(resp.status_code, 403)
 
         # Post junk data
-        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': self.o.pk}), {'foo': 'bar'})
+        resp = self.client.post(reverse('members:list_organization'), {'edit': self.o.pk, 'foo': 'bar'})
         self.assertEqual(resp.status_code, 403)
 
         # Send non-existent parent-organization pk
-        resp = self.client.post(reverse('members:change_organization', kwargs={'pk': self.o.pk}), {'parent_organization': 9999})
+        resp = self.client.post(reverse('members:list_organization'), {'edit': self.o.pk, 'parent_organization': 9999})
         self.assertEqual(resp.status_code, 403)
         self.assertEqual(Organization.objects.get(pk=self.o.pk).parent_organization, None)
 
