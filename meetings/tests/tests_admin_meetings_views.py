@@ -67,7 +67,6 @@ class TestsAdminMeetingsViews(TestCase, TestMeetingMixin, TestUserMixin):
         # Post NO data
         resp = self.client.post(reverse('meetings:change_meeting', kwargs={'pk': self.meeting_1.pk}))
         self.assertEqual(resp.status_code, 200)
-        # TODO Check whether errors have occured
 
         # Send junk post data
         resp = self.client.post(reverse('meetings:change_meeting', kwargs={'pk': self.meeting_1.pk}), {'foo': 'bar'})
