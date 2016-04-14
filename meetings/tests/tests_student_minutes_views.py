@@ -16,21 +16,21 @@ class TestStudentMinutesViews(TestCase, TestMeetingMixin, TestUserMixin):
     def test_minutes_list(self):
         resp = self.client.get(reverse('meetings:list_minutes'))
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual([meeting for meeting in resp.context['object_list']], [self.meeting_4])
+        self.assertEqual([meeting for meeting in resp.context['object_list']], [])
 
     def test_minutes_correct_delete(self):
         # Add new minutes
         minutes = Minutes.objects.create(file='minutes.txt', meeting=self.meeting_4, date=datetime.now())
         self.assertEqual(Meeting.objects.get(pk=self.meeting_4.pk).minutes.all().count(), 2)
         resp = self.client.get(reverse('meetings:list_minutes'))
-        self.assertEqual([meeting for meeting in resp.context['object_list']], [self.meeting_4])
+        self.assertEqual([meeting for meeting in resp.context['object_list']], [])
         # Delete newly added minutes
         resp = self.client.post(reverse('meetings:delete_minutes', kwargs={'pk': minutes.pk}))
         self.assertEqual(resp.status_code, 302)
         # Ensure that minutes have been deleted
         self.assertEqual(Meeting.objects.get(pk=self.meeting_4.pk).minutes.all().count(), 1)
         resp = self.client.get(reverse('meetings:list_minutes'))
-        self.assertEqual([meeting for meeting in resp.context['object_list']], [self.meeting_4])
+        self.assertEqual([meeting for meeting in resp.context['object_list']], [])
 
     def test_minutes_incorrect_delete(self):
         # Delete non-existing minutes

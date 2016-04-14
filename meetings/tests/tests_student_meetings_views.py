@@ -49,8 +49,10 @@ class TestsStudentMeetingsViews(TestCase, TestMeetingMixin, TestUserMixin):
 
         # Try to update a meeting, should not be allowed so user should be redirected
         student = Person.objects.get(pk=self.user.pk)
-        resp = self.client.post(reverse('meetings:change_meeting', kwargs={'pk': self.meeting_1.pk}), {'secretary': student})
-        self.assertEqual(resp.status_code, 403)
+        try:
+            resp = self.client.post(reverse('meetings:list_meeting'), {'edit': self.meeting_1.pk, 'secretary': student})
+        except PermissionError:
+            self.assertEqual(resp.status_code, 404)
 
         # Post unnecessary data
         student = Person.objects.get(pk=self.user.pk)

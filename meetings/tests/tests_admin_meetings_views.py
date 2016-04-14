@@ -39,7 +39,7 @@ class TestsAdminMeetingsViews(TestCase, TestMeetingMixin, TestUserMixin):
         end_time = datetime(2016,12,12,13,13,0)
         place = 'HB 2B'
         organization = self.p
-        resp = self.client.post(reverse('meetings:change_meeting', kwargs={'pk': 1}), {'secretary':student,
+        resp = self.client.post(reverse('meetings:list_meeting'), {'edit': self.meeting_1.pk, 'secretary':student,
                 'begin_time':begin_time, 'end_time':end_time, 'place':place, 'organization':organization })
         self.assertEqual(resp.status_code, 200)
         meeting_1 = Meeting.objects.get(pk=self.meeting_1.pk)
@@ -65,15 +65,15 @@ class TestsAdminMeetingsViews(TestCase, TestMeetingMixin, TestUserMixin):
         self.assertEqual(meeting_1.secretary, admin)
 
         # Post NO data
-        resp = self.client.post(reverse('meetings:change_meeting', kwargs={'pk': self.meeting_1.pk}))
+        resp = self.client.post(reverse('meetings:list_meeting'), {'edit': self.meeting_1.pk})
         self.assertEqual(resp.status_code, 200)
 
         # Send junk post data
-        resp = self.client.post(reverse('meetings:change_meeting', kwargs={'pk': self.meeting_1.pk}), {'foo': 'bar'})
+        resp = self.client.post(reverse('meetings:list_meeting'), {'edit': self.meeting_1.pk, 'foo': 'bar'})
         self.assertEqual(resp.status_code, 200)
 
         # Send non-existent Organization pk
-        resp = self.client.post(reverse('meetings:change_meeting', kwargs={'pk': self.meeting_1.pk}), {'organization': 5})
+        resp = self.client.post(reverse('meetings:list_meeting'), {'edit': self.meeting_1.pk, 'organization': 5})
         self.assertEqual(resp.status_code, 200)
 
     def test_meetings_incorrect_delete(self):

@@ -26,8 +26,7 @@ class TestMeetingMixin():
         self.meeting_3 = m
 
         # Add meeting in the past
-        p = Organization.objects.get(pk=1)
-        m = Meeting.objects.create(organization=p, begin_time=datetime(1990,9,9,10,11,0), end_time=datetime(1990,9,9,11,11,0), place='RA 3224')
+        m = Meeting.objects.create(organization=o, begin_time=datetime(1990,9,9,10,11,0), end_time=datetime(1990,9,9,11,11,0), place='RA 3224')
         self.meeting_4 = m
 
         # Add minutes to Meeting "m"
